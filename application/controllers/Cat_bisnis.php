@@ -174,7 +174,7 @@ class Cat_bisnis extends CI_Controller
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
-        				'periode'=>$this->input->post('periode',TRUE),
+        				'periode'=>date('y-m-d',strtotime($this->input->post('periode',TRUE))),
         			];
         		$this->Cat_bisnis_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();

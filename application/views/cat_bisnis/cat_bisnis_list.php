@@ -321,6 +321,8 @@
                     var id_cabang=$('#id_cabang').val();
                     var nama_cabang=$('#nama_cabang').val();
                     var periode=$('#periode').val();
+                    var date= new Date(periode);
+                    var periodenya= date.getFullYear() + '-' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()));
                     if(periode!=''){
                     $.ajax({
                           type: "POST",
@@ -340,7 +342,7 @@
                           complete: function(response){
                                 // location.reload();
                                 if(response){
-                                    window.location.href = "<?php echo base_url('cat_bisnis/tambah_data_history/');?>"+id_cabang+'/'+periode;
+                                    window.location.href = "<?php echo base_url('cat_bisnis/tambah_data_history/');?>"+id_cabang+'/'+periodenya;
                                 }
                               // $('.loading_data').css('display','none');
                           }
