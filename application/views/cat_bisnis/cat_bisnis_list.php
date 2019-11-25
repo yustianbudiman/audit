@@ -186,9 +186,10 @@
                                 <td><input type="text" value="<?php echo $row->tanggapan_audit ?>" name="tanggapan_audit" class="form-control tanggapan_audit" style="width: 50px;"></td>
                                 <td><input type="text" value="<?php echo $row->target_date ?>" name="target_date" class="form-control target_date" style="width: 50px;"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm btn-flat btn_update" style="width: 50px;"><i class="fa fa-save"></i> Simpan</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-flat btn_delete" data-id="<?php echo $row->id_cat_bisnis ?>" data-toggle="modal" data-target="#myModal" style="width: 50px;"><i class="fa fa-times"></i> Hapus</button>
-
+                                    <div style="width:150px;">
+                                    <button type="button" class="btn btn-primary btn-sm btn-flat btn_update"><i class="fa fa-save"></i> Simpan</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-flat btn_delete" data-id="<?php echo $row->id_cat_bisnis ?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-times"></i> Hapus</button>
+                                    </div>
                                 </td>
                             </tr>
                             <?php $no++; } ?>
