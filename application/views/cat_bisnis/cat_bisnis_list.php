@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url('assets/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>">
 <div class="content-wrapper">
     <section class="content">
         <div class="row">
@@ -50,6 +51,20 @@
                                     <label for="employeeid" class="col-lg-2 control-label">Alamat:</label>
                                   <div class="col-lg-4">
                                     <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php echo $list_cabang_one->alamat ?>" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="padding:  15px;">
+                                <div class="col-md-12 col-sm-12">
+                                    <label for="employeeid" class="col-lg-2 control-label">Periode:</label>
+                                  <div class="col-lg-2">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                    <input type="text" name="periode" id="periode" value="<?php echo ($list_cat_bisnis_header==''?'':$list_cat_bisnis_header['periode'])?>" class="form-control">
+                                    </div>
                                   </div>
                                 </div>
                             </div>
@@ -172,7 +187,7 @@
                                 <td><input type="text" value="<?php echo $row->target_date ?>" name="target_date" class="form-control target_date" style="width: 50px;"></td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm btn-flat btn_update" style="width: 50px;"><i class="fa fa-save"></i> Simpan</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-flat btn_delete" style="width: 50px;"><i class="fa fa-times"></i> Hapus</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-flat btn_delete" data-id="<?php echo $row->id_cat_bisnis ?>" data-toggle="modal" data-target="#myModal" style="width: 50px;"><i class="fa fa-times"></i> Hapus</button>
 
                                 </td>
                             </tr>
@@ -186,11 +201,39 @@
         </div>
     </section>
 </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Hapus</h4>
+      </div>
+      <form method="POST" action="<?php echo  base_url('cat_bisnis/delete'); ?>">
+      <div class="modal-body">
+        <p>Apakah anda yakin akan menghapus data ini</p><!-- modal hapus(mh) -->
+        <input type="hidden" name="mh_id_cat_bisnis" id="mh_id_cat_bisnis">
+        <input type="hidden" name="mh_id_cabang" id="mh_id_cabang">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-default" >Hapus</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+</div>
         <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
+        <script src="<?php echo base_url('assets/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
+
         <script type="text/javascript">
             $(document).on('click','.btn_update',function(){
+                var id_cat_bisnis=$(this).closest('tr').find('.id_cat_bisnis').val();
                 var id_cat_bisnis=$(this).closest('tr').find('.id_cat_bisnis').val();
                 var temuan=$(this).closest('tr').find('.temuan').val();
                 var klasifikasi_temuan=$(this).closest('tr').find('.klasifikasi_temuan').val();
@@ -216,7 +259,6 @@
                 var rekomendasi=$(this).closest('tr').find('.rekomendasi').val();
                 var tanggapan_audit=$(this).closest('tr').find('.tanggapan_audit').val();
                 var target_date=$(this).closest('tr').find('.target_date').val();
-               
                 $.ajax({
                       type: "POST",
                       url: "<?php echo base_url(); ?>cat_bisnis/update_action",
@@ -265,16 +307,25 @@
                 });
             });
              $(document).on('click','.btn_delete',function(){
-
+                // alert('ss');
+                var id_cat_bisnis=$(this).attr('data-id');
+                var id_cabang=$('#id_cabang').val();
+                $('#mh_id_cat_bisnis').val(id_cat_bisnis);
+                $('#mh_id_cabang').val(id_cabang);
             });
 
 
             $(document).ready(function() {
+                $('#periode').datepicker();
                 $('.tmabah_data').click(function(){
+                    var id_cabang=$('#id_cabang').val();
+                    var nama_cabang=$('#nama_cabang').val();
+                    var periode=$('#periode').val();
+                    if(periode!=''){
                     $.ajax({
                           type: "POST",
                           url: "<?php echo base_url(); ?>cat_bisnis/create_action",
-                          data: 'data=data',
+                          data: 'id_cabang='+id_cabang+'&nama_cabang='+nama_cabang+'&periode='+periode,
                           beforeSend: function(){
                               // $('.loading_data').css('display','block');
                           },
@@ -287,10 +338,16 @@
                               // $(this).attr('data','cccc');
                           },
                           complete: function(response){
-                                location.reload();
+                                // location.reload();
+                                if(response){
+                                    window.location.href = "<?php echo base_url('cat_bisnis/tambah_data_history/');?>"+id_cabang+'/'+periode;
+                                }
                               // $('.loading_data').css('display','none');
                           }
                     });
+                }else{
+                    alert('periode harap di isi');
+                }
                 });
             //     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
             //     {

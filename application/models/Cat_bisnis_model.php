@@ -27,6 +27,17 @@ class Cat_bisnis_model extends CI_Model
         return $this->datatables->generate();
     }
 
+     // datatables
+    function json_cabang() {
+        $this->datatables->select('id_cabang,kode_cabang,nama_cabang,alamat,kota,provinsi,no_telepon,kepala_cabang,keterangan,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
+        $this->datatables->from('cabang');
+        //add this line for join
+        //$this->datatables->join('table2', 'cabang.field = table2.field');
+        $this->datatables->add_column('action', anchor(site_url('cat_bisnis/tambah_data/$1'),'<i class="fa fa-plus" aria-hidden="true"></i> Tambah', array('class' => 'btn btn-primary btn-xs btn-flat')), 'id_cabang');
+        return $this->datatables->generate();
+    }
+
+
     // get all
     function get_all()
     {
@@ -158,11 +169,14 @@ class Cat_bisnis_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
     // get data cat bisnis header
-    function list_cat_bisnis_header($id)
+    function list_cat_bisnis_header($id=null,$periode=null)
     {
-    	$arr=['id_cabang'=>$id,'periode', '2019-11-23'];
+    	$arr=['id_cabang'=>$id,'periode'=>$periode];
         $this->db->where($arr);
         return $this->db->get('cat_bisnis_header')->row_array();
+    }
+    function insert_header($data){
+    	$this->db->insert('cat_bisnis_header', $data);
     }
 
 }

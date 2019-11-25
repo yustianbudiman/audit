@@ -25,22 +25,20 @@ class Cat_bisnis extends CI_Controller
 
     public function index()
     {
-    	$data=[
-    		'list_cabang'=>$this->Cat_bisnis_model->list_cabang(),
-    	];
-        $this->template->load('template','cat_bisnis/cat_bisnis_list_cabang',$data);
+        $this->template->load('template','cat_bisnis/cat_bisnis_list_cabang');
     } 
 
     public function json_cabang() {
         header('Content-Type: application/json');
-        echo $this->Cabang_model->json();
+        echo $this->Cat_bisnis_model->json_cabang();
     }
 
     public function tambah_data($id){
+    	$header=$this->Cat_bisnis_model->list_cat_bisnis_header();
     	$data=[
     		'list_cabang_one'=>$this->Cabang_model->get_by_id($id),
-    		'list_cat_bisnis_header'=>$this->Cat_bisnis_model->list_cat_bisnis_header($id),
-    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
+    		'list_cat_bisnis_header'=>$header,
+    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
     		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
     		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
     		'list_environment'=>$this->Cont_environment_model->get_all(),
@@ -49,6 +47,26 @@ class Cat_bisnis extends CI_Controller
     		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
     		'list_monitoring'=>$this->Monitoring_model->get_all(),
     		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+    	];
+    	$this->template->load('template','cat_bisnis/cat_bisnis_list',$data);
+    }
+
+    public function tambah_data_history($id,$periode){
+    	$header=$this->Cat_bisnis_model->list_cat_bisnis_header($id,$periode);
+
+    	$data=[
+    		'list_cabang_one'=>$this->Cabang_model->get_by_id($id),
+    		'list_cat_bisnis_header'=>$header,
+    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
+    		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+    		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+    		'list_environment'=>$this->Cont_environment_model->get_all(),
+    		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+    		'list_control_activities'=>$this->Control_activities_model->get_all(),
+    		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+    		'list_monitoring'=>$this->Monitoring_model->get_all(),
+    		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+    		'periode'=>$periode,
     	];
     	$this->template->load('template','cat_bisnis/cat_bisnis_list',$data);
     }
@@ -151,7 +169,19 @@ class Cat_bisnis extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+        	$cek_dulu=$this->Cat_bisnis_model->list_cat_bisnis_header($this->input->post('id_cabang',TRUE),$this->input->post('periode',TRUE));
+        	if(!$cek_dulu){
+        		$data_header=[
+        				'id_cabang'=>$this->input->post('id_cabang',TRUE),
+        				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
+        				'periode'=>$this->input->post('periode',TRUE),
+        			];
+        		$this->Cat_bisnis_model->insert_header($data_header);
+        		$idnya=$this->db->insert_id();
+        	}
             $data = array(
+				'id_cat_bisnis_header' => ($cek_dulu==''?$idnya:$cek_dulu['id_cat_bisnis_header']),
+				'temuan' => $this->input->post('temuan',TRUE),
 				'temuan' => $this->input->post('temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
@@ -286,17 +316,19 @@ class Cat_bisnis extends CI_Controller
         }
     }
     
-    public function delete($id) 
+    public function delete() 
     {
+    	$id =$this->input->post('mh_id_cat_bisnis',TRUE);
+    	$id_cabang =$this->input->post('mh_id_cabang',TRUE);
         $row = $this->Cat_bisnis_model->get_by_id($id);
 
         if ($row) {
             $this->Cat_bisnis_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('cat_bisnis'));
+            redirect(site_url('cat_bisnis/tambah_data_history/'.$id_cabang));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('cat_bisnis'));
+            redirect(site_url('cat_bisnis/tambah_data_history/'.$id_cabang));
         }
     }
 
