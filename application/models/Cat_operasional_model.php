@@ -17,7 +17,7 @@ class Cat_operasional_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_cat_operasional,id_cabang,nama_cabang,id_temuan,kriteria,dampak,id_penyimpangan,id_environment,environment_value,id_risk_assesment,risk_assesment_value,id_control_activiti,control_activiti_value,id_infomation_comunication,infomation_comunication_value,id_monitoring,monitoring_value,total_impact,probaly,tev,bobot_resiko,rekomendasi,tanggapan_audit,target_date,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
+        $this->datatables->select('id_cat_operasional,id_cat_operasional_header,temuan,kriteria,dampak,id_penyimpangan,id_environment,environment_value,id_risk_assesment,risk_assesment_value,id_control_activities,control_activities_value,id_information_comunication,information_comunication_value,id_monitoring,monitoring_value,total_impact,probaly,tev,bobot_resiko,rekomendasi,tanggapan_audit,target_date,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
         $this->datatables->from('cat_operasional');
         //add this line for join
         //$this->datatables->join('table2', 'cat_operasional.field = table2.field');
@@ -134,6 +134,34 @@ class Cat_operasional_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
+    }
+
+    //list cabang
+    function list_cabang(){
+        return $this->db->get('cabang')->result_array();
+
+    }
+    // list cabang one
+    function list_cabang_one($id){
+        $this->db->where('id_cabang', $id);
+        return $this->db->get('cabang')->row_array();
+
+    }
+    // get data cat bisnis by id heder
+    function get_by_idheader($id)
+    {
+        $this->db->where('id_cat_operasional_header', $id);
+        return $this->db->get($this->table)->result();
+    }
+    // get data cat operasional header
+    function list_cat_operasional_header($id=null,$periode=null)
+    {
+    	$arr=['id_cabang'=>$id,'periode'=>$periode];
+        $this->db->where($arr);
+        return $this->db->get('cat_operasional_header')->row_array();
+    }
+    function insert_header($data){
+    	$this->db->insert('cat_operasional_header', $data);
     }
 
 }

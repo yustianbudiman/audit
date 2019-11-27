@@ -59,13 +59,6 @@
                     		    <th>Rekomendasi</th>
                     		    <th>Tanggapan Audit</th>
                     		    <th>Target Date</th>
-                    		    <th>Aktif</th>
-                    		    <th>Created Date</th>
-                    		    <th>Created Ip</th>
-                    		    <th>Created By</th>
-                    		    <th>Updated Date</th>
-                    		    <th>Updated Ip</th>
-                    		    <th>Updated By</th>
                     		    <th width="200px">Action</th>
                             </tr>
                         </thead>
@@ -116,7 +109,7 @@
                         {
                             "data": "id_cat_operasional",
                             "orderable": false
-                        },{"data": "id_cabang"},{"data": "nama_cabang"},{"data": "id_temuan"},{"data": "kriteria"},{"data": "dampak"},{"data": "id_penyimpangan"},{"data": "id_environment"},{"data": "environment_value"},{"data": "id_risk_assesment"},{"data": "risk_assesment_value"},{"data": "id_control_activiti"},{"data": "control_activiti_value"},{"data": "id_infomation_comunication"},{"data": "infomation_comunication_value"},{"data": "id_monitoring"},{"data": "monitoring_value"},{"data": "total_impact"},{"data": "probaly"},{"data": "tev"},{"data": "bobot_resiko"},{"data": "rekomendasi"},{"data": "tanggapan_audit"},{"data": "target_date"},{"data": "aktif"},{"data": "created_date"},{"data": "created_ip"},{"data": "created_by"},{"data": "updated_date"},{"data": "updated_ip"},{"data": "updated_by"},
+                        },{"data": "id_cat_operasional_header"},{"data": "temuan"},{"data": "kriteria"},{"data": "dampak"},{"data": "id_penyimpangan"},{"data": "id_environment"},{"data": "environment_value"},{"data": "id_risk_assesment"},{"data": "risk_assesment_value"},{"data": "id_control_activities"},{"data": "control_activities_value"},{"data": "id_information_comunication"},{"data": "information_comunication_value"},{"data": "id_monitoring"},{"data": "monitoring_value"},{"data": "total_impact"},{"data": "probaly"},{"data": "tev"},{"data": "bobot_resiko"},{"data": "rekomendasi"},{"data": "tanggapan_audit"},{"data": "target_date"},
                         {
                             "data" : "action",
                             "orderable": false,

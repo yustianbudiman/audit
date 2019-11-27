@@ -129,6 +129,7 @@ class Cat_bisnis extends CI_Controller
             'action' => site_url('cat_bisnis/create_action'),
 		    'id_cat_bisnis' => set_value('id_cat_bisnis'),
 		    'temuan' => set_value('temuan'),
+		    'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
 		    'kriteria' => set_value('kriteria'),
 		    'dampak' => set_value('dampak'),
 		    'id_penyimpangan' => set_value('id_penyimpangan'),
@@ -182,7 +183,7 @@ class Cat_bisnis extends CI_Controller
             $data = array(
 				'id_cat_bisnis_header' => ($cek_dulu==''?$idnya:$cek_dulu['id_cat_bisnis_header']),
 				'temuan' => $this->input->post('temuan',TRUE),
-				'temuan' => $this->input->post('temuan',TRUE),
+				'klasifikasi_temuan' => $this->input->post('klasifikasi_temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
 				'id_penyimpangan' => $this->input->post('sebab_penyimpangan',TRUE),
