@@ -101,7 +101,8 @@
                     		    <th>Goal Stategic</th>
                     		    <th>Impact</th>
                     		    <th>Total Impact</th>
-                    		    <th>Probaly</th>
+                                <th>Likelihood</th>
+                    		    <th>Repeated</th>
                     		    <th>Tev</th>
                     		    <th>Bobot Resiko</th>
                     		    <th>Rekomendasi</th>
@@ -183,7 +184,24 @@
                                 </td>
                                 <td><input type="number" value="<?php echo $row->goal_strategic_value ?>" name="goal_strategic_value" class="form-control goal_strategic_value" style="width: 100px;" min="1" max="5"></td>
                                 <td><input type="text" value="<?php echo $row->total_impact ?>" name="total_impact" class="form-control total_impact" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->probaly ?>" name="probaly" class="form-control probaly" style="width: 50px;"></td>
+                                <td>
+                                    <select name="probaly" class="form-control probaly" style="width: 100px;">
+                                        <option value="">Pilih</option>
+                                        <option value="0.2" <?php echo($row->probaly=='0.2'?'selected':'') ?>>0.2</option>
+                                        <option value="0.4" <?php echo($row->probaly=='0.4'?'selected':'') ?>>0.4</option>
+                                        <option value="0.6" <?php echo($row->probaly=='0.6'?'selected':'') ?>>0.6</option>
+                                        <option value="0.8" <?php echo($row->probaly=='0.8'?'selected':'') ?>>0.8</option>
+                                        <option value="1" <?php echo($row->probaly=='1'?'selected':'') ?>>1</option>
+                                    </select>
+                                    <!-- <input type="text" value="<?php //echo $row->probaly ?>" name="probaly" class="form-control probaly" style="width: 50px;"> -->
+                                </td>
+                                <td>
+                                    <select name="repeated" class="form-control repeated" style="width: 100px;">
+                                        <option value="">Pilih</option>
+                                        <option value="yes" <?php echo($row->repeated=='yes'?'selected':'') ?> >yes</option>
+                                        <option value="no" <?php echo($row->repeated=='no'?'selected':'') ?> >no</option>
+                                    </select>
+                                </td>
                                 <td><input type="text" value="<?php echo $row->tev ?>" name="tev" class="form-control tev" style="width: 50px;"></td>
                                 <td><input type="text" value="<?php echo $row->bobot_resiko ?>" name="bobot_resiko" class="form-control bobot_resiko" style="width: 50px;"></td>
                                 <td><input type="text" value="<?php echo $row->rekomendasi ?>" name="rekomendasi" class="form-control rekomendasi" style="width: 50px;"></td>
@@ -259,6 +277,7 @@
                 var goal_strategic_value=$(this).closest('tr').find('.goal_strategic_value').val();
                 var total_impact=$(this).closest('tr').find('.total_impact').val();
                 var probaly=$(this).closest('tr').find('.probaly').val();
+                var repeated=$(this).closest('tr').find('.repeated').val();
                 var tev=$(this).closest('tr').find('.tev').val();
                 var bobot_resiko=$(this).closest('tr').find('.bobot_resiko').val();
                 var rekomendasi=$(this).closest('tr').find('.rekomendasi').val();
@@ -287,6 +306,7 @@
                                 'goal_strategic_value':goal_strategic_value,
                                 'total_impact':total_impact,
                                 'probaly':probaly,
+                                'repeated':repeated,
                                 'tev':tev,
                                 'bobot_resiko':bobot_resiko,
                                 'rekomendasi':rekomendasi,
@@ -310,6 +330,8 @@
                            location.reload();
                       }
                 });
+
+
             });
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');

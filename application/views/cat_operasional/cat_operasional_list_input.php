@@ -15,7 +15,7 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">MANAGE
-                            <small>Data CAT Bisnis</small>
+                            <small>Data CAT Operasional</small>
                         </h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
@@ -95,7 +95,8 @@
                     		    <th>Monitoring</th>
                     		    <th>Impact</th>
                     		    <th>Total Impact</th>
-                    		    <th>Probaly</th>
+                    		    <th>Likelihood</th>
+                                <th>Repeated</th>
                     		    <th>Tev</th>
                     		    <th>Bobot Resiko</th>
                     		    <th>Rekomendasi</th>
@@ -168,13 +169,36 @@
                                     </select>
                                 </td>
                                 <td><input type="number" value="<?php echo $row->monitoring_value ?>" name="monitoring_value" class="form-control monitoring_value" style="width: 100px;" min="1" max="5"></td>
-                                <td><input type="text" value="<?php echo $row->total_impact ?>" name="total_impact" class="form-control total_impact" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->probaly ?>" name="probaly" class="form-control probaly" style="width: 50px;"></td>
+                                <td><input type="text" value="<?php echo $row->total_impact ?>" name="total_impact" class="form-control total_impact" style="width: 100px;" readonly="true"></td>
+                                <td>
+                                    <select name="probaly" class="form-control probaly" style="width: 100px;">
+                                        <option value="">Pilih</option>
+                                        <option value="0.2" <?php echo($row->probaly=='0.2'?'selected':'') ?>>0.2</option>
+                                        <option value="0.4" <?php echo($row->probaly=='0.4'?'selected':'') ?>>0.4</option>
+                                        <option value="0.6" <?php echo($row->probaly=='0.6'?'selected':'') ?>>0.6</option>
+                                        <option value="0.8" <?php echo($row->probaly=='0.8'?'selected':'') ?>>0.8</option>
+                                        <option value="1" <?php echo($row->probaly=='1'?'selected':'') ?>>1</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="repeated" class="form-control repeated" style="width: 100px;">
+                                        <option value="">Pilih</option>
+                                        <option value="yes" <?php echo($row->repeated=='yes'?'selected':'') ?> >yes</option>
+                                        <option value="no" <?php echo($row->repeated=='no'?'selected':'') ?> >no</option>
+                                    </select>
+                                </td>
                                 <td><input type="text" value="<?php echo $row->tev ?>" name="tev" class="form-control tev" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->bobot_resiko ?>" name="bobot_resiko" class="form-control bobot_resiko" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->rekomendasi ?>" name="rekomendasi" class="form-control rekomendasi" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->tanggapan_audit ?>" name="tanggapan_audit" class="form-control tanggapan_audit" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->target_date ?>" name="target_date" class="form-control target_date" style="width: 50px;"></td>
+                                <td><input type="text" value="<?php echo $row->bobot_resiko ?>" name="bobot_resiko" class="form-control bobot_resiko" style="width: 150px;"></td>
+                                <td><input type="text" value="<?php echo $row->rekomendasi ?>" name="rekomendasi" class="form-control rekomendasi" style="width: 100px;"></td>
+                                <td><input type="text" value="<?php echo $row->tanggapan_audit ?>" name="tanggapan_audit" class="form-control tanggapan_audit" style="width: 150px;"></td>
+                                <td>
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                    <input type="text" value="<?php echo $row->target_date ?>" name="target_date" class="form-control target_date" style="width: 150px;">
+                                    </div>
+                                </td>
                                 <td>
                                     <div style="width:150px;">
                                     <button type="button" class="btn btn-primary btn-sm btn-flat btn_update"><i class="fa fa-save"></i> Simpan</button>
@@ -245,6 +269,7 @@
                 var goal_strategic_value=$(this).closest('tr').find('.goal_strategic_value').val();
                 var total_impact=$(this).closest('tr').find('.total_impact').val();
                 var probaly=$(this).closest('tr').find('.probaly').val();
+                var repeated=$(this).closest('tr').find('.repeated').val();
                 var tev=$(this).closest('tr').find('.tev').val();
                 var bobot_resiko=$(this).closest('tr').find('.bobot_resiko').val();
                 var rekomendasi=$(this).closest('tr').find('.rekomendasi').val();
@@ -273,6 +298,7 @@
                                 'goal_strategic_value':goal_strategic_value,
                                 'total_impact':total_impact,
                                 'probaly':probaly,
+                                'repeated':repeated,
                                 'tev':tev,
                                 'bobot_resiko':bobot_resiko,
                                 'rekomendasi':rekomendasi,
@@ -293,10 +319,159 @@
                       },
                       complete: function(response){
                           // $('.loading_data').css('display','none');
-                           location.reload();
+                           // location.reload();
+                           alert('data berhasil di simpan');
                       }
                 });
+
+                // $('.environment_value, .risk_assesment_value, .control_activities_value, .information_comunication_value, .monitoring_value').keypress(function(){
+                //     alert('sss');
+                // })
             });
+             
+              $(document).on('keyup','.environment_value, .risk_assesment_value, .control_activities_value, .information_comunication_value, .monitoring_value',function(){
+
+                    var max = parseInt($(this).attr('max'));
+                    var min = parseInt($(this).attr('min'));
+                    var repeated = $(this).closest('tr').find('.repeated').val();
+                    var probaly = $(this).closest('tr').find('.probaly').val();
+                    
+                      if ($(this).val() > max)
+                      {
+                          $(this).val(max);
+                          var environment_value=parseInt($(this).closest('tr').find('.environment_value').val());
+                    var risk_assesment_value=parseInt($(this).closest('tr').find('.risk_assesment_value').val());
+                    var control_activities_value=parseInt($(this).closest('tr').find('.control_activities_value').val());
+                    var information_comunication_value=parseInt($(this).closest('tr').find('.information_comunication_value').val());
+                    var monitoring_value=parseInt($(this).closest('tr').find('.monitoring_value').val());
+                    var jml=(environment_value+risk_assesment_value+control_activities_value+information_comunication_value+monitoring_value);
+                      }
+                      else if ($(this).val() < min)
+                      {
+                          $(this).val(min);
+                          var environment_value=parseInt($(this).closest('tr').find('.environment_value').val());
+                    var risk_assesment_value=parseInt($(this).closest('tr').find('.risk_assesment_value').val());
+                    var control_activities_value=parseInt($(this).closest('tr').find('.control_activities_value').val());
+                    var information_comunication_value=parseInt($(this).closest('tr').find('.information_comunication_value').val());
+                    var monitoring_value=parseInt($(this).closest('tr').find('.monitoring_value').val());
+                    var jml=(environment_value+risk_assesment_value+control_activities_value+information_comunication_value+monitoring_value);
+                      }else{
+                        var environment_value=parseInt($(this).closest('tr').find('.environment_value').val());
+                    var risk_assesment_value=parseInt($(this).closest('tr').find('.risk_assesment_value').val());
+                    var control_activities_value=parseInt($(this).closest('tr').find('.control_activities_value').val());
+                    var information_comunication_value=parseInt($(this).closest('tr').find('.information_comunication_value').val());
+                    var monitoring_value=parseInt($(this).closest('tr').find('.monitoring_value').val());
+                        var jml=(environment_value+risk_assesment_value+control_activities_value+information_comunication_value+monitoring_value);
+                        
+                      }      
+                        $(this).closest('tr').find('.total_impact').val(jml);
+                        if(probaly!=''){
+                            if(repeated=='yes'){
+                                var tmp_tev=(jml*probaly)+((jml*probaly)*10/100);
+                                $(this).closest('tr').find('.tev').val(tmp_tev);
+                                if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                            }else{
+                                var tmp_tev=(jml*probaly);
+                                $(this).closest('tr').find('.tev').val(tmp_tev);
+                                $(this).closest('tr').find('.bobot_resiko').val(tmp_tev);
+                                 if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                            }
+                        }
+                        
+
+                });
+
+                $(document).on('change','.probaly',function(){
+                    var repeated = $(this).closest('tr').find('.repeated').val();
+                    var probaly = $(this).val();
+                    var environment_value=parseInt($(this).closest('tr').find('.environment_value').val());
+                    var risk_assesment_value=parseInt($(this).closest('tr').find('.risk_assesment_value').val());
+                    var control_activities_value=parseInt($(this).closest('tr').find('.control_activities_value').val());
+                    var information_comunication_value=parseInt($(this).closest('tr').find('.information_comunication_value').val());
+                    var monitoring_value=parseInt($(this).closest('tr').find('.monitoring_value').val());
+                    var jml=(environment_value+risk_assesment_value+control_activities_value+information_comunication_value+monitoring_value);
+
+                        if(repeated=='yes'){
+                            var tmp_tev=(jml*probaly)+((jml*probaly)*10/100);
+                            $(this).closest('tr').find('.tev').val(tmp_tev);
+                             if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                        }else{
+                            var tmp_tev=(jml*probaly);
+                            $(this).closest('tr').find('.tev').val(tmp_tev);
+                             if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                        }
+                });
+
+                 $(document).on('change','.repeated',function(){
+                    var probaly = $(this).closest('tr').find('.probaly').val();
+                    var repeated = $(this).val();
+                    var environment_value=parseInt($(this).closest('tr').find('.environment_value').val());
+                    var risk_assesment_value=parseInt($(this).closest('tr').find('.risk_assesment_value').val());
+                    var control_activities_value=parseInt($(this).closest('tr').find('.control_activities_value').val());
+                    var information_comunication_value=parseInt($(this).closest('tr').find('.information_comunication_value').val());
+                    var monitoring_value=parseInt($(this).closest('tr').find('.monitoring_value').val());
+                    var jml=(environment_value+risk_assesment_value+control_activities_value+information_comunication_value+monitoring_value);
+
+                        if(repeated=='yes'){
+                            var tmp_tev=(jml*probaly)+((jml*probaly)*10/100);
+                            $(this).closest('tr').find('.tev').val(tmp_tev);
+                             if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                        }else{
+                            var tmp_tev=(jml*probaly);
+                            $(this).closest('tr').find('.tev').val(tmp_tev);
+                             if(tmp_tev < 1.7){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Low');
+                                }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Moderate');
+                                }else if(tmp_tev >3){
+                                    $(this).closest('tr').find('.bobot_resiko').val('Height');
+                                }
+                        }
+                });
+
+              // $(document).on('keyup','.environment_value, .risk_assesment_value, .control_activities_value, .information_comunication_value, .monitoring_value',function(){
+              //     var max = parseInt($(this).attr('max'));
+              //     var min = parseInt($(this).attr('min'));
+              //     if ($(this).val() > max)
+              //     {
+              //         $(this).val(max);
+              //     }
+              //     else if ($(this).val() < min)
+              //     {
+              //         $(this).val(min);
+              //     }       
+              //   }); 
+
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_operasional=$(this).attr('data-id');
@@ -308,6 +483,7 @@
 
             $(document).ready(function() {
                 $('#periode').datepicker();
+                $('.target_date').datepicker();
                 $('.tmabah_data').click(function(){
                     var id_cabang=$('#id_cabang').val();
                     var nama_cabang=$('#nama_cabang').val();

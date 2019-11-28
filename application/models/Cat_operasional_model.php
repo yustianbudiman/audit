@@ -17,13 +17,13 @@ class Cat_operasional_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_cat_operasional,id_cat_operasional_header,temuan,kriteria,dampak,id_penyimpangan,id_environment,environment_value,id_risk_assesment,risk_assesment_value,id_control_activities,control_activities_value,id_information_comunication,information_comunication_value,id_monitoring,monitoring_value,total_impact,probaly,tev,bobot_resiko,rekomendasi,tanggapan_audit,target_date,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
-        $this->datatables->from('cat_operasional');
+        $this->datatables->select('id_cat_operasional_header,periode,id_cabang,nama_cabang');
+        $this->datatables->from('cat_operasional_header');
         //add this line for join
         //$this->datatables->join('table2', 'cat_operasional.field = table2.field');
         $this->datatables->add_column('action', anchor(site_url('cat_operasional/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_operasional/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional');
+            ".anchor(site_url('cat_operasional/tambah_data_history/$3/$2'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+                ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional_header,periode,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
