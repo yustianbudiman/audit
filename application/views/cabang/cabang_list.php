@@ -45,12 +45,6 @@
                     		    <th>Kepala Cabang</th>
                     		    <th>Keterangan</th>
                     		    <th>Aktif</th>
-                    		    <th>Created Date</th>
-                    		    <th>Created Ip</th>
-                    		    <th>Created By</th>
-                    		    <th>Updated Date</th>
-                    		    <th>Updated Ip</th>
-                    		    <th>Updated By</th>
                     		    <th width="200px">Action</th>
                             </tr>
                         </thead>
@@ -101,7 +95,16 @@
                         {
                             "data": "id_cabang",
                             "orderable": false
-                        },{"data": "kode_cabang"},{"data": "nama_cabang"},{"data": "alamat"},{"data": "kota"},{"data": "provinsi"},{"data": "no_telepon"},{"data": "kepala_cabang"},{"data": "keterangan"},{"data": "aktif"},{"data": "created_date"},{"data": "created_ip"},{"data": "created_by"},{"data": "updated_date"},{"data": "updated_ip"},{"data": "updated_by"},
+                        },
+                        {"data": "kode_cabang"},
+                        {"data": "nama_cabang"},
+                        {"data": "alamat"},
+                        {"data": "kota"},
+                        {"data": "provinsi"},
+                        {"data": "no_telepon"},
+                        {"data": "kepala_cabang"},
+                        {"data": "keterangan"},
+                        {"data": "aktif"},
                         {
                             "data" : "action",
                             "orderable": false,
