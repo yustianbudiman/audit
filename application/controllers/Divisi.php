@@ -29,6 +29,7 @@ class Divisi extends CI_Controller
         $row = $this->Divisi_model->get_by_id($id);
         if ($row) {
             $data = array(
+                'button' => 'View',
         		'id_divisi' => $row->id_divisi,
         		'divisi' => $row->divisi,
         		'aktif' => $row->aktif,

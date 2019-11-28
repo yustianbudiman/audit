@@ -29,6 +29,7 @@ class Klasifikasi_temuan extends CI_Controller
         $row = $this->Klasifikasi_temuan_model->get_by_id($id);
         if ($row) {
             $data = array(
+                'button' => 'View',
         		'id_klasifikasi_temuan' => $row->id_klasifikasi_temuan,
         		'nama_klasifikasi_temuan' => $row->nama_klasifikasi_temuan,
         		'keterangan' => $row->keterangan,
@@ -56,12 +57,7 @@ class Klasifikasi_temuan extends CI_Controller
     	    'nama_klasifikasi_temuan' => set_value('nama_klasifikasi_temuan'),
     	    'keterangan' => set_value('keterangan'),
     	    'aktif' => set_value('aktif'),
-    	    'created_date' => set_value('created_date'),
-    	    'created_ip' => set_value('created_ip'),
-    	    'created_by' => set_value('created_by'),
-    	    'updated_date' => set_value('updated_date'),
-    	    'updated_ip' => set_value('updated_ip'),
-    	    'updated_by' => set_value('updated_by'),
+    	    
     	);
         $this->template->load('template','klasifikasi_temuan/klasifikasi_temuan_form', $data);
     }
@@ -77,12 +73,8 @@ class Klasifikasi_temuan extends CI_Controller
         		'nama_klasifikasi_temuan' => $this->input->post('nama_klasifikasi_temuan',TRUE),
         		'keterangan' => $this->input->post('keterangan',TRUE),
         		'aktif' => $this->input->post('aktif',TRUE),
-        		'created_date' => $this->input->post('created_date',TRUE),
-        		'created_ip' => $this->input->post('created_ip',TRUE),
-        		'created_by' => $this->input->post('created_by',TRUE),
-        		'updated_date' => $this->input->post('updated_date',TRUE),
-        		'updated_ip' => $this->input->post('updated_ip',TRUE),
-        		'updated_by' => $this->input->post('updated_by',TRUE),
+        		'created_ip' => get_client_ip(),
+                'created_by' => $this->session->userdata('id_users'),
     	    );
 
             $this->Klasifikasi_temuan_model->insert($data);
@@ -103,12 +95,6 @@ class Klasifikasi_temuan extends CI_Controller
         		'nama_klasifikasi_temuan' => set_value('nama_klasifikasi_temuan', $row->nama_klasifikasi_temuan),
         		'keterangan' => set_value('keterangan', $row->keterangan),
         		'aktif' => set_value('aktif', $row->aktif),
-        		'created_date' => set_value('created_date', $row->created_date),
-        		'created_ip' => set_value('created_ip', $row->created_ip),
-        		'created_by' => set_value('created_by', $row->created_by),
-        		'updated_date' => set_value('updated_date', $row->updated_date),
-        		'updated_ip' => set_value('updated_ip', $row->updated_ip),
-        		'updated_by' => set_value('updated_by', $row->updated_by),
     	    );
             $this->template->load('template','klasifikasi_temuan/klasifikasi_temuan_form', $data);
         } else {
@@ -128,12 +114,8 @@ class Klasifikasi_temuan extends CI_Controller
         		'nama_klasifikasi_temuan' => $this->input->post('nama_klasifikasi_temuan',TRUE),
         		'keterangan' => $this->input->post('keterangan',TRUE),
         		'aktif' => $this->input->post('aktif',TRUE),
-        		'created_date' => $this->input->post('created_date',TRUE),
-        		'created_ip' => $this->input->post('created_ip',TRUE),
-        		'created_by' => $this->input->post('created_by',TRUE),
-        		'updated_date' => $this->input->post('updated_date',TRUE),
-        		'updated_ip' => $this->input->post('updated_ip',TRUE),
-        		'updated_by' => $this->input->post('updated_by',TRUE),
+        		'updated_ip' => get_client_ip(),
+                'updated_by' => $this->session->userdata('id_users'),
     	    );
 
             $this->Klasifikasi_temuan_model->update($this->input->post('id_klasifikasi_temuan', TRUE), $data);
@@ -161,12 +143,6 @@ class Klasifikasi_temuan extends CI_Controller
     	$this->form_validation->set_rules('nama_klasifikasi_temuan', 'nama klasifikasi temuan', 'trim|required');
     	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
     	$this->form_validation->set_rules('aktif', 'aktif', 'trim|required');
-    	$this->form_validation->set_rules('created_date', 'created date', 'trim|required');
-    	$this->form_validation->set_rules('created_ip', 'created ip', 'trim|required');
-    	$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
-    	$this->form_validation->set_rules('updated_date', 'updated date', 'trim|required');
-    	$this->form_validation->set_rules('updated_ip', 'updated ip', 'trim|required');
-    	$this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
 
     	$this->form_validation->set_rules('id_klasifikasi_temuan', 'id_klasifikasi_temuan', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

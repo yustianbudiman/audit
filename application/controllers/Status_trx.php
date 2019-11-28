@@ -29,6 +29,7 @@ class Status_trx extends CI_Controller
         $row = $this->Status_trx_model->get_by_id($id);
         if ($row) {
             $data = array(
+                'button' => 'View',
         		'id_status' => $row->id_status,
         		'status_trx' => $row->status_trx,
         		'aktif' => $row->aktif,

@@ -39,12 +39,6 @@
                     		    <th>Nama control Activities</th>
                     		    <th>Keterangan</th>
                     		    <th>Aktif</th>
-                    		    <th>Created Date</th>
-                    		    <th>Created Ip</th>
-                    		    <th>Created By</th>
-                    		    <th>Updated Date</th>
-                    		    <th>Updated Ip</th>
-                    		    <th>Updated By</th>
                     		    <th width="200px">Action</th>
                             </tr>
                         </thead>
@@ -95,7 +89,10 @@
                         {
                             "data": "id_control_activities",
                             "orderable": false
-                        },{"data": "nama_control_activities"},{"data": "keterangan"},{"data": "aktif"},{"data": "created_date"},{"data": "created_ip"},{"data": "created_by"},{"data": "updated_date"},{"data": "updated_ip"},{"data": "updated_by"},
+                        },
+                        {"data": "nama_control_activities"},
+                        {"data": "keterangan"},
+                        {"data": "aktif"},
                         {
                             "data" : "action",
                             "orderable": false,

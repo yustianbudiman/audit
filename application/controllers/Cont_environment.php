@@ -57,12 +57,6 @@ class Cont_environment extends CI_Controller
     	    'nama_environment' => set_value('nama_environment'),
     	    'keterangan' => set_value('keterangan'),
     	    'aktif' => set_value('aktif'),
-    	    'created_date' => set_value('created_date'),
-    	    'created_ip' => set_value('created_ip'),
-    	    'created_by' => set_value('created_by'),
-    	    'updated_date' => set_value('updated_date'),
-    	    'updated_ip' => set_value('updated_ip'),
-    	    'updated_by' => set_value('updated_by'),
     	);
         $this->template->load('template','cont_environment/cont_environment_form', $data);
     }
