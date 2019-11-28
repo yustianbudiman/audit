@@ -24,11 +24,11 @@
 
         <style type="text/css">
             .content-wrapper{
-                background-image: url("<?php echo base_url()?>assets/img/logo.jpg");
+                /*background-image: url("<?php echo base_url()?>assets/img/logo.jpg");
                 background-repeat: no-repeat;
                 background-position-x : center;
                 background-position-y : center;
-                /*opacity: 0.5;*/
+                opacity: 0.5;*/
                 /*filter: alpha(opacity=50);*/
             }
         </style>
