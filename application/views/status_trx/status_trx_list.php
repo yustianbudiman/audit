@@ -14,7 +14,7 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">MANAGE
-                            <small>Data Status Transaksi</small>
+                            <small>Data Status</small>
                         </h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
