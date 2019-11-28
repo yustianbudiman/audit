@@ -36,36 +36,9 @@
                         <thead>
                             <tr>
                                 <th width="30px">No</th>
+                    		    <th>Periode</th>
                     		    <th>Id Cabang</th>
                     		    <th>Nama Cabang</th>
-                    		    <th>Id Temuan</th>
-                    		    <th>Kriteria</th>
-                    		    <th>Dampak</th>
-                    		    <th>Id Penyimpangan</th>
-                    		    <th>Id Environment</th>
-                    		    <th>Environment Value</th>
-                    		    <th>Id Risk Assesment</th>
-                    		    <th>Risk Assesment Value</th>
-                    		    <th>Id Control Activiti</th>
-                    		    <th>Control Activiti Value</th>
-                    		    <th>Id Infomation Comunication</th>
-                    		    <th>Infomation Comunication Value</th>
-                    		    <th>Id Monitoring</th>
-                    		    <th>Monitoring Value</th>
-                    		    <th>Total Impact</th>
-                    		    <th>Probaly</th>
-                    		    <th>Tev</th>
-                    		    <th>Bobot Resiko</th>
-                    		    <th>Rekomendasi</th>
-                    		    <th>Tanggapan Audit</th>
-                    		    <th>Target Date</th>
-                    		    <th>Aktif</th>
-                    		    <th>Created Date</th>
-                    		    <th>Created Ip</th>
-                    		    <th>Created By</th>
-                    		    <th>Updated Date</th>
-                    		    <th>Updated Ip</th>
-                    		    <th>Updated By</th>
                     		    <th width="200px">Action</th>
                             </tr>
                         </thead>
@@ -114,9 +87,9 @@
                     ajax: {"url": "cat_operasional/json", "type": "POST"},
                     columns: [
                         {
-                            "data": "id_cat_operasional",
+                            "data": "id_cat_operasional_header",
                             "orderable": false
-                        },{"data": "id_cabang"},{"data": "nama_cabang"},{"data": "id_temuan"},{"data": "kriteria"},{"data": "dampak"},{"data": "id_penyimpangan"},{"data": "id_environment"},{"data": "environment_value"},{"data": "id_risk_assesment"},{"data": "risk_assesment_value"},{"data": "id_control_activiti"},{"data": "control_activiti_value"},{"data": "id_infomation_comunication"},{"data": "infomation_comunication_value"},{"data": "id_monitoring"},{"data": "monitoring_value"},{"data": "total_impact"},{"data": "probaly"},{"data": "tev"},{"data": "bobot_resiko"},{"data": "rekomendasi"},{"data": "tanggapan_audit"},{"data": "target_date"},{"data": "aktif"},{"data": "created_date"},{"data": "created_ip"},{"data": "created_by"},{"data": "updated_date"},{"data": "updated_ip"},{"data": "updated_by"},
+                        },{"data": "periode"},{"data": "id_cabang"},{"data": "nama_cabang"},
                         {
                             "data" : "action",
                             "orderable": false,
