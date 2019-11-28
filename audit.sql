@@ -28,7 +28,7 @@ CREATE TABLE `cabang` (
   `no_telepon` varchar(150) NOT NULL,
   `kepala_cabang` varchar(150) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `cat_bisnis` (
   `rekomendasi` varchar(200) DEFAULT NULL,
   `tanggapan_audit` varchar(100) DEFAULT NULL,
   `target_date` datetime DEFAULT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE `cat_operasional` (
   `rekomendasi` varchar(200) DEFAULT NULL,
   `tanggapan_audit` varchar(100) DEFAULT NULL,
   `target_date` datetime DEFAULT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `contol_activities` (
   `id_contol_activities` int(5) NOT NULL AUTO_INCREMENT,
   `nama_contol_activities` varchar(150) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE `cont_environment` (
   `id_environment` int(5) NOT NULL AUTO_INCREMENT,
   `nama_environment` varchar(150) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE `goal_strategic` (
   `id_goal_strategic` int(5) NOT NULL AUTO_INCREMENT,
   `nama_goal_strategic` varchar(150) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -204,7 +204,7 @@ CREATE TABLE `information_comunication` (
   `id_information_comunication` int(5) NOT NULL AUTO_INCREMENT,
   `nama_information_comunication` varchar(150) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE `klasifikasi_temuan` (
   `id_klasifikasi_temuan` int(5) NOT NULL AUTO_INCREMENT,
   `nama_klasifikasi_temuan` varchar(150) NOT NULL,
   `keterangan` varchar(50) DEFAULT NULL,
-  `aktif` int(11) DEFAULT '1',
+  `is_active` int(11) DEFAULT '1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -238,6 +238,28 @@ CREATE TABLE `klasifikasi_temuan` (
 
 -- ----------------------------
 -- Records of klasifikasi_temuan
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `monitoring`
+-- ----------------------------
+DROP TABLE IF EXISTS `monitoring`;
+CREATE TABLE `monitoring` (
+  `id_monitoring` int(5) NOT NULL AUTO_INCREMENT,
+  `nama_monitoring` varchar(150) NOT NULL,
+  `keterangan` varchar(50) NOT NULL,
+  `aktif` int(11) DEFAULT '1',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` varchar(15) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` varchar(15) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_monitoring`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of monitoring
 -- ----------------------------
 
 -- ----------------------------
