@@ -25,7 +25,7 @@ class Cat_bisnis extends CI_Controller
 
     public function index()
     {
-        $this->template->load('template','cat_bisnis/cat_bisnis_list_cabang');
+        $this->template->load('template','cat_bisnis/cat_bisnis_list');
     } 
 
     public function json_cabang() {
@@ -68,7 +68,7 @@ class Cat_bisnis extends CI_Controller
     		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
     		'periode'=>$periode,
     	];
-    	$this->template->load('template','cat_bisnis/cat_bisnis_list',$data);
+    	$this->template->load('template','cat_bisnis/cat_bisnis_list_input',$data);
     }
     
     public function json() {
