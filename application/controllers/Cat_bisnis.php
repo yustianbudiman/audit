@@ -124,42 +124,20 @@ class Cat_bisnis extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Create',
-            'action' => site_url('cat_bisnis/create_action'),
-		    'id_cat_bisnis' => set_value('id_cat_bisnis'),
-		    'temuan' => set_value('temuan'),
-		    'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
-		    'kriteria' => set_value('kriteria'),
-		    'dampak' => set_value('dampak'),
-		    'id_penyimpangan' => set_value('id_penyimpangan'),
-		    'id_environment' => set_value('id_environment'),
-		    'environment_value' => set_value('environment_value'),
-		    'id_risk_assesment' => set_value('id_risk_assesment'),
-		    'risk_assesment_value' => set_value('risk_assesment_value'),
-		    'id_control_activities' => set_value('id_control_activities'),
-		    'control_activities_value' => set_value('control_activities_value'),
-		    'id_information_comunication' => set_value('id_information_comunication'),
-		    'information_comunication_value' => set_value('information_comunication_value'),
-		    'id_monitoring' => set_value('id_monitoring'),
-		    'monitoring_value' => set_value('monitoring_value'),
-		    'id_goal_strategic' => set_value('id_goal_strategic'),
-		    'goal_strategic_value' => set_value('goal_strategic_value'),
-		    'total_impact' => set_value('total_impact'),
-		    'probaly' => set_value('probaly'),
-		    'tev' => set_value('tev'),
-		    'bobot_resiko' => set_value('bobot_resiko'),
-		    'rekomendasi' => set_value('rekomendasi'),
-		    'tanggapan_audit' => set_value('tanggapan_audit'),
-		    'target_date' => set_value('target_date'),
-		    'aktif' => set_value('aktif'),
-		    'created_date' => set_value('created_date'),
-		    'created_ip' => set_value('created_ip'),
-		    'created_by' => set_value('created_by'),
-		    'updated_date' => set_value('updated_date'),
-		    'updated_ip' => set_value('updated_ip'),
-		    'updated_by' => set_value('updated_by'),
-		);
+        $header=$this->Cat_bisnis_model->list_cat_bisnis_header();
+ 		$data=[
+    		'list_cabang'=>$this->Cabang_model->get_all(),
+    		'list_cat_bisnis_header'=>$header,
+    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
+    		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+    		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+    		'list_environment'=>$this->Cont_environment_model->get_all(),
+    		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+    		'list_control_activitieses'=>$this->Control_activities_model->get_all(),
+    		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+    		'list_monitoring'=>$this->Monitoring_model->get_all(),
+    		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+    	];
         $this->template->load('template','cat_bisnis/cat_bisnis_form', $data);
     }
     
