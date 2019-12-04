@@ -148,8 +148,6 @@ class Cat_bisnis extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-        	// $cek_dulu=$this->Cat_bisnis_model->list_cat_bisnis_header($this->input->post('id_cabang',TRUE),$this->input->post('periode',TRUE));
-        	// if(!$cek_dulu){
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
@@ -157,7 +155,6 @@ class Cat_bisnis extends CI_Controller
         			];
         		$this->Cat_bisnis_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
-        	// }
                
             $data = array(
 				'id_cat_bisnis_header' => $idnya,
@@ -179,7 +176,8 @@ class Cat_bisnis extends CI_Controller
 				'id_goal_strategic' => $this->input->post('goal_strategic',TRUE),
 				'goal_strategic_value' => $this->input->post('goal_strategic_value',TRUE),
 				'total_impact' => $this->input->post('total_impact',TRUE),
-				'likelihood' => $this->input->post('likelihood',TRUE),
+                'likelihood' => $this->input->post('likelihood',TRUE),
+				'repeated' => $this->input->post('repeated',TRUE),
 				'tev' => $this->input->post('tev',TRUE),
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
@@ -268,7 +266,7 @@ class Cat_bisnis extends CI_Controller
 				'temuan' => $this->input->post('temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
-				'id_penyimpangan' => $this->input->post('sebab_penyimpangan',TRUE),
+				'id_penyimpangan' => $this->input->post('penyimpangan',TRUE),
 				'id_environment' => $this->input->post('environment',TRUE),
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
@@ -321,31 +319,31 @@ class Cat_bisnis extends CI_Controller
 
     public function _rules() 
     {
-		// $this->form_validation->set_rules('cabang', 'id cabang', 'trim|required');
-		// $this->form_validation->set_rules('nama_cabang', 'nama cabang', 'trim|required');
-		$this->form_validation->set_rules('temuan', 'id temuan', '');
-		$this->form_validation->set_rules('kriteria', 'kriteria', '');
-		$this->form_validation->set_rules('dampak', 'dampak', '');
-		$this->form_validation->set_rules('sebab_penyimpangan', 'id penyimpangan', '');
-		$this->form_validation->set_rules('environment', 'id environment', '');
-		$this->form_validation->set_rules('environment_value', 'environment value', '');
-		$this->form_validation->set_rules('risk_assesment', 'id risk assesment', '');
-		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value', '');
-		$this->form_validation->set_rules('control_activiti', 'id control activiti', '');
-		$this->form_validation->set_rules('control_activities_value', 'control activiti value', '');
-		$this->form_validation->set_rules('information_comunication', 'id infomation comunication', '');
-		$this->form_validation->set_rules('information_comunication_value', 'infomation comunication value', '');
-		$this->form_validation->set_rules('monitoring', 'id monitoring', '');
-		$this->form_validation->set_rules('monitoring_value', 'monitoring value', '');
-		$this->form_validation->set_rules('goal_strategic', 'id goal stategic', '');
-		$this->form_validation->set_rules('goal_strategic_value', 'goal stategic value', '');
-		$this->form_validation->set_rules('total_impact', 'total impact', '');
-		$this->form_validation->set_rules('likelihood', 'likelihood', '');
-		$this->form_validation->set_rules('tev', 'tev', '');
-		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko', '');
+		$this->form_validation->set_rules('id_cabang', 'id cabang', 'trim|required');
+		$this->form_validation->set_rules('nama_cabang', 'nama cabang', 'trim|required');
+		$this->form_validation->set_rules('temuan', 'id temuan', 'trim|required');
+		$this->form_validation->set_rules('kriteria', 'kriteria', 'trim|required');
+		$this->form_validation->set_rules('dampak', 'dampak', 'trim|required');
+		$this->form_validation->set_rules('penyimpangan', 'id penyimpangan', 'trim|required');
+		$this->form_validation->set_rules('environment', 'id environment', 'trim|required');
+		$this->form_validation->set_rules('environment_value', 'environment value', 'trim|required');
+		$this->form_validation->set_rules('risk_assesment', 'id risk assesment', 'trim|required');
+		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value', 'trim|required');
+		$this->form_validation->set_rules('control_activiti', 'id control activiti', 'trim|required');
+		$this->form_validation->set_rules('control_activities_value', 'control activiti value', 'trim|required');
+		$this->form_validation->set_rules('information_comunication', 'id infomation comunication', 'trim|required');
+		$this->form_validation->set_rules('information_comunication_value', 'infomation comunication value', 'trim|required');
+		$this->form_validation->set_rules('monitoring', 'id monitoring', 'trim|required');
+		$this->form_validation->set_rules('monitoring_value', 'monitoring value', 'trim|required');
+		$this->form_validation->set_rules('goal_strategic', 'id goal stategic', 'trim|required');
+		$this->form_validation->set_rules('goal_strategic_value', 'goal stategic value', 'trim|required');
+		$this->form_validation->set_rules('total_impact', 'total impact', 'trim|required');
+		$this->form_validation->set_rules('likelihood', 'likelihood', 'trim|required');
+		$this->form_validation->set_rules('tev', 'tev', 'trim|required');
+		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko', 'trim|required');
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi', '');
 		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit', '');
-		$this->form_validation->set_rules('target_date', 'target date', '');
+		$this->form_validation->set_rules('target_date', 'target date', 'trim|required');
 		$this->form_validation->set_rules('aktif', 'aktif', '');
 		$this->form_validation->set_rules('created_date', 'created date', '');
 		$this->form_validation->set_rules('created_ip', 'created ip', '');
