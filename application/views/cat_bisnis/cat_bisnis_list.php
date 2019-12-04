@@ -27,8 +27,8 @@
                         <!-- /. tools -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body pad" style="overflow: auto;">
-                        <div style="padding-bottom: 10px; overflow: auto;">
+                    <div class="box-body pad">
+                        <div style="padding-bottom: 10px;">
                         <?php echo anchor(site_url('cat_bisnis/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?>
                         <?php echo anchor(site_url('cat_bisnis/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
                     </div>

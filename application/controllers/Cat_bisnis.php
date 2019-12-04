@@ -101,7 +101,7 @@ class Cat_bisnis extends CI_Controller
 				'id_goal_strategic' => $row->id_goal_strategic,
 				'goal_strategic_value' => $row->goal_strategic_value,
 				'total_impact' => $row->total_impact,
-				'probaly' => $row->probaly,
+				'likelihood' => $row->likelihood,
 				'tev' => $row->tev,
 				'bobot_resiko' => $row->bobot_resiko,
 				'rekomendasi' => $row->rekomendasi,
@@ -133,7 +133,7 @@ class Cat_bisnis extends CI_Controller
     		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
     		'list_environment'=>$this->Cont_environment_model->get_all(),
     		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
-    		'list_control_activitieses'=>$this->Control_activities_model->get_all(),
+    		'list_control_activities'=>$this->Control_activities_model->get_all(),
     		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
     		'list_monitoring'=>$this->Monitoring_model->get_all(),
     		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
@@ -148,8 +148,8 @@ class Cat_bisnis extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-        	$cek_dulu=$this->Cat_bisnis_model->list_cat_bisnis_header($this->input->post('id_cabang',TRUE),$this->input->post('periode',TRUE));
-        	if(!$cek_dulu){
+        	// $cek_dulu=$this->Cat_bisnis_model->list_cat_bisnis_header($this->input->post('id_cabang',TRUE),$this->input->post('periode',TRUE));
+        	// if(!$cek_dulu){
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
@@ -157,20 +157,21 @@ class Cat_bisnis extends CI_Controller
         			];
         		$this->Cat_bisnis_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
-        	}
+        	// }
+               
             $data = array(
-				'id_cat_bisnis_header' => ($cek_dulu==''?$idnya:$cek_dulu['id_cat_bisnis_header']),
+				'id_cat_bisnis_header' => $idnya,
 				'temuan' => $this->input->post('temuan',TRUE),
 				'klasifikasi_temuan' => $this->input->post('klasifikasi_temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
-				'id_penyimpangan' => $this->input->post('sebab_penyimpangan',TRUE),
+				'id_penyimpangan' => $this->input->post('penyimpangan',TRUE),
 				'id_environment' => $this->input->post('environment',TRUE),
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
 				'risk_assesment_value' => $this->input->post('risk_assesment_value',TRUE),
-				'id_control_activities' => $this->input->post('control_activiti',TRUE),
-				'control_activities_value' => $this->input->post('control_activities_value',TRUE),
+				'id_control_activities' => $this->input->post('control_activity',TRUE),
+				'control_activities_value' => $this->input->post('control_activity_value',TRUE),
 				'id_information_comunication' => $this->input->post('information_comunication',TRUE),
 				'information_comunication_value' => $this->input->post('information_comunication_value',TRUE),
 				'id_monitoring' => $this->input->post('monitoring',TRUE),
@@ -178,19 +179,26 @@ class Cat_bisnis extends CI_Controller
 				'id_goal_strategic' => $this->input->post('goal_strategic',TRUE),
 				'goal_strategic_value' => $this->input->post('goal_strategic_value',TRUE),
 				'total_impact' => $this->input->post('total_impact',TRUE),
-				'probaly' => $this->input->post('probaly',TRUE),
+				'likelihood' => $this->input->post('likelihood',TRUE),
 				'tev' => $this->input->post('tev',TRUE),
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
-				'target_date' => $this->input->post('target_date',TRUE),
-				'aktif' => $this->input->post('aktif',TRUE),
-				'created_date' => $this->input->post('created_date',TRUE),
-				'created_ip' => $this->input->post('created_ip',TRUE),
-				'created_by' => $this->input->post('created_by',TRUE),
-				'updated_date' => $this->input->post('updated_date',TRUE),
-				'updated_ip' => $this->input->post('updated_ip',TRUE),
-				'updated_by' => $this->input->post('updated_by',TRUE),
+                'target_date' =>date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
+                'status' => 'Open',
+                'tl' =>$this->input->post('tl',TRUE),
+                'member' => implode(',',$this->input->post('member',TRUE)),
+                'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'supervisor' =>$this->input->post('supervisor',TRUE),
+                'bop' =>$this->input->post('bop',TRUE),
+				// 'aktif' => $this->input->post('aktif',TRUE),
+
+				// 'created_date' => $this->input->post('created_date',TRUE),
+				// 'created_ip' => $this->input->post('created_ip',TRUE),
+				// 'created_by' => $this->input->post('created_by',TRUE),
+				// 'updated_date' => $this->input->post('updated_date',TRUE),
+				// 'updated_ip' => $this->input->post('updated_ip',TRUE),
+				// 'updated_by' => $this->input->post('updated_by',TRUE),
 		    );
 
             $this->Cat_bisnis_model->insert($data);
@@ -227,7 +235,7 @@ class Cat_bisnis extends CI_Controller
 				'id_goal_strategic' => set_value('id_goal_strategic', $row->id_goal_strategic),
 				'goal_strategic_value' => set_value('goal_strategic_value', $row->goal_strategic_value),
 				'total_impact' => set_value('total_impact', $row->total_impact),
-				'probaly' => set_value('probaly', $row->probaly),
+				'likelihood' => set_value('likelihood', $row->likelihood),
 				'tev' => set_value('tev', $row->tev),
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
@@ -274,7 +282,7 @@ class Cat_bisnis extends CI_Controller
 				'id_goal_strategic' => $this->input->post('goal_stategic',TRUE),
 				'goal_strategic_value' => $this->input->post('goal_strategic_value',TRUE),
 				'total_impact' => $this->input->post('total_impact',TRUE),
-				'probaly' => $this->input->post('probaly',TRUE),
+				'likelihood' => $this->input->post('likelihood',TRUE),
 				'tev' => $this->input->post('tev',TRUE),
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
@@ -332,7 +340,7 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_rules('goal_strategic', 'id goal stategic', '');
 		$this->form_validation->set_rules('goal_strategic_value', 'goal stategic value', '');
 		$this->form_validation->set_rules('total_impact', 'total impact', '');
-		$this->form_validation->set_rules('probaly', 'probaly', '');
+		$this->form_validation->set_rules('likelihood', 'likelihood', '');
 		$this->form_validation->set_rules('tev', 'tev', '');
 		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko', '');
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi', '');
@@ -429,7 +437,7 @@ class Cat_bisnis extends CI_Controller
 		    xlsWriteNumber($tablebody, $kolombody++, $data->id_goal_strategic);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->goal_strategic_value);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->total_impact);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->probaly);
+		    xlsWriteLabel($tablebody, $kolombody++, $data->likelihood);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->tev);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->bobot_resiko);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->rekomendasi);

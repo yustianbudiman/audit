@@ -28,187 +28,364 @@
                         <!-- /. tools -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body pad" style="overflow: auto;">
-                        <div style="padding-bottom: 10px; overflow: auto; padding-right: 10px;">
-                            <div class="form-group" style="padding:  15px;">
+                    <form class="form-horizontal" action="<?php echo base_url('cat_bisnis/create_action');?>" method="POST">
+                    <div class="box-body pad">
+                        <div style="padding-bottom: 10px;">
+                            <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
-                                    <label for="employeeid" class="col-lg-2 control-label">Id Cabang:</label>
+                                    <label for="" class="col-lg-2 control-label">Id Cabang:</label>
                                   <div class="col-lg-4">
-                                  	<select class="form-control" name="id_cabang" id="id_cabang">
-                                  		<?php foreach ($list_cabang as $key) { ?>
-                                  		<option value="<?php echo $key->id_cabang; ?>"><?php echo $key->nama_cabang; ?></option>
-                                  		<?php } ?>
-                                  	</select>
+                                    <select class="form-control" name="id_cabang" id="id_cabang">
+                                        <?php foreach ($list_cabang as $key) { ?>
+                                        <option value="<?php echo $key->id_cabang; ?>"><?php echo $key->nama_cabang; ?></option>
+                                        <?php } ?>
+                                    </select>
                                   </div>
                                 </div>
                             </div>
-                            <div class="form-group" style="padding:  15px;">
+                            <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
-                                    <label for="employeeid" class="col-lg-2 control-label">Nama Cabang:</label>
+                                    <label for="" class="col-lg-2 control-label">Nama Cabang:</label>
                                   <div class="col-lg-4">
                                     <input type="text" name="nama_cabang" id="nama_cabang" value="<?php  ?>" class="form-control">
                                   </div>
                                 </div>
                             </div>
-                            <div class="form-group" style="padding:  15px;">
+                            <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
-                                    <label for="employeeid" class="col-lg-2 control-label">Alamat:</label>
+                                    <label for="" class="col-lg-2 control-label">Alamat:</label>
                                   <div class="col-lg-4">
                                     <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  ?>" class="form-control">
                                   </div>
                                 </div>
                             </div>
 
-                            <div class="form-group" style="padding:  15px;">
+                            <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
-                                    <label for="employeeid" class="col-lg-2 control-label">Periode:</label>
+                                    <label for="" class="col-lg-2 control-label">Periode:</label>
                                   <div class="col-lg-2">
                                     <div class="input-group date">
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                    <input type="text" name="periode" id="periode" value="<?php //echo ($list_cat_bisnis_header==''?'':$list_cat_bisnis_header['periode'])?>" class="form-control">
+                                        <input type="text" name="periode" id="periode" value="" class="form-control">
                                     </div>
                                   </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div style="padding-bottom: 10px; overflow: auto;">
-                        <?php //echo anchor(site_url('cat_bisnis/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?>
-                        <?php //echo anchor(site_url('cat_bisnis/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
-                        <button type="button" class="btn btn-primary btn-sm btn-flat tmabah_data"><i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data</button>
-                        </div>
-                    <table class="table table-bordered table-hover" id="mytable">
-                        <thead>
-                            <tr>
-                                <th width="30px">No</th>
-                                <th>Temuan</th>
-                    		    <th>Klasifikasi Temuan</th>
-                    		    <th>Kriteria</th>
-                    		    <th>Dampak</th>
-                    		    <th>Sebab Penyimpangan</th>
-                    		    <th>Cont Environment</th>
-                    		    <th>Impact</th>
-                    		    <th>Risk Assesment</th>
-                    		    <th>Impact</th>
-                    		    <th>Control Activiti</th>
-                    		    <th>Impact</th>
-                    		    <th>Infomation Comunication</th>
-                    		    <th>Impact</th>
-                    		    <th>Monitoring</th>
-                    		    <th>Impact</th>
-                    		    <th>Total Impact</th>
-                                <th>Likelihood</th>
-                    		    <th>Repeated</th>
-                    		    <th>Tev</th>
-                    		    <th>Bobot Resiko</th>
-                    		    <th>Rekomendasi</th>
-                    		    <th>Tanggapan Audit</th>
-                    		    <th>Target Date</th>
-                    		    <th width="200px">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="tb_cat_bisnis">
-                            <?php $no=1; foreach ($list_cat_bisnis as $row) { ?>
-                            <tr>
-                                <td><?php echo $no; ?></td>
-                                <td>
-                                    <input type="hidden" value="<?php echo $row->id_cat_bisnis ?>" name="id_cat_bisnis"  class="form-control id_cat_bisnis" style="width: 200px;">
-                                    <input type="text" value="<?php echo $row->temuan ?>" name="temuan"  class="form-control temuan" style="width: 200px;">
-                                </td>
-                                <td>
-                                    <select name="klasifikasi_temuan" class="form-control klasifikasi_temuan select2" style="width: 300px;">
+                        <hr></hr>
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Temuan</label>
+                                  <div class="col-lg-9">
+                                     <input type="text" name="temuan" id="temuan" value="" class="form-control">
+                                  </div>
+                                </div>
+                           
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Klasifikasi Temuan</label>
+                                  <div class="col-lg-9">
+                                    <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan">
                                         <?php foreach ($list_klasifikasi_temuan as $key) { ?>
-                                        <option value="<?php echo $key->id_klasifikasi_temuan ?>"><?php echo $key->nama_klasifikasi_temuan ?></option>
+                                        <option value="<?php echo $key->id_klasifikasi_temuan; ?>"><?php echo $key->nama_klasifikasi_temuan; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="text" value="<?php echo $row->kriteria ?>" name="kriteria"  class="form-control kriteria" style="width: 200px;"></td>
-                                <td><input type="text" value="<?php echo $row->dampak ?>" name="dampak"  class="form-control dampak" style="width: 200px;"></td>
-                                <td>
-                                    <select name="sebab_penyimpangan" class="form-control sebab_penyimpangan select2" style="width: 300px;">
+
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Kriteria</label>
+                                  <div class="col-lg-9">
+                                     <input type="text" name="kriteria" id="kriteria" value="" class="form-control">
+                                  </div>
+                                </div>
+                           
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Dampak</label>
+                                  <div class="col-lg-9">
+                                     <input type="text" name="dampak" id="dampak" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Penyimpangan</label>
+                                  <div class="col-lg-9">
+                                    <select class="form-control select2" name="penyimpangan" id="penyimpangan">
                                         <?php foreach ($list_penyimpangan as $key) { ?>
-                                        <option value="<?php echo $key->id_penyimpangan ?>"><?php echo $key->nama_penyimpangan ?></option>
+                                        <option value="<?php echo $key->id_penyimpangan; ?>"><?php echo $key->nama_penyimpangan; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td>
-                                    <select name="environment" class="form-control environment select2" style="width: 300px;">
+                                  </div>
+                                </div>
+                           
+                                <div class="col-md-6 col-sm-6">
+                                  
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Environment</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="environment" id="environment">
                                         <?php foreach ($list_environment as $key) { ?>
-                                        <option value="<?php echo $key->id_environment ?>"><?php echo $key->nama_environment ?></option>
+                                        <option value="<?php echo $key->id_environment; ?>"><?php echo $key->nama_environment; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="number" value="<?php echo $row->environment_value ?>" name="environment_value" class="form-control environment_value" style="width: 100px;" min="0" max="5"></td>
-                                <td>
-                                    <select name="risk_assesment" class="form-control risk_assesment select2" style="width: 300px;">
+                                  </div>
+                                
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="environment_value" id="environment_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Risk Assesment</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="risk_assesment" id="risk_assesment">
                                         <?php foreach ($list_risk_assesment as $key) { ?>
-                                        <option value="<?php echo $key->id_risk_assesment ?>"><?php echo $key->nama_risk_assesment ?></option>
+                                        <option value="<?php echo $key->id_risk_assesment; ?>"><?php echo $key->nama_risk_assesment; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="number" value="<?php echo $row->risk_assesment_value ?>" name="risk_assesment_value" class="form-control risk_assesment_value" style="width: 100px;" min="0" max="5"></td>
-                                <td>
-                                    <select name="control_activitis" class="form-control control_activitis select2" style="width: 300px;">
+                                  </div>
+                               
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="risk_assesment_value" id="risk_assesment_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Control Activity</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="control_activity" id="control_activity">
                                         <?php foreach ($list_control_activities as $key) { ?>
-                                        <option value="<?php echo $key->id_control_activities ?>"><?php echo $key->nama_control_activities ?></option>
+                                        <option value="<?php echo $key->id_control_activities; ?>"><?php echo $key->nama_control_activities; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="number" value="<?php echo $row->control_activities_value ?>" name="control_activities_value" class="form-control control_activities_value" style="width: 100px;" min="0" max="5"></td>
-                                <td>
-                                    <select name="infomation_comunication" class="form-control infomation_comunication select2" style="width: 300px;">
+                                  </div>
+                                
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="control_activity_value" id="control_activity_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Inf. Comunication</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="information_comunication" id="information_comunication">
                                         <?php foreach ($list_information_comunication as $key) { ?>
-                                        <option value="<?php echo $key->id_information_comunication ?>"><?php echo $key->nama_information_comunication ?></option>
+                                        <option value="<?php echo $key->id_information_comunication; ?>"><?php echo $key->nama_information_comunication; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="number" value="<?php echo $row->information_comunication_value ?>" name="information_comunication_value" class="form-control information_comunication_value" style="width: 100px;" min="0" max="5"></td>
-                                <td>
-                                     <select name="monitoring" class="form-control monitoring select2" style="width: 300px;">
+                                  </div>
+                               
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="information_comunication_value" id="information_comunication_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Monitoring</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="monitoring" id="monitoring">
                                         <?php foreach ($list_monitoring as $key) { ?>
-                                        <option value="<?php echo $key->id_monitoring ?>"><?php echo $key->nama_monitoring ?></option>
+                                        <option value="<?php echo $key->id_monitoring; ?>"><?php echo $key->nama_monitoring; ?></option>
                                         <?php } ?>
                                     </select>
-                                </td>
-                                <td><input type="number" value="<?php echo $row->monitoring_value ?>" name="monitoring_value" class="form-control monitoring_value" style="width: 100px;" min="0" max="5"></td>
-                                <td><input type="text" value="<?php echo $row->total_impact ?>" name="total_impact" class="form-control total_impact" style="width: 50px;"></td>
-                                <td>
-                                    <select name="probaly" class="form-control probaly" style="width: 100px;">
-                                        <option value="">Pilih</option>
-                                        <option value="0.2" <?php echo($row->probaly=='0.2'?'selected':'') ?>>0.2</option>
-                                        <option value="0.4" <?php echo($row->probaly=='0.4'?'selected':'') ?>>0.4</option>
-                                        <option value="0.6" <?php echo($row->probaly=='0.6'?'selected':'') ?>>0.6</option>
-                                        <option value="0.8" <?php echo($row->probaly=='0.8'?'selected':'') ?>>0.8</option>
-                                        <option value="1" <?php echo($row->probaly=='1'?'selected':'') ?>>1</option>
+                                  </div>
+                                
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="monitoring_value" id="monitoring_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Goal Target</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control select2" name="goal_strategic" id="goal_strategic">
+                                        <?php foreach ($list_goal_strategic as $key) { ?>
+                                        <option value="<?php echo $key->id_goal_strategic; ?>"><?php echo $key->nama_goal_strategic; ?></option>
+                                        <?php } ?>
                                     </select>
-                                    <!-- <input type="text" value="<?php //echo $row->probaly ?>" name="probaly" class="form-control probaly" style="width: 50px;"> -->
-                                </td>
-                                <td>
-                                    <select name="repeated" class="form-control repeated" style="width: 100px;">
-                                        <option value="">Pilih</option>
-                                        <option value="yes" <?php echo($row->repeated=='yes'?'selected':'') ?> >yes</option>
-                                        <option value="no" <?php echo($row->repeated=='no'?'selected':'') ?> >no</option>
-                                    </select>
-                                </td>
-                                <td><input type="text" value="<?php echo $row->tev ?>" name="tev" class="form-control tev" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->bobot_resiko ?>" name="bobot_resiko" class="form-control bobot_resiko" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->rekomendasi ?>" name="rekomendasi" class="form-control rekomendasi" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->tanggapan_audit ?>" name="tanggapan_audit" class="form-control tanggapan_audit" style="width: 50px;"></td>
-                                <td><input type="text" value="<?php echo $row->target_date ?>" name="target_date" class="form-control target_date" style="width: 50px;"></td>
-                                <td>
-                                    <div style="width:150px;">
-                                    <button type="button" class="btn btn-primary btn-sm btn-flat btn_update"><i class="fa fa-save"></i> Simpan</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-flat btn_delete" data-id="<?php echo $row->id_cat_bisnis ?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-times"></i> Hapus</button>
+                                  </div>
+                               
+                                    <label for="" class="col-lg-2 control-label">impact</label>
+                                  <div class="col-lg-2">
+                                     <input type="text" name="goal_strategic_value" id="goal_strategic_value" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Total Impact</label>
+                                  <div class="col-lg-3">
+                                     <input type="text" name="toal_impact" id="toal_impact" value="" class="form-control">
+                                  </div>
+                                
+                                    <label for="" class="col-lg-3 control-label">Likelihood</label>
+                                  <div class="col-lg-3">
+                                     <input type="text" name="likelihood" id="likelihood" value="" class="form-control">
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Repeated</label>
+                                  <div class="col-lg-3">
+                                     <input type="text" name="repeated" id="repeated" value="" class="form-control">
+                                  </div>
+                               
+                                    <label for="" class="col-lg-3 control-label">TEV</label>
+                                  <div class="col-lg-3">
+                                     <input type="text" name="tev" id="tev" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Bobot Resiko</label>
+                                  <div class="col-lg-3">
+                                     <input type="text" name="bobot_resiko" id="bobot_resiko" value="" class="form-control">
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Rekomendasi</label>
+                                  <div class="col-lg-8">
+                                     <textarea name="rekomendasi" id="rekomendasi" class="form-control" style="width: 408px;"></textarea>
+                                  </div>
+                               
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Tanggapan Audit</label>
+                                  <div class="col-lg-3">
+                                    <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" style="width: 408px;"></textarea>
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Target Date</label>
+                                  <div class="col-lg-4">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                        <input type="text" name="target_date" id="target_date" value="" class="form-control">
                                     </div>
-                                </td>
-                            </tr>
-                            <?php $no++; } ?>
-                        </tbody>
-            	    
-                    </table>
+                                  </div>
+                                </div>
+
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">TL</label>
+                                  <div class="col-lg-6">
+                                   <select name="tl" id="tl" class="form-control select2">
+                                       <option value="Robin Selamat">Robin Selamat</option>
+                                   </select>
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Member</label>
+                                  <div class="col-lg-6">
+                                   <select name="member[]" id="member" class="form-control select2" multiple="multiple">
+                                       <option value="A">A</option>
+                                       <option value="B">B</option>
+                                       <option value="C">C</option>
+                                   </select>
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Tanggal Periksa</label>
+                                  <div class="col-lg-4">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                        <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+                          
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">Supervisor</label>
+                                  <div class="col-lg-6">
+                                   <select name="supervisor" id="supervisor" class="form-control select2">
+                                       <option>A</option>
+                                       <option>B</option>
+                                       <option>C</option>
+                                   </select>
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">BOP</label>
+                                  <div class="col-lg-9">
+                                        <input type="text" name="bop" id="bop" value="" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
                     </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-close"></i> Cancel</button>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                            
+                    </form>
                 </div>
             </div>
         </div>
@@ -245,84 +422,7 @@
         <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 
         <script type="text/javascript">
-            $(document).on('click','.btn_update',function(){
-                var id_cat_bisnis=$(this).closest('tr').find('.id_cat_bisnis').val();
-                var id_cat_bisnis=$(this).closest('tr').find('.id_cat_bisnis').val();
-                var temuan=$(this).closest('tr').find('.temuan').val();
-                var klasifikasi_temuan=$(this).closest('tr').find('.klasifikasi_temuan').val();
-                var kriteria=$(this).closest('tr').find('.kriteria').val();
-                var dampak=$(this).closest('tr').find('.dampak').val();
-                var sebab_penyimpangan=$(this).closest('tr').find('.sebab_penyimpangan').val();
-                var environment=$(this).closest('tr').find('.environment').val();
-                var environment_value=$(this).closest('tr').find('.environment_value').val();
-                var risk_assesment=$(this).closest('tr').find('.risk_assesment').val();
-                var risk_assesment_value=$(this).closest('tr').find('.risk_assesment_value').val();
-                var control_activitis=$(this).closest('tr').find('.control_activitis').val();
-                var control_activities_value=$(this).closest('tr').find('.control_activities_value').val();
-                var infomation_comunication=$(this).closest('tr').find('.infomation_comunication').val();
-                var information_comunication_value=$(this).closest('tr').find('.information_comunication_value').val();
-                var monitoring=$(this).closest('tr').find('.monitoring').val();
-                var monitoring_value=$(this).closest('tr').find('.monitoring_value').val();
-                var goal_stategic=$(this).closest('tr').find('.goal_stategic').val();
-                var goal_strategic_value=$(this).closest('tr').find('.goal_strategic_value').val();
-                var total_impact=$(this).closest('tr').find('.total_impact').val();
-                var probaly=$(this).closest('tr').find('.probaly').val();
-                var repeated=$(this).closest('tr').find('.repeated').val();
-                var tev=$(this).closest('tr').find('.tev').val();
-                var bobot_resiko=$(this).closest('tr').find('.bobot_resiko').val();
-                var rekomendasi=$(this).closest('tr').find('.rekomendasi').val();
-                var tanggapan_audit=$(this).closest('tr').find('.tanggapan_audit').val();
-                var target_date=$(this).closest('tr').find('.target_date').val();
-                $.ajax({
-                      type: "POST",
-                      url: "<?php echo base_url(); ?>cat_bisnis/update_action",
-                      data: {   'id_cat_bisnis':id_cat_bisnis,
-                                'temuan':temuan,
-                                'klasifikasi_temuan':klasifikasi_temuan,
-                                'kriteria':kriteria,
-                                'dampak':dampak,
-                                'sebab_penyimpangan':sebab_penyimpangan,
-                                'environment':environment,
-                                'environment_value':environment_value,
-                                'risk_assesment':risk_assesment,
-                                'risk_assesment_value':risk_assesment_value,
-                                'control_activitis':control_activitis,
-                                'control_activities_value':control_activities_value,
-                                'infomation_comunication':infomation_comunication,
-                                'information_comunication_value':information_comunication_value,
-                                'monitoring':monitoring,
-                                'monitoring_value':monitoring_value,
-                                'goal_stategic':goal_stategic,
-                                'goal_strategic_value':goal_strategic_value,
-                                'total_impact':total_impact,
-                                'probaly':probaly,
-                                'repeated':repeated,
-                                'tev':tev,
-                                'bobot_resiko':bobot_resiko,
-                                'rekomendasi':rekomendasi,
-                                'tanggapan_audit':tanggapan_audit,
-                                'target_date':target_date
-                            },
-                      // dataType:'json'
-                      beforeSend: function(){
-                          // $('.loading_data').css('display','block');
-                      },
-                      error: function(data, errorThrown){
-                              alert('request failed :'+errorThrown);
-                            },
-                      success: function(response){
-                        console.log(response);
-                          // Notify('Data has been updated', null, null, '');
-                          // $(this).attr('data','cccc');
-                      },
-                      complete: function(response){
-                          // $('.loading_data').css('display','none');
-                           location.reload();
-                      }
-                });
-
-
-            });
+            
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_bisnis=$(this).attr('data-id');
@@ -334,6 +434,8 @@
 
             $(document).ready(function() {
                 $('#periode').datepicker();
+                $('#tanggal_periksa').datepicker();
+                $('#target_date').datepicker();
                 $('.tmabah_data').click(function(){
                     var id_cabang=$('#id_cabang').val();
                     var nama_cabang=$('#nama_cabang').val();
