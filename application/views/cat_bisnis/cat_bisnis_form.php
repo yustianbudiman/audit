@@ -28,17 +28,17 @@
                         <!-- /. tools -->
                     </div>
                     <!-- /.box-header -->
-                    <form class="form-horizontal" action="<?php echo base_url('cat_bisnis/create_action');?>" method="POST">
+                    <form class="form-horizontal" action="<?php echo $action;?>" method="POST">
                     <div class="box-body pad">
                         <div style="padding-bottom: 10px;">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
-                                    <label for="" class="col-lg-2 control-label">Id Cabang:</label>
+                                    <label for="" class="col-lg-2 control-label">Id Cabang: </label>
                                   <div class="col-lg-4">
                                     <select class="form-control" name="id_cabang" id="id_cabang">
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_cabang as $key) { ?>
-                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>'><?php echo $key->nama_cabang; ?></option>
+                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->nama_cabang; ?></option>
                                         <?php } ?>
                                     </select>
                                      <?php echo form_error('id_cabang') ?>
@@ -49,7 +49,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Nama Cabang:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo set_value('nama_cabang')  ?>" class="form-control">
+                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo $nama_cabang  ?>" class="form-control">
                                     <?php echo form_error('nama_cabang') ?>
                                   </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Alamat:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo set_value('alamat_cabang') ?>" class="form-control">
+                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo $alamat_cabang ?>" class="form-control">
                                   </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="periode" id="periode" value="<?php echo set_value('periode')  ?>" class="form-control">
+                                        <input type="text" name="periode" id="periode" value="<?php echo $periode  ?>" class="form-control">
                                         <?php echo form_error('periode') ?>
                                     </div>
                                   </div>
@@ -85,7 +85,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Temuan</label>
                                   <div class="col-lg-9">
-                                     <input type="text" name="temuan" id="temuan" value="<?php echo set_value('temuan')  ?>" class="form-control">
+                                     <input type="text" name="temuan" id="temuan" value="<?php echo $temuan  ?>" class="form-control">
+                                     <input type="hidden" name="id_cat_bisnis" id="id_cat_bisnis" value="<?php echo $id_cat_bisnis  ?>" class="form-control">
                                      <?php echo form_error('temuan') ?>
                                   </div>
                                 </div>
@@ -95,7 +96,7 @@
                                   <div class="col-lg-9">
                                     <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan">
                                         <?php foreach ($list_klasifikasi_temuan as $key) { ?>
-                                        <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo (set_value('klasifikasi_temuan')==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
+                                        <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo ($klasifikasi_temuan ==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
@@ -108,7 +109,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Kriteria</label>
                                   <div class="col-lg-9">
-                                     <input type="text" name="kriteria" id="kriteria" value="<?php echo set_value('kriteria')  ?>" class="form-control">
+                                     <input type="text" name="kriteria" id="kriteria" value="<?php echo $kriteria  ?>" class="form-control">
                                      <?php echo form_error('kriteria') ?>
                                   </div>
                                 </div>
@@ -116,7 +117,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Dampak</label>
                                   <div class="col-lg-9">
-                                     <input type="text" name="dampak" id="dampak" value="<?php echo set_value('dampak')  ?>" class="form-control">
+                                     <input type="text" name="dampak" id="dampak" value="<?php echo $dampak  ?>" class="form-control">
                                      <?php echo form_error('dampak') ?>
                                   </div>
                                 </div>
@@ -130,7 +131,7 @@
                                   <div class="col-lg-9">
                                     <select class="form-control select2" name="penyimpangan" id="penyimpangan">
                                         <?php foreach ($list_penyimpangan as $key) { ?>
-                                        <option value="<?php echo $key->id_penyimpangan; ?>" <?php echo (set_value('penyimpangan')==$key->id_penyimpangan?'selected':'')  ?>><?php echo $key->nama_penyimpangan; ?></option>
+                                        <option value="<?php echo $key->id_penyimpangan; ?>" <?php echo ($penyimpangan==$key->id_penyimpangan?'selected':'')  ?> ><?php echo $key->nama_penyimpangan; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
@@ -149,14 +150,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="environment" id="environment">
                                         <?php foreach ($list_environment as $key) { ?>
-                                        <option value="<?php echo $key->id_environment; ?>" <?php echo (set_value('environment')==$key->id_environment?'selected':'')  ?> ><?php echo $key->nama_environment; ?></option>
+                                        <option value="<?php echo $key->id_environment; ?>" <?php echo ($environment==$key->id_environment?'selected':'')  ?> ><?php echo $key->nama_environment; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="environment_value" id="environment_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('environment_value')!=''?'style="border-color:red;"':'') ?> >
+                                     <input type="number" name="environment_value" id="environment_value" value="<?php echo $environment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('environment_value')!=''?'style="border-color:red;"':'') ?> >
                                   </div>
                                 </div>
                           
@@ -165,14 +166,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="risk_assesment" id="risk_assesment">
                                         <?php foreach ($list_risk_assesment as $key) { ?>
-                                        <option value="<?php echo $key->id_risk_assesment; ?>" <?php echo (set_value('risk_assesment')==$key->id_risk_assesment?'selected':'')  ?> ><?php echo $key->nama_risk_assesment; ?></option>
+                                        <option value="<?php echo $key->id_risk_assesment; ?>" <?php echo ($risk_assesment==$key->id_risk_assesment?'selected':'')  ?> ><?php echo $key->nama_risk_assesment; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="risk_assesment_value" id="risk_assesment_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('risk_assesment_value')!=''?'style="border-color:red;"':'') ?> >
+                                     <input type="number" name="risk_assesment_value" id="risk_assesment_value" value="<?php echo $risk_assesment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('risk_assesment_value')!=''?'style="border-color:red;"':'') ?> >
                                   </div>
                                 </div>
                             </div>
@@ -185,14 +186,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="control_activity" id="control_activity">
                                         <?php foreach ($list_control_activities as $key) { ?>
-                                        <option value="<?php echo $key->id_control_activities; ?>" <?php echo (set_value('control_activity')==$key->id_control_activities?'selected':'')  ?> ><?php echo $key->nama_control_activities; ?></option>
+                                        <option value="<?php echo $key->id_control_activities; ?>" <?php echo ($control_activity==$key->id_control_activities?'selected':'')  ?> ><?php echo $key->nama_control_activities; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="control_activity_value" id="control_activity_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('control_activity_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="control_activity_value" id="control_activity_value" value="<?php echo $control_activity_value; ?>" class="form-control" min='0' max="5" <?php echo (form_error('control_activity_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                           
@@ -201,14 +202,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="information_comunication" id="information_comunication">
                                         <?php foreach ($list_information_comunication as $key) { ?>
-                                        <option value="<?php echo $key->id_information_comunication; ?>" <?php echo (set_value('information_comunication')==$key->id_information_comunication?'selected':'')  ?> ><?php echo $key->nama_information_comunication; ?></option>
+                                        <option value="<?php echo $key->id_information_comunication; ?>" <?php echo ($information_comunication==$key->id_information_comunication?'selected':'')  ?> ><?php echo $key->nama_information_comunication; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="information_comunication_value" id="information_comunication_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('information_comunication_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="information_comunication_value" id="information_comunication_value" value="<?php echo $information_comunication_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('information_comunication_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -221,14 +222,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="monitoring" id="monitoring">
                                         <?php foreach ($list_monitoring as $key) { ?>
-                                        <option value="<?php echo $key->id_monitoring; ?>" <?php echo (set_value('monitoring')==$key->id_monitoring?'selected':'')  ?> ><?php echo $key->nama_monitoring; ?></option>
+                                        <option value="<?php echo $key->id_monitoring; ?>" <?php echo ($monitoring==$key->id_monitoring?'selected':'')  ?> ><?php echo $key->nama_monitoring; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="monitoring_value" id="monitoring_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('monitoring_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="monitoring_value" id="monitoring_value" value="<?php echo $monitoring_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('monitoring_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                           
@@ -237,14 +238,14 @@
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="goal_strategic" id="goal_strategic">
                                         <?php foreach ($list_goal_strategic as $key) { ?>
-                                        <option value="<?php echo $key->id_goal_strategic; ?>" <?php echo (set_value('goal_strategic')==$key->id_goal_strategic?'selected':'')  ?> ><?php echo $key->nama_goal_strategic; ?></option>
+                                        <option value="<?php echo $key->id_goal_strategic; ?>" <?php echo ($goal_strategic==$key->id_goal_strategic?'selected':'')  ?> ><?php echo $key->nama_goal_strategic; ?></option>
                                         <?php } ?>
                                     </select>
                                   </div>
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="goal_strategic_value" id="goal_strategic_value" value="0" class="form-control" min='0' max="5" <?php echo (form_error('goal_strategic_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="goal_strategic_value" id="goal_strategic_value" value="<?php echo $goal_strategic_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('goal_strategic_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -256,18 +257,18 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Total Impact</label>
                                   <div class="col-lg-3">
-                                     <input type="text" name="total_impact" id="total_impact" value="0" class="form-control" readonly="readonly" <?php echo (form_error('total_impact')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="text" name="total_impact" id="total_impact" value="<?php echo $total_impact ?>" class="form-control" readonly="readonly" <?php echo (form_error('total_impact')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 
                                     <label for="" class="col-lg-3 control-label">Likelihood</label>
                                   <div class="col-lg-3">
                                      <select name="likelihood" id="likelihood" class="form-control" <?php echo (form_error('likelihood')!=''?'style="border-color:red;"':'') ?>>
                                         <option value="">Pilih</option>
-                                        <option value="0.2" <?php echo (set_value('likelihood')=='0.2'?'selected':'')  ?>>0.2</option>
-                                        <option value="0.4" <?php echo (set_value('likelihood')=='0.4'?'selected':'')  ?>>0.4</option>
-                                        <option value="0.6" <?php echo (set_value('likelihood')=='0.6'?'selected':'')  ?>>0.6</option>
-                                        <option value="0.8" <?php echo (set_value('likelihood')=='0.8'?'selected':'')  ?>>0.8</option>
-                                        <option value="1" <?php echo (set_value('likelihood')=='1'?'selected':'')  ?>>1</option>
+                                        <option value="0.2" <?php echo ($likelihood=='0.2'?'selected':'')  ?>>0.2</option>
+                                        <option value="0.4" <?php echo ($likelihood=='0.4'?'selected':'')  ?>>0.4</option>
+                                        <option value="0.6" <?php echo ($likelihood=='0.6'?'selected':'')  ?>>0.6</option>
+                                        <option value="0.8" <?php echo ($likelihood=='0.8'?'selected':'')  ?>>0.8</option>
+                                        <option value="1" <?php echo ($likelihood=='1'?'selected':'')  ?>>1</option>
                                     </select>
                                   </div>
                                 </div>
@@ -283,7 +284,7 @@
                                
                                     <label for="" class="col-lg-3 control-label">TEV</label>
                                   <div class="col-lg-3">
-                                     <input type="text" name="tev" id="tev" value="<?php echo set_value('tev')  ?>" readonly="readonly" class="form-control" <?php echo (form_error('tev')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="text" name="tev" id="tev" value="<?php echo $tev  ?>" readonly="readonly" class="form-control" <?php echo (form_error('tev')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -294,14 +295,14 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Bobot Resiko</label>
                                   <div class="col-lg-3">
-                                     <input type="text" name="bobot_resiko" id="bobot_resiko" value="<?php echo set_value('bobot_resiko')  ?>" readonly="readonly" class="form-control" <?php echo (form_error('bobot_resiko')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="text" name="bobot_resiko" id="bobot_resiko" value="<?php echo $bobot_resiko  ?>" readonly="readonly" class="form-control" <?php echo (form_error('bobot_resiko')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                           
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Rekomendasi</label>
                                   <div class="col-lg-8">
-                                     <textarea name="rekomendasi" id="rekomendasi" class="form-control" style="width: 408px;"><?php echo set_value('rekomendasi')  ?></textarea>
+                                     <textarea name="rekomendasi" id="rekomendasi" class="form-control" style="width: 408px;"><?php echo $rekomendasi  ?></textarea>
                                   </div>
                                
                                 </div>
@@ -313,7 +314,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Tanggapan Audit</label>
                                   <div class="col-lg-3">
-                                    <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" style="width: 408px;"><?php echo set_value('tanggapan_audit')  ?></textarea>
+                                    <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" style="width: 408px;"><?php echo $tanggapan_audit  ?></textarea>
                                   </div>
                                 </div>
                           
@@ -324,7 +325,7 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="target_date" id="target_date" value="<?php echo set_value('target_date')  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?>>
+                                        <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?>>
                                     </div>
                                   </div>
                                 </div>
@@ -365,7 +366,7 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="" class="form-control">
+                                        <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="<?php echo $tanggal_periksa  ?>" class="form-control" <?php echo (form_error('tanggal_periksa')!=''?'style="border-color:red;"':'') ?>>
                                     </div>
                                   </div>
                                 </div>
@@ -388,7 +389,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">BOP</label>
                                   <div class="col-lg-9">
-                                        <input type="text" name="bop" id="bop" value="<?php echo set_value('bop')  ?>" class="form-control">
+                                        <input type="text" name="bop" id="bop" value="<?php echo $bop  ?>" class="form-control" <?php echo (form_error('bop')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -575,6 +576,10 @@ $(document).ready(function() {
   $('#periode').datepicker();
   $('#tanggal_periksa').datepicker();
   $('#target_date').datepicker();
+  var arr="<?php echo $member;?>";
+  var pecah=arr.split(',');
+  $('#member').val(pecah);
+  // $('#mySelect2').val(['1', '2']);
             //     $('.tmabah_data').click(function(){
             //         var id_cabang=$('#id_cabang').val();
             //         var nama_cabang=$('#nama_cabang').val();

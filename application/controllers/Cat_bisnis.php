@@ -124,8 +124,9 @@ class Cat_bisnis extends CI_Controller
 
     public function create() 
     {
-        $header=$this->Cat_bisnis_model->list_cat_bisnis_header();
+        $header=$this->Cat_bisnis_model->list_cat_bisnis_header_all();
  		$data=[
+            'action' => base_url('cat_bisnis/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
     		'list_cat_bisnis_header'=>$header,
     		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
@@ -137,6 +138,44 @@ class Cat_bisnis extends CI_Controller
     		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
     		'list_monitoring'=>$this->Monitoring_model->get_all(),
     		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+            'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
+            'penyimpangan' => set_value('penyimpangan'),
+            'environment' => set_value('environment'),
+            'risk_assesment' => set_value('risk_assesment'),
+            'control_activity' => set_value('control_activity'),
+            'information_comunication' => set_value('information_comunication'),
+            'monitoring' => set_value('monitoring'),
+            'goal_strategic' => set_value('goal_strategic'),
+            'id_cat_bisnis' => set_value('id_cat_bisnis'),
+            'nama_cabang' => set_value('nama_cabang'),
+            'alamat_cabang' => set_value('alamat_cabang'),
+            'periode' => set_value('periode'),
+            'temuan' => set_value('temuan'),
+            'kriteria' => set_value('kriteria'),
+            'dampak' => set_value('dampak'),
+            'id_penyimpangan' => set_value('penyimpangan'),
+            'id_environment' => set_value('environment'),
+            'environment_value' => set_value('environment_value'),
+            'id_risk_assesment' => set_value('risk_assesment'),
+            'risk_assesment_value' => set_value('risk_assesment_value'),
+            'id_control_activities' => set_value('control_activities'),
+            'control_activity_value' => set_value('control_activities_value'),
+            'id_information_comunication' => set_value('information_comunication'),
+            'information_comunication_value' => set_value('information_comunication_value'),
+            'id_monitoring' => set_value('monitoring'),
+            'monitoring_value' => set_value('monitoring_value'),
+            'id_goal_strategic' => set_value('goal_strategic'),
+            'goal_strategic_value' => set_value('goal_strategic_value'),
+            'total_impact' => set_value('total_impact'),
+            'likelihood' => set_value('likelihood'),
+            'tev' => set_value('tev'),
+            'bobot_resiko' => set_value('bobot_resiko'),
+            'rekomendasi' => set_value('rekomendasi'),
+            'tanggapan_audit' => set_value('tanggapan_audit'),
+            'target_date' => set_value('target_date'),
+            'tanggal_periksa' => set_value('tanggal_periksa'),
+            'member' => set_value('member'),
+            'bop' => set_value('bop'),
     	];
         $this->template->load('template','cat_bisnis/cat_bisnis_form', $data);
     }
@@ -208,29 +247,46 @@ class Cat_bisnis extends CI_Controller
     public function update($id) 
     {
         $row = $this->Cat_bisnis_model->get_by_id($id);
-
+        $header=$this->Cat_bisnis_model->list_cat_bisnis_header($row->id_cat_bisnis_header);
+        // print_r($row->id_penyimpangan);
+        // print_r($header);
+        // exit();
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('cat_bisnis/update_action'),
+                'action' => base_url('cat_bisnis/update_action'),
+                'list_cabang'=>$this->Cabang_model->get_all(),
+                'list_cat_bisnis_header'=>$header,
+                'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
+                'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+                'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+                'list_environment'=>$this->Cont_environment_model->get_all(),
+                'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+                'list_control_activities'=>$this->Control_activities_model->get_all(),
+                'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+                'list_monitoring'=>$this->Monitoring_model->get_all(),
+                'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
 				'id_cat_bisnis' => set_value('id_cat_bisnis', $row->id_cat_bisnis),
-				'id_cabang' => set_value('id_cabang', $row->id_cabang),
-				'nama_cabang' => set_value('nama_cabang', $row->nama_cabang),
-				'temuan' => set_value('temuan', $row->temuan),
+				'id_cabang' => set_value('id_cabang', $header['id_cabang']),
+                'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
+                'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
+                'periode' => set_value('periode',$header['periode']),
+                'temuan' => set_value('temuan', $row->temuan),
+				'klasifikasi_temuan' => set_value('klasifikasi_temuan', $row->klasifikasi_temuan),
 				'kriteria' => set_value('kriteria', $row->kriteria),
 				'dampak' => set_value('dampak', $row->dampak),
-				'id_penyimpangan' => set_value('id_penyimpangan', $row->id_penyimpangan),
-				'id_environment' => set_value('id_environment', $row->id_environment),
+				'penyimpangan' => set_value('penyimpangan', $row->id_penyimpangan),
+				'environment' => set_value('environment', $row->id_environment),
 				'environment_value' => set_value('environment_value', $row->environment_value),
-				'id_risk_assesment' => set_value('id_risk_assesment', $row->id_risk_assesment),
+				'risk_assesment' => set_value('risk_assesment', $row->id_risk_assesment),
 				'risk_assesment_value' => set_value('risk_assesment_value', $row->risk_assesment_value),
-				'id_control_activities' => set_value('id_control_activities', $row->id_control_activities),
-				'control_activities_value' => set_value('control_activities_value', $row->control_activities_value),
-				'id_information_comunication' => set_value('id_information_comunication', $row->id_information_comunication),
+				'control_activity' => set_value('control_activity', $row->id_control_activities),
+				'control_activity_value' => set_value('control_activity_value', $row->control_activities_value),
+				'information_comunication' => set_value('information_comunication', $row->id_information_comunication),
 				'information_comunication_value' => set_value('information_comunication_value', $row->information_comunication_value),
-				'id_monitoring' => set_value('id_monitoring', $row->id_monitoring),
+				'monitoring' => set_value('monitoring', $row->id_monitoring),
 				'monitoring_value' => set_value('monitoring_value', $row->monitoring_value),
-				'id_goal_strategic' => set_value('id_goal_strategic', $row->id_goal_strategic),
+				'goal_strategic' => set_value('goal_strategic', $row->id_goal_strategic),
 				'goal_strategic_value' => set_value('goal_strategic_value', $row->goal_strategic_value),
 				'total_impact' => set_value('total_impact', $row->total_impact),
 				'likelihood' => set_value('likelihood', $row->likelihood),
@@ -239,13 +295,16 @@ class Cat_bisnis extends CI_Controller
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
 				'tanggapan_audit' => set_value('tanggapan_audit', $row->tanggapan_audit),
 				'target_date' => set_value('target_date', $row->target_date),
-				'aktif' => set_value('aktif', $row->aktif),
-				'created_date' => set_value('created_date', $row->created_date),
-				'created_ip' => set_value('created_ip', $row->created_ip),
-				'created_by' => set_value('created_by', $row->created_by),
-				'updated_date' => set_value('updated_date', $row->updated_date),
-				'updated_ip' => set_value('updated_ip', $row->updated_ip),
-				'updated_by' => set_value('updated_by', $row->updated_by),
+                'member' => set_value('member',$row->member),
+                'tanggal_periksa' => set_value('tanggal_periksa',$row->tanggal_periksa),
+                'bop' => set_value('bop',$row->bop),
+				// 'aktif' => set_value('aktif', $row->aktif),
+				// 'created_date' => set_value('created_date', $row->created_date),
+				// 'created_ip' => set_value('created_ip', $row->created_ip),
+				// 'created_by' => set_value('created_by', $row->created_by),
+				// 'updated_date' => set_value('updated_date', $row->updated_date),
+				// 'updated_ip' => set_value('updated_ip', $row->updated_ip),
+				// 'updated_by' => set_value('updated_by', $row->updated_by),
 		    );
             $this->template->load('template','cat_bisnis/cat_bisnis_form', $data);
         } else {
@@ -343,7 +402,10 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko', 'trim|required');
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi', '');
 		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit', '');
-		$this->form_validation->set_rules('target_date', 'target date', 'trim|required');
+        $this->form_validation->set_rules('target_date', 'target date', 'trim|required');
+        $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
+		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
+
 		$this->form_validation->set_rules('aktif', 'aktif', '');
 		$this->form_validation->set_rules('created_date', 'created date', '');
 		$this->form_validation->set_rules('created_ip', 'created ip', '');

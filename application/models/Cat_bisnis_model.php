@@ -17,13 +17,13 @@ class Cat_bisnis_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_cat_bisnis_header,periode,id_cabang,nama_cabang');
+        $this->datatables->select('cat_bisnis_header.id_cat_bisnis_header,periode,id_cabang,nama_cabang,id_cat_bisnis');
         $this->datatables->from('cat_bisnis_header');
         //add this line for join
-        //$this->datatables->join('table2', 'cat_bisnis.field = table2.field');
+        $this->datatables->join('cat_bisnis', 'cat_bisnis_header.id_cat_bisnis_header = cat_bisnis.id_cat_bisnis_header');
         $this->datatables->add_column('action', anchor(site_url('cat_bisnis/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_bisnis/tambah_data_history/$3/$2'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,periode,id_cabang,nama_cabang');
+            ".anchor(site_url('cat_bisnis/update/$2'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+                ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cat_bisnis,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -169,11 +169,28 @@ class Cat_bisnis_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
     // get data cat bisnis header
-    function list_cat_bisnis_header($id=null,$periode=null)
+    function list_cat_bisnis_header($id=null)
     {
-    	$arr=['id_cabang'=>$id,'periode'=>$periode];
+    	$arr=['id_cat_bisnis_header'=>$id];
+        // return $this->db->get('cat_bisnis_header')->row_array();
+        $this->db->select('id_cat_bisnis_header,periode,cat_bisnis_header.id_cabang,cat_bisnis_header.nama_cabang,alamat');
+        $this->db->from('cat_bisnis_header');
+        //add this line for join
+        $this->db->join('cabang', 'cat_bisnis_header.id_cabang = cabang.id_cabang');
         $this->db->where($arr);
-        return $this->db->get('cat_bisnis_header')->row_array();
+        $query=$this->db->get();
+        return $query->row_array();
+    }
+
+    function list_cat_bisnis_header_all()
+    {
+        // return $this->db->get('cat_bisnis_header')->row_array();
+        $this->db->select('id_cat_bisnis_header,periode,cat_bisnis_header.id_cabang,cat_bisnis_header.nama_cabang,alamat');
+        $this->db->from('cat_bisnis_header');
+        //add this line for join
+        $this->db->join('cabang', 'cat_bisnis_header.id_cabang = cabang.id_cabang');
+        $query=$this->db->get();
+        return $query->row_array();
     }
     function insert_header($data){
     	$this->db->insert('cat_bisnis_header', $data);
