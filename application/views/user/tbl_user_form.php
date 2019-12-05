@@ -22,6 +22,9 @@
                         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
                             <table class='table table-bordered table-hover'>        
+                                <tr><td width='200'>NIK </td>
+                                    <td><input type="text" class="form-control" name="nik" id="nik" placeholder="NIK" value="<?php echo $nik; ?>" maxlength="16" /><?php echo form_error('nik') ?></td>
+                                </tr>
                                 <tr><td width='200'>Nama Lengkap </td>
                                     <td><input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name" value="<?php echo $full_name; ?>" /><?php echo form_error('full_name') ?></td>
                                 </tr>
@@ -71,20 +74,16 @@
                                         </select>
                                         <?php echo form_error('id_user_level') ?>
                                     </td></tr>
-                                <tr id="kecamatan_id" style="display: none;"><td width='200'>Kecamatan </td>
+                                <tr id="cabang_id" ><td width='200'>Cabang </td>
                                     <td>
-                                        <?php echo cmb_dinamis('id_kecamatan', 'mt_kecamatan', 'kecamatan', 'id_kecamatan', $id_kecamatan,'ASC') ?>
-                                        <?php echo form_error('id_kecamatan') ?>
+                                        <?php echo cmb_dinamis('id_cabang', 'cabang', 'nama_cabang', 'id_cabang', $id_cabang,'ASC') ?>
+                                        <?php echo form_error('id_cabang') ?>
                                     </td>
                                 </tr>
-                                <tr id="sekolah_id" style="display: none;">
-                                    <td width='200'>Sekolah </td>
-                                    <td><div class="loader"></div>
-                                        <select name="id_sekolah" class="form-control" id="id_sekolah">
-                                            <option value="">- Select -</option>
-                                        </select>
-                                        <div id="info_sekolah"></div>
-                                        <?php echo form_error('id_sekolah') ?>
+                                <tr id="divisi_id"><td width='200'>Divisi </td>
+                                    <td>
+                                        <?php echo cmb_dinamis('id_divisi', 'divisi', 'divisi', 'id_divisi', $id_divisi,'ASC') ?>
+                                        <?php echo form_error('id_divisi') ?>
                                     </td>
                                 </tr>
                                 <tr><td width='200'>Status Aktif </td><td>
@@ -144,64 +143,7 @@
               alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
             }
         });
-        if($("#id_user_level").val() == 3){ //sekolah
-            $("#kecamatan_id").css("display","");
-            $("#sekolah_id").css("display","");
-            $('#id_sekolah').attr('required', true);
-            $(".loader").css("display","");
-            $("#id_sekolah").css("display","none");
-            $.ajax({
-                type: "POST", // Method pengiriman data bisa dengan GET atau POST
-                url: "<?php echo base_url("index.php/user/getSekolah"); ?>", // Isi dengan url/path file php yang dituju
-                data: {id_kecamatan : $("#id_kecamatan").val(), id_sekolah : "<?php echo $id_sekolah;?>"}, // data yang akan dikirim ke file yang dituju
-                dataType: "json",
-                beforeSend: function(e) {
-                  if(e && e.overrideMimeType) {
-                    e.overrideMimeType("application/json;charset=UTF-8");
-                  }
-                },
-                success: function(response){ // Ketika proses pengiriman berhasil
-                  //$("#loading").hide(); // Sembunyikan loadingnya
-                  // set isi dari combobox kota
-                  // lalu munculkan kembali combobox kotanya
-                  $(".loader").css("display","none");
-                  $("#id_sekolah").css("display","");
-                  $("#id_sekolah").html(response.list_kecamatan).show();
-
-                },
-                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-                  alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-                }
-            });
-        }else{
-            $("#kecamatan_id").css("display","");
-            $("#sekolah_id").css("display","none");
-            $('#id_sekolah').removeAttr('required');
-            $(".loader").css("display","none");
-        }
-
-        $('#id_user_level').change(function() {
-            if($(this).val() == ""){
-                
-                $("#kecamatan_id").css("display","none");
-                $("#sekolah_id").css("display","none");
-                $('#id_sekolah').removeAttr('required');
-                $(".loader").css("display","none");
-            }else{
-                if($(this).val() == 3){ //sekolah
-                    $("#kecamatan_id").css("display","");
-                    $("#sekolah_id").css("display","");
-                    $('#id_sekolah').attr('required', true);
-                    $(".loader").css("display","none");
-                }else{
-                    $("#kecamatan_id").css("display","");
-                    $("#sekolah_id").css("display","none");
-                    $('#id_sekolah').removeAttr('required');
-                }
-            }
-            
-        });
-
+        
         $("#email").change(function(){
             var email = $('#email').val();
             var no_hp = $('#no_hp').val();
@@ -239,34 +181,6 @@
             
         }); 
 
-        $("#id_kecamatan").change(function(){
-            $(".loader").css("display","");
-            $("#id_sekolah").css("display","none");
-            $.ajax({
-                type: "POST", // Method pengiriman data bisa dengan GET atau POST
-                url: "<?php echo site_url(); ?>pendidik/getSekolah", // Isi dengan url/path file php yang dituju
-                data: {id_kecamatan : $("#id_kecamatan").val()}, // data yang akan dikirim ke file yang dituju
-                dataType: "json",
-                beforeSend: function(e) {
-                    if(e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
-                success: function(response){ // Ketika proses pengiriman berhasil
-                    //$("#loading").hide(); // Sembunyikan loadingnya
-                    // set isi dari combobox kota
-                    // lalu munculkan kembali combobox kotanya
-                    $("#id_sekolah").css("display","");
-                    $("#id_sekolah").html(response.list_sekolah).show();
-                    $("#info_sekolah").html("<i>Jika sekolah tidak ada, Silahkan daftarkan sekolah terlebih dahulu. <a style='cursor:pointer;' href=<?php echo site_url()?>sekolah/create>KLIK DISINI</a></i>");
-                    $(".loader").css("display","none");
-                },
-                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-                }
-            });
-
-        });
     });
     function isNumber(evt) {
         var iKeyCode = (evt.which) ? evt.which : evt.keyCode

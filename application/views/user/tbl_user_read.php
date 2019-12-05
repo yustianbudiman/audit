@@ -28,10 +28,13 @@
                                 <tr><td colspan="2"><center><img src="<?php echo base_url()?>assets/foto_profil/atomix_user31.png" width="200px" class="user-image"></center></td></tr>
                             <?php } ?>
                             
-                            <tr><td>KECAMATAN</td><td><?php echo strtoupper($kecamatan); ?></td></tr>
-                            <tr><td>SEKOLAH</td><td><?php echo strtoupper($nama_sekolah); ?></td></tr>
+                            <tr><td>NIK</td><td><?php echo strtoupper($nik); ?></td></tr>
                             <tr><td>NAMA LENGKAP</td><td><?php echo strtoupper($full_name); ?></td></tr>
                             <tr><td>EMAIL</td><td><?php echo strtoupper($email); ?></td></tr>
+                            <tr><td>NO HP</td><td><?php echo strtoupper($no_hp); ?></td></tr>
+                            <tr><td>CABANG</td><td><?php echo strtoupper($nama_cabang); ?></td></tr>
+                            <tr><td>DIVISI</td><td><?php echo strtoupper($divisi); ?></td></tr>
+                            <tr><td>TANGGAL DAFTAR</td><td><?php echo strtoupper($tgl_daftar); ?></td></tr>
                             <tr><td>LEVEL</td><td><?php echo strtoupper($nama_level); ?></td></tr>
                             <tr><td>STATUS</td><td><?php if($is_aktif == "y"){ echo "AKTIF"; }else{ echo "NONAKTIF";}; ?></td></tr>
                             <tr><td></td><td><a href="<?php echo site_url('user') ?>" class="btn btn-warning"><i class="fa fa-sign-out"></i> Kembali</a></td></tr></tr>

@@ -69,13 +69,18 @@ class User extends CI_Controller
             $data = array(
                 'button'        => 'View',
                 'id_users'      => $row->id_users,
-                'nik'     => $row->nik,
+                'nik'           => $row->nik,
                 'full_name'     => $row->full_name,
                 'email'         => $row->email,
                 'images'        => $row->images,
                 'id_user_level' => $row->id_user_level,
                 'nama_level'    => $row->nama_level,
                 'no_hp'         => $row->no_hp,
+                'id_cabang'     => $row->id_cabang,
+                'nama_cabang'   => $row->nama_cabang,
+                'id_divisi'     => $row->id_divisi,
+                'divisi'        => $row->divisi,
+                'tgl_daftar'    => $row->tgl_daftar,
                 'is_aktif'      => $row->is_aktif,
             );
             $this->template->load('template','user/tbl_user_read', $data);
@@ -94,10 +99,12 @@ class User extends CI_Controller
     	    'nik'           => set_value('nik'),
     	    'full_name'     => set_value('full_name'),
     	    'email'         => set_value('email'),
-    	    'password'      => set_value('password'),
+            'password'      => set_value('password'),
+            'no_hp'         => set_value('no_hp'),
+            'id_cabang'     => set_value('id_cabang'),
+    	    'id_divisi'     => set_value('id_divisi'),
     	    'images'        => set_value('images'),
             'id_user_level' => set_value('id_user_level'),
-            'no_hp'         => set_value('no_hp'),
     	    'is_aktif'      => set_value('is_aktif'),
     	);
         $this->template->load('template','user/tbl_user_form', $data);
@@ -145,6 +152,8 @@ class User extends CI_Controller
         		'email'         => $email,
         		'password'      => $hashPassword,
         		'images'        => $foto['file_name'],
+                'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                'id_divisi'     => $this->input->post('id_divisi',TRUE),
                 'id_user_level' => $this->input->post('id_user_level',TRUE),
                 'no_hp'         => $this->input->post('no_hp',TRUE),
                 'is_aktif'      => $this->input->post('is_aktif',TRUE),
@@ -170,7 +179,9 @@ class User extends CI_Controller
         		'full_name'     => set_value('full_name', $row->full_name),
         		'email'         => set_value('email', $row->email),
         		'password'      => set_value('password', $row->password),
-        		'images'        => set_value('images', $row->images),
+                'images'        => set_value('images', $row->images),
+                'id_cabang'     => set_value('id_cabang', $row->id_cabang),
+        		'id_divisi'     => set_value('id_divisi', $row->id_divisi),
                 'id_user_level' => set_value('id_user_level', $row->id_user_level),
                 'no_hp'         => set_value('no_hp', $row->no_hp),
         		'is_aktif'      => set_value('is_aktif', $row->is_aktif),
@@ -197,6 +208,8 @@ class User extends CI_Controller
                     'nik'           => $this->input->post('nik',TRUE),
                     'full_name'     => $this->input->post('full_name',TRUE),
                     'email'         => $email,
+                    'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                    'id_divisi'     => $this->input->post('id_divisi',TRUE),
                     'id_user_level' => $this->input->post('id_user_level',TRUE),
                     'no_hp'         => $no_hp,
                     'is_aktif'      => $this->input->post('is_aktif',TRUE)
@@ -207,6 +220,8 @@ class User extends CI_Controller
                     'full_name'     => $this->input->post('full_name',TRUE),
                     'email'         => $email,
                     'images'        => $foto['file_name'],
+                    'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                    'id_divisi'     => $this->input->post('id_divisi',TRUE),
                     'id_user_level' => $this->input->post('id_user_level',TRUE),
                     'no_hp'         => $no_hp,
                     'is_aktif'      => $this->input->post('is_aktif',TRUE)
@@ -302,16 +317,15 @@ class User extends CI_Controller
 
         if ($row) {
             
-            $password       = "Dinas2018";
+            $password       = "Auditportal".date('Y');
             $options        = array("cost"=>4);
             $hashPassword   = password_hash($password,PASSWORD_BCRYPT,$options);
-            $pin            = substr(number_format(time() * rand(),0,'',''),0,6);
+            // $pin            = substr(number_format(time() * rand(),0,'',''),0,6);
             $data = array(
-                'password'    => $hashPassword,
-                'pin'         => $pin,
+                'password'    => $hashPassword
             );
             $this->User_model->update($id,$data);
-            $this->session->set_flashdata('message', 'Reset Record Success. New password = <b>'.$password.'</b> & New PIN = <b>'.$pin.'</b>');
+            $this->session->set_flashdata('message', 'Reset Record Success. New password = <b>'.$password.'</b>');
             redirect(site_url('user'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -321,13 +335,16 @@ class User extends CI_Controller
 
     public function _rules() 
     {
-    	$this->form_validation->set_rules('full_name', 'full name', 'trim|required');
-    	$this->form_validation->set_rules('email', 'email', 'trim|valid_email|required');
+        $this->form_validation->set_rules('nik', 'NIK', 'trim|numeric|required');
+    	$this->form_validation->set_rules('full_name', 'Nama Lengkap', 'trim|required');
+    	$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
     	//$this->form_validation->set_rules('password', 'password', 'trim|required');
     	//$this->form_validation->set_rules('images', 'images', 'trim|required');
-    	$this->form_validation->set_rules('id_user_level', 'id user level', 'trim|required');
+        $this->form_validation->set_rules('id_cabang', 'Cabang', 'trim|numeric|required');
+        $this->form_validation->set_rules('id_divisi', 'Divisi', 'trim|numeric|required');
+    	$this->form_validation->set_rules('id_user_level', 'Level User', 'trim|numeric|required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'trim|required|numeric');
-    	$this->form_validation->set_rules('is_aktif', 'is aktif', 'trim|required');
+    	$this->form_validation->set_rules('is_aktif', 'Status Aktif', 'trim|required');
 
     	$this->form_validation->set_rules('id_users', 'id_users', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
