@@ -526,6 +526,7 @@
              });
 
              $(document).on('change','#likelihood', function(e) { 
+                if($('#total_impact').val()!=''){
                     var jml= parseInt($('#total_impact').val());
                     var likelihood=parseFloat($(this).val());
                     var repeated=$('#repeated').val();
@@ -543,9 +544,11 @@
                     }else if(tmp_tev >3){
                         $('#bobot_resiko').val('Height');
                     }
+                  }
               });
 
-              $(document).on('change','#repeated', function(e) { 
+              $(document).on('change','#repeated', function(e) {
+                if($('#total_impact').val()!='' && $('#likelihood').val()!=''){ 
                     var jml= parseInt($('#total_impact').val());
                     var repeated=$(this).val();
                     var likelihood=parseFloat($('#likelihood').val());
@@ -562,6 +565,7 @@
                     }else if(tmp_tev >3){
                         $('#bobot_resiko').val('Height');
                     }
+                }
               });
 
               $(document).on('change','#id_cabang', function(e) { 

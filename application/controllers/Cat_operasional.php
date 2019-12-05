@@ -49,14 +49,14 @@ class Cat_operasional extends CI_Controller
 				'environment_value' => $row->environment_value,
 				'id_risk_assesment' => $row->id_risk_assesment,
 				'risk_assesment_value' => $row->risk_assesment_value,
-				'id_control_activities' => $row->id_control_activities,
-				'control_activities_value' => $row->control_activities_value,
+				'id_control_activity' => $row->id_control_activities,
+				'control_activity_value' => $row->control_activities_value,
 				'id_information_comunication' => $row->id_information_comunication,
 				'information_comunication_value' => $row->information_comunication_value,
 				'id_monitoring' => $row->id_monitoring,
 				'monitoring_value' => $row->monitoring_value,
 				'total_impact' => $row->total_impact,
-				'probaly' => $row->probaly,
+				'likelihood' => $row->likelihood,
 				'tev' => $row->tev,
 				'bobot_resiko' => $row->bobot_resiko,
 				'rekomendasi' => $row->rekomendasi,
@@ -79,8 +79,9 @@ class Cat_operasional extends CI_Controller
 
     public function create() 
     {
-    	$header=$this->Cat_operasional_model->list_cat_operasional_header();
+    	$header=$this->Cat_operasional_model->list_cat_operasional_header_all();
  		$data=[
+            'action' => base_url('cat_operasional/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
     		'list_cat_operasional_header'=>$header,
     		'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
@@ -88,10 +89,45 @@ class Cat_operasional extends CI_Controller
     		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
     		'list_environment'=>$this->Cont_environment_model->get_all(),
     		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
-    		'list_control_activitieses'=>$this->Control_activities_model->get_all(),
+    		'list_control_activities'=>$this->Control_activities_model->get_all(),
     		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
     		'list_monitoring'=>$this->Monitoring_model->get_all(),
-    		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+            'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
+            'penyimpangan' => set_value('penyimpangan'),
+            'environment' => set_value('environment'),
+            'risk_assesment' => set_value('risk_assesment'),
+            'control_activity' => set_value('control_activity'),
+            'information_comunication' => set_value('information_comunication'),
+            'monitoring' => set_value('monitoring'),
+            'id_cat_operasional' => set_value('id_cat_operasional'),
+            'id_cabang' => set_value('id_cabang'),
+            'nama_cabang' => set_value('nama_cabang'),
+            'alamat_cabang' => set_value('alamat_cabang'),
+            'periode' => set_value('periode'),
+            'temuan' => set_value('temuan'),
+            'kriteria' => set_value('kriteria'),
+            'dampak' => set_value('dampak'),
+            'id_penyimpangan' => set_value('penyimpangan'),
+            'id_environment' => set_value('environment'),
+            'environment_value' => set_value('environment_value'),
+            'id_risk_assesment' => set_value('risk_assesment'),
+            'risk_assesment_value' => set_value('risk_assesment_value'),
+            'control_activity' => set_value('control_activitiy'),
+            'control_activity_value' => set_value('control_activity_value'),
+            'id_information_comunication' => set_value('information_comunication'),
+            'information_comunication_value' => set_value('information_comunication_value'),
+            'id_monitoring' => set_value('monitoring'),
+            'monitoring_value' => set_value('monitoring_value'),
+            'total_impact' => set_value('total_impact'),
+            'likelihood' => set_value('likelihood'),
+            'tev' => set_value('tev'),
+            'bobot_resiko' => set_value('bobot_resiko'),
+            'rekomendasi' => set_value('rekomendasi'),
+            'tanggapan_audit' => set_value('tanggapan_audit'),
+            'target_date' => set_value('target_date'),
+            'tanggal_periksa' => set_value('tanggal_periksa'),
+            'member' => set_value('member'),
+            'bop' => set_value('bop'),
     	];
         $this->template->load('template','cat_operasional/cat_operasional_form', $data);
     }
@@ -123,18 +159,18 @@ class Cat_operasional extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-        	$cek_dulu=$this->Cat_operasional_model->list_cat_operasional_header($this->input->post('id_cabang',TRUE),date('y-m-d',strtotime($this->input->post('periode',TRUE))));
-        	if(!$cek_dulu){
+        	// $cek_dulu=$this->Cat_operasional_model->list_cat_operasional_header($this->input->post('id_cabang',TRUE),date('y-m-d',strtotime($this->input->post('periode',TRUE))));
+        	// if(!$cek_dulu){
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
-        				'periode'=>date('y-m-d',strtotime($this->input->post('periode',TRUE))),
+        				'periode'=>date('Y-m-d',strtotime($this->input->post('periode',TRUE))),
         			];
-        		$this->Cat_operasional_model->insert_header($data_header);
+        		$r=$this->Cat_operasional_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
-        	}
+        	
             $data = array(
-				'id_cat_operasional_header' => ($cek_dulu==''?$idnya:$cek_dulu['id_cat_operasional_header']),
+				'id_cat_operasional_header' => $idnya,
 				'temuan' => $this->input->post('temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
@@ -143,27 +179,32 @@ class Cat_operasional extends CI_Controller
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
 				'risk_assesment_value' => $this->input->post('risk_assesment_value',TRUE),
-				'id_control_activities' => $this->input->post('control_activities',TRUE),
-				'control_activities_value' => $this->input->post('control_activities_value',TRUE),
+				'id_control_activities' => $this->input->post('control_activity',TRUE),
+				'control_activities_value' => $this->input->post('control_activity_value',TRUE),
 				'id_information_comunication' => $this->input->post('information_comunication',TRUE),
 				'information_comunication_value' => $this->input->post('information_comunication_value',TRUE),
 				'id_monitoring' => $this->input->post('monitoring',TRUE),
 				'monitoring_value' => $this->input->post('monitoring_value',TRUE),
 				'total_impact' => $this->input->post('total_impact',TRUE),
-				'probaly' => $this->input->post('probaly',TRUE),
+				'likelihood' => $this->input->post('likelihood',TRUE),
 				'repeated' => $this->input->post('repeated',TRUE),
 				'tev' => $this->input->post('tev',TRUE),
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
-				'target_date' => $this->input->post('target_date',TRUE),
-				'aktif' => $this->input->post('aktif',TRUE),
-				'created_date' => $this->input->post('created_date',TRUE),
-				'created_ip' => $this->input->post('created_ip',TRUE),
-				'created_by' => $this->input->post('created_by',TRUE),
-				'updated_date' => $this->input->post('updated_date',TRUE),
-				'updated_ip' => $this->input->post('updated_ip',TRUE),
-				'updated_by' => $this->input->post('updated_by',TRUE),
+				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
+				'tl' =>$this->input->post('tl',TRUE),
+                'member' => implode(',',$this->input->post('member',TRUE)),
+                'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'supervisor' =>$this->input->post('supervisor',TRUE),
+                'bop' =>$this->input->post('bop',TRUE),
+				// 'aktif' => $this->input->post('aktif',TRUE),
+				// 'created_date' => $this->input->post('created_date',TRUE),
+				// 'created_ip' => $this->input->post('created_ip',TRUE),
+				// 'created_by' => $this->input->post('created_by',TRUE),
+				// 'updated_date' => $this->input->post('updated_date',TRUE),
+				// 'updated_ip' => $this->input->post('updated_ip',TRUE),
+				// 'updated_by' => $this->input->post('updated_by',TRUE),
 		    );
 
             $this->Cat_operasional_model->insert($data);
@@ -175,42 +216,60 @@ class Cat_operasional extends CI_Controller
     public function update($id) 
     {
         $row = $this->Cat_operasional_model->get_by_id($id);
+        $header=$this->Cat_operasional_model->list_cat_operasional_header($row->id_cat_operasional_header);
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('cat_operasional/update_action'),
+                'action' => base_url('cat_operasional/update_action'),
+                'list_cabang'=>$this->Cabang_model->get_all(),
+                'list_cat_operasional_header'=>$header,
+                'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($id),
+                'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+                'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+                'list_environment'=>$this->Cont_environment_model->get_all(),
+                'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+                'list_control_activities'=>$this->Control_activities_model->get_all(),
+                'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+                'list_monitoring'=>$this->Monitoring_model->get_all(),
+                'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
 				'id_cat_operasional' => set_value('id_cat_operasional', $row->id_cat_operasional),
-				'temuan' => set_value('temuan', $row->id_temuan),
-				'klasifikasi_temuan' => set_value('klasifikasi_temuan', $row->id_temuan),
+				'id_cabang' => set_value('id_cabang', $header['id_cabang']),
+                'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
+                'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
+                'periode' => set_value('periode',$header['periode']),
+                'temuan' => set_value('temuan', $row->temuan),
+				'klasifikasi_temuan' => set_value('klasifikasi_temuan', $row->klasifikasi_temuan),
 				'kriteria' => set_value('kriteria', $row->kriteria),
 				'dampak' => set_value('dampak', $row->dampak),
-				'id_penyimpangan' => set_value('sebab_penyimpangan', $row->id_penyimpangan),
-				'id_environment' => set_value('environment', $row->id_environment),
+				'penyimpangan' => set_value('penyimpangan', $row->id_penyimpangan),
+				'environment' => set_value('environment', $row->id_environment),
 				'environment_value' => set_value('environment_value', $row->environment_value),
-				'id_risk_assesment' => set_value('risk_assesment', $row->id_risk_assesment),
+				'risk_assesment' => set_value('risk_assesment', $row->id_risk_assesment),
 				'risk_assesment_value' => set_value('risk_assesment_value', $row->risk_assesment_value),
-				'id_control_activities' => set_value('control_activities', $row->id_control_activities),
-				'control_activities_value' => set_value('control_activities_value', $row->control_activities_value),
-				'id_information_comunication' => set_value('information_comunication', $row->id_information_comunication),
+				'control_activity' => set_value('control_activity', $row->id_control_activities),
+				'control_activity_value' => set_value('control_activity_value', $row->control_activities_value),
+				'information_comunication' => set_value('information_comunication', $row->id_information_comunication),
 				'information_comunication_value' => set_value('information_comunication_value', $row->information_comunication_value),
-				'id_monitoring' => set_value('monitoring', $row->id_monitoring),
+				'monitoring' => set_value('monitoring', $row->id_monitoring),
 				'monitoring_value' => set_value('monitoring_value', $row->monitoring_value),
 				'total_impact' => set_value('total_impact', $row->total_impact),
-				'probaly' => set_value('probaly', $row->probaly),
-				'repeated' => set_value('repeated', $row->probaly),
+				'likelihood' => set_value('likelihood', $row->likelihood),
 				'tev' => set_value('tev', $row->tev),
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
 				'tanggapan_audit' => set_value('tanggapan_audit', $row->tanggapan_audit),
-				'target_date' => set_value('target_date', $row->target_date),
-				'aktif' => set_value('aktif', $row->aktif),
-				'created_date' => set_value('created_date', $row->created_date),
-				'created_ip' => set_value('created_ip', $row->created_ip),
-				'created_by' => set_value('created_by', $row->created_by),
-				'updated_date' => set_value('updated_date', $row->updated_date),
-				'updated_ip' => set_value('updated_ip', $row->updated_ip),
-				'updated_by' => set_value('updated_by', $row->updated_by),
+				'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
+                'member' => set_value('member',$row->member),
+                'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
+                'bop' => set_value('bop',$row->bop),
+				// 'aktif' => set_value('aktif', $row->aktif),
+				// 'created_date' => set_value('created_date', $row->created_date),
+				// 'created_ip' => set_value('created_ip', $row->created_ip),
+				// 'created_by' => set_value('created_by', $row->created_by),
+				// 'updated_date' => set_value('updated_date', $row->updated_date),
+				// 'updated_ip' => set_value('updated_ip', $row->updated_ip),
+				// 'updated_by' => set_value('updated_by', $row->updated_by),
 		    );
             $this->template->load('template','cat_operasional/cat_operasional_form', $data);
         } else {
@@ -233,37 +292,37 @@ class Cat_operasional extends CI_Controller
 				'klasifikasi_temuan' => $this->input->post('klasifikasi_temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
-				'id_penyimpangan' => $this->input->post('sebab_penyimpangan',TRUE),
+				'id_penyimpangan' => $this->input->post('penyimpangan',TRUE),
 				'id_environment' => $this->input->post('environment',TRUE),
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
 				'risk_assesment_value' => $this->input->post('risk_assesment_value',TRUE),
-				'id_control_activities' => $this->input->post('control_activities',TRUE),
-				'control_activities_value' => $this->input->post('control_activities_value',TRUE),
-				'id_information_comunication' => $this->input->post('information_comunication',TRUE),
+				'id_control_activities' => $this->input->post('control_activity',TRUE),
+				'control_activities_value' => $this->input->post('control_activity_value',TRUE),
+				'id_information_comunication' => $this->input->post('infomation_comunication',TRUE),
 				'information_comunication_value' => $this->input->post('information_comunication_value',TRUE),
 				'id_monitoring' => $this->input->post('monitoring',TRUE),
 				'monitoring_value' => $this->input->post('monitoring_value',TRUE),
 				'total_impact' => $this->input->post('total_impact',TRUE),
-				'probaly' => $this->input->post('probaly',TRUE),
+				'likelihood' => $this->input->post('likelihood',TRUE),
 				'repeated' => $this->input->post('repeated',TRUE),
 				'tev' => $this->input->post('tev',TRUE),
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
 				'target_date' => $this->input->post('target_date',TRUE),
-				'aktif' => $this->input->post('aktif',TRUE),
-				'created_date' => $this->input->post('created_date',TRUE),
-				'created_ip' => $this->input->post('created_ip',TRUE),
-				'created_by' => $this->input->post('created_by',TRUE),
-				'updated_date' => $this->input->post('updated_date',TRUE),
-				'updated_ip' => $this->input->post('updated_ip',TRUE),
-				'updated_by' => $this->input->post('updated_by',TRUE),
+				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
+				'tl' =>$this->input->post('tl',TRUE),
+                'member' => implode(',',$this->input->post('member',TRUE)),
+                'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'supervisor' =>$this->input->post('supervisor',TRUE),
+                'bop' =>$this->input->post('bop',TRUE),
+				
 		    );
 
             $this->Cat_operasional_model->update($this->input->post('id_cat_operasional', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            // redirect(site_url('cat_operasional'));
+            redirect(site_url('cat_operasional'));
         // }
     }
     
@@ -283,29 +342,34 @@ class Cat_operasional extends CI_Controller
 
     public function _rules() 
     {
-		$this->form_validation->set_rules('id_cabang', 'id cabang');
-		$this->form_validation->set_rules('nama_cabang', 'nama cabang');
-		$this->form_validation->set_rules('id_temuan', 'id temuan');
-		$this->form_validation->set_rules('kriteria', 'kriteria');
-		$this->form_validation->set_rules('dampak', 'dampak');
-		$this->form_validation->set_rules('id_penyimpangan', 'id penyimpangan');
-		$this->form_validation->set_rules('id_environment', 'id environment');
-		$this->form_validation->set_rules('environment_value', 'environment value');
-		$this->form_validation->set_rules('id_risk_assesment', 'id risk assesment');
-		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value');
-		$this->form_validation->set_rules('id_control_activities', 'id control activiti');
-		$this->form_validation->set_rules('control_activities_value', 'control activiti value');
-		$this->form_validation->set_rules('id_information_comunication', 'id infomation comunication');
-		$this->form_validation->set_rules('information_comunication_value', 'infomation comunication value');
-		$this->form_validation->set_rules('id_monitoring', 'id monitoring');
-		$this->form_validation->set_rules('monitoring_value', 'monitoring value');
-		$this->form_validation->set_rules('total_impact', 'total impact');
-		$this->form_validation->set_rules('probaly', 'probaly');
-		$this->form_validation->set_rules('tev', 'tev');
-		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko');
-		$this->form_validation->set_rules('rekomendasi', 'rekomendasi');
-		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit');
-		$this->form_validation->set_rules('target_date', 'target date');
+		$this->form_validation->set_rules('id_cabang', 'id cabang','trim|required');
+		$this->form_validation->set_rules('nama_cabang', 'nama cabang','trim|required');
+		$this->form_validation->set_rules('temuan', 'temuan','trim|required');
+		$this->form_validation->set_rules('kriteria', 'kriteria','trim|required');
+		$this->form_validation->set_rules('dampak', 'dampak','trim|required');
+		$this->form_validation->set_rules('penyimpangan', 'id penyimpangan','trim|required');
+		$this->form_validation->set_rules('environment', 'id environment','trim|required');
+		$this->form_validation->set_rules('environment_value', 'environment value','trim|required');
+		$this->form_validation->set_rules('risk_assesment', 'id risk assesment','trim|required');
+		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value','trim|required');
+		$this->form_validation->set_rules('control_activity', 'id control activiti','trim|required');
+		$this->form_validation->set_rules('control_activity_value', 'control activiti value','trim|required');
+		$this->form_validation->set_rules('information_comunication', 'id infomation comunication','trim|required');
+		$this->form_validation->set_rules('information_comunication_value', 'infomation comunication value','trim|required');
+		$this->form_validation->set_rules('monitoring', 'id monitoring','trim|required');
+		$this->form_validation->set_rules('monitoring_value', 'monitoring value','trim|required');
+		$this->form_validation->set_rules('total_impact', 'total impact','trim|required');
+		$this->form_validation->set_rules('likelihood', 'likelihood','trim|required');
+		$this->form_validation->set_rules('tev', 'tev','trim|required');
+		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko','trim|required');
+		$this->form_validation->set_rules('rekomendasi', 'rekomendasi','trim|required');
+		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit','trim|required');
+		$this->form_validation->set_rules('target_date', 'target date','trim|required');
+		// $this->form_validation->set_rules('member', 'member', 'trim|required');
+        $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
+		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
+		$this->form_validation->set_rules('periode', 'periode', 'trim|required');
+
 		$this->form_validation->set_rules('aktif', 'aktif');
 		$this->form_validation->set_rules('created_date', 'created date');
 		$this->form_validation->set_rules('created_ip', 'created ip');
@@ -393,7 +457,7 @@ class Cat_operasional extends CI_Controller
 		    xlsWriteNumber($tablebody, $kolombody++, $data->id_monitoring);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->monitoring_value);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->total_impact);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->probaly);
+		    xlsWriteLabel($tablebody, $kolombody++, $data->likelihood);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->tev);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->bobot_resiko);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->rekomendasi);

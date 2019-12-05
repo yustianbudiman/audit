@@ -17,13 +17,13 @@ class Cat_operasional_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_cat_operasional_header,periode,id_cabang,nama_cabang');
+        $this->datatables->select('cat_operasional_header.id_cat_operasional_header,periode,id_cabang,nama_cabang,id_cat_operasional');
         $this->datatables->from('cat_operasional_header');
         //add this line for join
-        //$this->datatables->join('table2', 'cat_operasional.field = table2.field');
+        $this->datatables->join('cat_operasional', 'cat_operasional_header.id_cat_operasional_header = cat_operasional.id_cat_operasional_header');
         $this->datatables->add_column('action', anchor(site_url('cat_operasional/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_operasional/tambah_data_history/$3/$2'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional_header,periode,id_cabang,nama_cabang');
+            ".anchor(site_url('cat_operasional/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+                ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional,periode,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -61,7 +61,7 @@ class Cat_operasional_model extends CI_Model
 	$this->db->or_like('id_monitoring', $q);
 	$this->db->or_like('monitoring_value', $q);
 	$this->db->or_like('total_impact', $q);
-	$this->db->or_like('probaly', $q);
+	$this->db->or_like('likelihood', $q);
 	$this->db->or_like('tev', $q);
 	$this->db->or_like('bobot_resiko', $q);
 	$this->db->or_like('rekomendasi', $q);
@@ -99,7 +99,7 @@ class Cat_operasional_model extends CI_Model
 	$this->db->or_like('id_monitoring', $q);
 	$this->db->or_like('monitoring_value', $q);
 	$this->db->or_like('total_impact', $q);
-	$this->db->or_like('probaly', $q);
+	$this->db->or_like('likelihood', $q);
 	$this->db->or_like('tev', $q);
 	$this->db->or_like('bobot_resiko', $q);
 	$this->db->or_like('rekomendasi', $q);
@@ -147,19 +147,37 @@ class Cat_operasional_model extends CI_Model
         return $this->db->get('cabang')->row_array();
 
     }
-    // get data cat bisnis by id heder
+    // get data cat operasional by id heder
     function get_by_idheader($id)
     {
         $this->db->where('id_cat_operasional_header', $id);
         return $this->db->get($this->table)->result();
     }
     // get data cat operasional header
-    function list_cat_operasional_header($id=null,$periode=null)
+    function list_cat_operasional_header($id=null)
     {
-    	$arr=['id_cabang'=>$id,'periode'=>$periode];
+        $arr=['id_cat_operasional_header'=>$id];
+        // return $this->db->get('cat_operasional_header')->row_array();
+        $this->db->select('id_cat_operasional_header,periode,cat_operasional_header.id_cabang,cat_operasional_header.nama_cabang,alamat');
+        $this->db->from('cat_operasional_header');
+        //add this line for join
+        $this->db->join('cabang', 'cat_operasional_header.id_cabang = cabang.id_cabang');
         $this->db->where($arr);
-        return $this->db->get('cat_operasional_header')->row_array();
+        $query=$this->db->get();
+        return $query->row_array();
     }
+
+    function list_cat_operasional_header_all()
+    {
+        // return $this->db->get('cat_operasional_header')->row_array();
+        $this->db->select('id_cat_operasional_header,periode,cat_operasional_header.id_cabang,cat_operasional_header.nama_cabang,alamat');
+        $this->db->from('cat_operasional_header');
+        //add this line for join
+        $this->db->join('cabang', 'cat_operasional_header.id_cabang = cabang.id_cabang');
+        $query=$this->db->get();
+        return $query->row_array();
+    }
+
     function insert_header($data){
     	$this->db->insert('cat_operasional_header', $data);
     }

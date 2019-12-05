@@ -147,6 +147,7 @@ class Cat_bisnis extends CI_Controller
             'monitoring' => set_value('monitoring'),
             'goal_strategic' => set_value('goal_strategic'),
             'id_cat_bisnis' => set_value('id_cat_bisnis'),
+            'id_cabang' => set_value('id_cabang'),
             'nama_cabang' => set_value('nama_cabang'),
             'alamat_cabang' => set_value('alamat_cabang'),
             'periode' => set_value('periode'),
@@ -190,7 +191,7 @@ class Cat_bisnis extends CI_Controller
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
-        				'periode'=>date('y-m-d',strtotime($this->input->post('periode',TRUE))),
+        				'periode'=>date('Y-m-d',strtotime($this->input->post('periode',TRUE))),
         			];
         		$this->Cat_bisnis_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
@@ -222,7 +223,7 @@ class Cat_bisnis extends CI_Controller
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
                 'target_date' =>date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
-                'status' => 'Open',
+                'status' => 'Pending',
                 'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
@@ -248,9 +249,6 @@ class Cat_bisnis extends CI_Controller
     {
         $row = $this->Cat_bisnis_model->get_by_id($id);
         $header=$this->Cat_bisnis_model->list_cat_bisnis_header($row->id_cat_bisnis_header);
-        // print_r($row->id_penyimpangan);
-        // print_r($header);
-        // exit();
         if ($row) {
             $data = array(
                 'button' => 'Update',
@@ -294,9 +292,9 @@ class Cat_bisnis extends CI_Controller
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
 				'tanggapan_audit' => set_value('tanggapan_audit', $row->tanggapan_audit),
-				'target_date' => set_value('target_date', $row->target_date),
+				'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
                 'member' => set_value('member',$row->member),
-                'tanggal_periksa' => set_value('tanggal_periksa',$row->tanggal_periksa),
+                'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
                 'bop' => set_value('bop',$row->bop),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
@@ -345,13 +343,11 @@ class Cat_bisnis extends CI_Controller
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
 				'target_date' => $this->input->post('target_date',TRUE),
-				'aktif' => $this->input->post('aktif',TRUE),
-				'created_date' => $this->input->post('created_date',TRUE),
-				'created_ip' => $this->input->post('created_ip',TRUE),
-				'created_by' => $this->input->post('created_by',TRUE),
-				'updated_date' => $this->input->post('updated_date',TRUE),
-				'updated_ip' => $this->input->post('updated_ip',TRUE),
-				'updated_by' => $this->input->post('updated_by',TRUE),
+				'tl' =>$this->input->post('tl',TRUE),
+                'member' => implode(',',$this->input->post('member',TRUE)),
+                'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'supervisor' =>$this->input->post('supervisor',TRUE),
+                'bop' =>$this->input->post('bop',TRUE),
 		    );
 
             $this->Cat_bisnis_model->update($this->input->post('id_cat_bisnis',TRUE), $data);
@@ -403,6 +399,7 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi', '');
 		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit', '');
         $this->form_validation->set_rules('target_date', 'target date', 'trim|required');
+        // $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
 
