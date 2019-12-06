@@ -38,7 +38,7 @@
                                     <select class="form-control" name="id_cabang" id="id_cabang">
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_cabang as $key) { ?>
-                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->nama_cabang; ?></option>
+                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->kode_cabang; ?></option>
                                         <?php } ?>
                                     </select>
                                      <?php echo form_error('id_cabang') ?>
@@ -442,7 +442,7 @@
               function goBack() {
                 window.history.back();
               }
-              
+
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_bisnis=$(this).attr('data-id');
