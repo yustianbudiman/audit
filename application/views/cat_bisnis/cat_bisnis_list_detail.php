@@ -90,6 +90,7 @@
                                 <td><?php echo $key['member'];?></td>
                                 <td style="text-align: center;"><label class="label label-warning"><?php echo $key['status_trx'];?></label></td>
                                 <td style="text-align: center;">
+                                    <a href="<?php echo base_url('cat_bisnis/read/'.$key['id_cat_bisnis']);?>" class="btn btn-success btn-xs btn-flat"><i class="fa fa-eye"></i> Read</a>
                                     <a href="<?php echo base_url('cat_bisnis/update/'.$key['id_cat_bisnis']);?>" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-edit"></i> Edit</a>
                                     <button type="button" class="btn btn-danger btn-xs btn-flat hapus_cat_binis" data-id_cat_binis="<?php echo $key['id_cat_bisnis']?>" data-id_cat_binis_header="<?php echo $key['id_cat_bisnis_header']?>" data-toggle="modal" data-target="#ModalDelete"><i class="fa fa-trash"></i> Hapus</button>
                                 </td>

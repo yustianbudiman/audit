@@ -21,8 +21,7 @@ class Cat_bisnis_model extends CI_Model
         $this->datatables->from('cat_bisnis_header');
         //add this line for join
         $this->datatables->join('cat_bisnis', 'cat_bisnis_header.id_cat_bisnis_header = cat_bisnis.id_cat_bisnis_header');
-        $this->datatables->add_column('action', anchor(site_url('cat_bisnis/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_bisnis/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+        $this->datatables->add_column('action', anchor(site_url('cat_bisnis/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
                 ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cat_bisnis,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
@@ -213,6 +212,13 @@ class Cat_bisnis_model extends CI_Model
          where a.id_cat_bisnis_header='".$id."' and a.aktif='Aktif'";
         $query = $this->db->query($sql);
         return $query->result_array();
+    }
+
+    function get_One_Cat_Bisnis($id){
+        $sql="SELECT * from v_cat_bisnis a
+         where a.id_cat_bisnis='".$id."' and a.aktif='Aktif'";
+        $query = $this->db->query($sql);
+        return $query->row();
     }
 
 }
