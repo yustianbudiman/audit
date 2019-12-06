@@ -22,7 +22,7 @@ class Cat_bisnis_model extends CI_Model
         //add this line for join
         $this->datatables->join('cat_bisnis', 'cat_bisnis_header.id_cat_bisnis_header = cat_bisnis.id_cat_bisnis_header');
         $this->datatables->add_column('action', anchor(site_url('cat_bisnis/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_bisnis/update/$2'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+            ".anchor(site_url('cat_bisnis/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
                 ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cat_bisnis,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
@@ -194,6 +194,25 @@ class Cat_bisnis_model extends CI_Model
     }
     function insert_header($data){
     	$this->db->insert('cat_bisnis_header', $data);
+    }
+
+    function get_One_Header_detail($id){
+        $sql="SELECT a.periode, b.kode_cabang,b.nama_cabang, b.alamat,a.id_cat_bisnis_header,b.id_cabang from cat_bisnis_header a inner join cabang b on a.id_cabang=b.id_cabang where a.id_cat_bisnis_header='".$id."'";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    function get_all_Cat_Bisnis($id){
+        $sql="SELECT
+                a.id_cat_bisnis,a.id_cat_bisnis_header, a.temuan, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member
+            FROM
+                cat_bisnis a
+            INNER JOIN klasifikasi_temuan b ON a.klasifikasi_temuan = b.id_klasifikasi_temuan
+            INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
+            INNER JOIN status_trx d on a.status=d.id_status
+         where a.id_cat_bisnis_header='".$id."' and a.aktif='Aktif'";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
 }

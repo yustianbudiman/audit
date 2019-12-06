@@ -14,7 +14,7 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">MANAGE
-                            <small>Data CAT Operasional</small>
+                            <small>Data CAT Bisnis</small>
                         </h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">

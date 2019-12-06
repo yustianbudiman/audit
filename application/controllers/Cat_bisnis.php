@@ -33,22 +33,13 @@ class Cat_bisnis extends CI_Controller
         echo $this->Cat_bisnis_model->json_cabang();
     }
 
-    public function tambah_data($id){
-    	$header=$this->Cat_bisnis_model->list_cat_bisnis_header();
-    	$data=[
-    		'list_cabang_one'=>$this->Cabang_model->get_by_id($id),
-    		'list_cat_bisnis_header'=>$header,
-    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
-    		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
-    		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
-    		'list_environment'=>$this->Cont_environment_model->get_all(),
-    		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
-    		'list_control_activities'=>$this->Control_activities_model->get_all(),
-    		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
-    		'list_monitoring'=>$this->Monitoring_model->get_all(),
-    		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
-    	];
-    	$this->template->load('template','cat_bisnis/cat_bisnis_list',$data);
+    public function list_cat_bisnis_detail($id){
+        $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
+        $data=[
+                'one_header_detail'=>$header,
+                'list_all_cat_bisnis'=>$this->Cat_bisnis_model->get_all_Cat_Bisnis($header['id_cat_bisnis_header']),
+            ];
+    	$this->template->load('template','cat_bisnis/cat_bisnis_list_detail',$data);
     }
 
     public function tambah_data_history($id,$periode){
@@ -122,14 +113,16 @@ class Cat_bisnis extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create($id=null) 
     {
-        $header=$this->Cat_bisnis_model->list_cat_bisnis_header_all();
+        // $header=$this->Cat_bisnis_model->list_cat_bisnis_header_all();
+        $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
+
  		$data=[
             'action' => base_url('cat_bisnis/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
-    		'list_cat_bisnis_header'=>$header,
-    		'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
+    		// 'list_cat_bisnis_header'=>$header,
+    		// 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
     		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
     		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
     		'list_environment'=>$this->Cont_environment_model->get_all(),
@@ -147,9 +140,9 @@ class Cat_bisnis extends CI_Controller
             'monitoring' => set_value('monitoring'),
             'goal_strategic' => set_value('goal_strategic'),
             'id_cat_bisnis' => set_value('id_cat_bisnis'),
-            'id_cabang' => set_value('id_cabang'),
-            'nama_cabang' => set_value('nama_cabang'),
-            'alamat_cabang' => set_value('alamat_cabang'),
+            'id_cabang' => set_value('id_cabang',$header['id_cabang']),
+            'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
+            'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
             'periode' => set_value('periode'),
             'temuan' => set_value('temuan'),
             'kriteria' => set_value('kriteria'),
@@ -254,8 +247,8 @@ class Cat_bisnis extends CI_Controller
                 'button' => 'Update',
                 'action' => base_url('cat_bisnis/update_action'),
                 'list_cabang'=>$this->Cabang_model->get_all(),
-                'list_cat_bisnis_header'=>$header,
-                'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
+                // 'list_cat_bisnis_header'=>$header,
+                // 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
                 'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
                 'list_environment'=>$this->Cont_environment_model->get_all(),
@@ -307,7 +300,8 @@ class Cat_bisnis extends CI_Controller
             $this->template->load('template','cat_bisnis/cat_bisnis_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('cat_bisnis'));
+            // redirect(site_url('cat_bisnis'));
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
     
@@ -328,8 +322,8 @@ class Cat_bisnis extends CI_Controller
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
 				'risk_assesment_value' => $this->input->post('risk_assesment_value',TRUE),
-				'id_control_activities' => $this->input->post('control_activities',TRUE),
-				'control_activities_value' => $this->input->post('control_activities_value',TRUE),
+				'id_control_activities' => $this->input->post('control_activity',TRUE),
+				'control_activities_value' => $this->input->post('control_activity_value',TRUE),
 				'id_information_comunication' => $this->input->post('infomation_comunication',TRUE),
 				'information_comunication_value' => $this->input->post('information_comunication_value',TRUE),
 				'id_monitoring' => $this->input->post('monitoring',TRUE),
@@ -352,23 +346,29 @@ class Cat_bisnis extends CI_Controller
 
             $this->Cat_bisnis_model->update($this->input->post('id_cat_bisnis',TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('cat_bisnis'));
+            redirect($_SERVER['HTTP_REFERER']);
+            // header(&quot;Location: {$_SERVER['HTTP_REFERER']}&quot;);
         }
     }
     
     public function delete() 
     {
-    	$id =$this->input->post('mh_id_cat_bisnis',TRUE);
-    	$id_cabang =$this->input->post('mh_id_cabang',TRUE);
-        $row = $this->Cat_bisnis_model->get_by_id($id);
 
+        $MD_id_cat_bisnis_header =$this->input->post('MD_id_cat_bisnis_header',TRUE);
+    	$MD_id_cat_bisnis =$this->input->post('MD_id_cat_bisnis',TRUE);
+
+        $row = $this->Cat_bisnis_model->get_by_id($MD_id_cat_bisnis);
         if ($row) {
-            $this->Cat_bisnis_model->delete($id);
+            // $this->Cat_bisnis_model->delete($id);
+            $data=[
+                    'aktif'=>'Nonaktif'
+                ];
+            $this->Cat_bisnis_model->update($MD_id_cat_bisnis, $data);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('cat_bisnis/tambah_data_history/'.$id_cabang));
+            redirect($_SERVER['HTTP_REFERER']);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('cat_bisnis/tambah_data_history/'.$id_cabang));
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
 
@@ -384,8 +384,8 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_rules('environment_value', 'environment value', 'trim|required');
 		$this->form_validation->set_rules('risk_assesment', 'id risk assesment', 'trim|required');
 		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value', 'trim|required');
-		$this->form_validation->set_rules('control_activiti', 'id control activiti', 'trim|required');
-		$this->form_validation->set_rules('control_activities_value', 'control activiti value', 'trim|required');
+		$this->form_validation->set_rules('control_activity', 'id control activiti', 'trim|required');
+		$this->form_validation->set_rules('control_activity_value', 'control activiti value', 'trim|required');
 		$this->form_validation->set_rules('information_comunication', 'id infomation comunication', 'trim|required');
 		$this->form_validation->set_rules('information_comunication_value', 'infomation comunication value', 'trim|required');
 		$this->form_validation->set_rules('monitoring', 'id monitoring', 'trim|required');
@@ -399,6 +399,7 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi', '');
 		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit', '');
         $this->form_validation->set_rules('target_date', 'target date', 'trim|required');
+
         // $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');

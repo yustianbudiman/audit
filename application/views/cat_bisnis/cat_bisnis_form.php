@@ -398,7 +398,7 @@
                         
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-close"></i> Cancel</button>
+                        <a href="<?php echo base_url('cat_bisnis');?>" class="btn btn-default"><i class="fa fa-close"></i> Cancel</a>
                         <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
                     </div>
                             
