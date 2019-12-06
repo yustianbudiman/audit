@@ -20,6 +20,7 @@ class Cat_bisnis extends CI_Controller
         $this->load->model('Monitoring_model');
         $this->load->model('Goal_strategic_model');
         $this->load->library('form_validation');        
+        $this->load->model('Status_trx_model');
 		$this->load->library('datatables');
     }
 
@@ -73,7 +74,7 @@ class Cat_bisnis extends CI_Controller
         if ($row) {
             $data = array(
                 'one_cat_bisnis' => $row,
-                'status' => $this->Cat_bisnis_model->get_One_Cat_Bisnis($id),
+                'list_status' => $this->Status_trx_model->get_all(),
 		    );
             $this->template->load('template','cat_bisnis/cat_bisnis_read', $data);
         } else {
@@ -326,7 +327,7 @@ class Cat_bisnis extends CI_Controller
     {
 
         $MD_id_cat_bisnis_header =$this->input->post('MD_id_cat_bisnis_header',TRUE);
-    	$MD_id_cat_bisnis =$this->input->post('MD_id_cat_bisnis',TRUE);
+        $MD_id_cat_bisnis =$this->input->post('MD_id_cat_bisnis',TRUE);
 
         $row = $this->Cat_bisnis_model->get_by_id($MD_id_cat_bisnis);
         if ($row) {
@@ -335,6 +336,27 @@ class Cat_bisnis extends CI_Controller
                     'aktif'=>'Nonaktif'
                 ];
             $this->Cat_bisnis_model->update($MD_id_cat_bisnis, $data);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function update_status() 
+    {
+
+        $id_cat_bisnis_header =$this->input->post('id_cat_bisnis_header',TRUE);
+    	$id_cat_bisnis =$this->input->post('id_cat_bisnis',TRUE);
+
+        $row = $this->Cat_bisnis_model->get_by_id($id_cat_bisnis);
+        if ($row) {
+            // $this->Cat_bisnis_model->delete($id);
+            $data=[
+                    'status'=>$this->input->post('status',TRUE)
+                ];
+            $this->Cat_bisnis_model->update($id_cat_bisnis, $data);
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect($_SERVER['HTTP_REFERER']);
         } else {

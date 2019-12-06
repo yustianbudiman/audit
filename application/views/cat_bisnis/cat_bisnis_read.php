@@ -29,6 +29,7 @@
                     <!-- /.box-header -->
                     <div class="box-body pad">
                         <div style="padding-bottom: 10px;">
+                        			<form method="POST" action="<?php echo  base_url('cat_bisnis/update_status'); ?>">
                         	        <table class="table table-bordered">
 									    <tr><td style="width: 20%">Nama Cabang</td><td><?php echo $one_cat_bisnis->nama_cabang; ?></td></tr>
 									    <tr><td style="width: 20%">Alamat Cabang</td><td><?php echo $one_cat_bisnis->alamat; ?></td></tr>
@@ -37,17 +38,17 @@
 									    <tr><td style="width: 20%">Dampak</td><td><?php echo $one_cat_bisnis->dampak; ?></td></tr>
 									    <tr><td style="width: 20%">Penyimpangan</td><td><?php echo $one_cat_bisnis->nama_penyimpangan; ?></td></tr>
 									    <tr><td style="width: 20%">Environment</td><td><?php echo $one_cat_bisnis->nama_environment; ?></td></tr>
-									    <tr><td style="width: 20%">Environment Value</td><td><?php echo $one_cat_bisnis->environment_value; ?></td></tr>
+									    <tr><td style="width: 20%">Environment Impact</td><td><?php echo $one_cat_bisnis->environment_value; ?></td></tr>
 									    <tr><td style="width: 20%">Risk Assesment</td><td><?php echo $one_cat_bisnis->nama_risk_assesment; ?></td></tr>
-									    <tr><td style="width: 20%">Risk Assesment Value</td><td><?php echo $one_cat_bisnis->risk_assesment_value; ?></td></tr>
+									    <tr><td style="width: 20%">Risk Assesment Impact</td><td><?php echo $one_cat_bisnis->risk_assesment_value; ?></td></tr>
 									    <tr><td style="width: 20%">Control Activiti</td><td><?php echo $one_cat_bisnis->nama_control_activities; ?></td></tr>
-									    <tr><td style="width: 20%">Control Activiti Value</td><td><?php echo $one_cat_bisnis->control_activities_value; ?></td></tr>
+									    <tr><td style="width: 20%">Control Activiti Impact</td><td><?php echo $one_cat_bisnis->control_activities_value; ?></td></tr>
 									    <tr><td style="width: 20%">Information Comunication</td><td><?php echo $one_cat_bisnis->nama_information_comunication; ?></td></tr>
-									    <tr><td style="width: 20%">Information Comunication Value</td><td><?php echo $one_cat_bisnis->information_comunication_value; ?></td></tr>
+									    <tr><td style="width: 20%">Information Comunication Impact</td><td><?php echo $one_cat_bisnis->information_comunication_value; ?></td></tr>
 									    <tr><td style="width: 20%">Monitoring</td><td><?php echo $one_cat_bisnis->nama_monitoring; ?></td></tr>
-									    <tr><td style="width: 20%">Monitoring Value</td><td><?php echo $one_cat_bisnis->monitoring_value; ?></td></tr>
+									    <tr><td style="width: 20%">Monitoring Impact</td><td><?php echo $one_cat_bisnis->monitoring_value; ?></td></tr>
 									    <tr><td style="width: 20%">Goal Strategic</td><td><?php echo $one_cat_bisnis->nama_goal_strategic; ?></td></tr>
-									    <tr><td style="width: 20%">Goal Strategic Value</td><td><?php echo $one_cat_bisnis->goal_strategic_value; ?></td></tr>
+									    <tr><td style="width: 20%">Goal Strategic Impact</td><td><?php echo $one_cat_bisnis->goal_strategic_value; ?></td></tr>
 									    <tr><td style="width: 20%">Total Impact</td><td><?php echo $one_cat_bisnis->total_impact; ?></td></tr>
 									    <tr><td style="width: 20%">Likelihood</td><td><?php echo $one_cat_bisnis->likelihood; ?></td></tr>
 									    <tr><td style="width: 20%">Tev</td><td><?php echo $one_cat_bisnis->tev; ?></td></tr>
@@ -56,9 +57,26 @@
 									    <tr><td style="width: 20%">Tanggapan Audit</td><td><?php echo $one_cat_bisnis->tanggapan_audit; ?></td></tr>
 									    <tr><td style="width: 20%">Target Date</td><td><?php echo $one_cat_bisnis->target_date; ?></td></tr>
 									    <tr><td style="width: 20%">Aktif</td><td><?php echo $one_cat_bisnis->aktif; ?></td></tr>
+									    <tr>
+									    	<td style="width: 20%">Status</td>
+									    	<td>
+									    		<select class="form-control" name="status" style="width: 20%;">
+									    			<?php foreach ($list_status as $key) { ?>
+									    			<option value="<?php echo $key->id_status; ?>" <?php echo ($one_cat_bisnis->status_trx==$key->status_trx?'selected':''); ?>><?php echo $key->status_trx; ?></option>
+									    			<?php } ?>
+									    		</select>
+											</td></tr>
 									   
-									    <tr><td></td><td><a href="<?php echo site_url('cat_bisnis') ?>" class="btn btn-default">Cancel</a></td></tr>
+									    <tr><td></td>
+									    	<td>
+									    		<input type="hidden" name="id_cat_bisnis" id="id_cat_bisnis" value="<?php echo $one_cat_bisnis->id_cat_bisnis ?>">
+        										<input type="hidden" name="id_cat_bisnis_header" id="id_cat_bisnis_header" value="<?php echo $one_cat_bisnis->id_cat_bisnis_header?>">
+									    		<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Simpan</button>
+									    		<button type="button" class="btn btn-default" onclick="goBack()"><i class="fa fa-close"></i> Cancel</button>
+									    	</td>
+									    </tr>
 									</table>
+									</form>
                         </div>
                     </div>
                 </div>
@@ -66,3 +84,8 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+	function goBack() {
+	    window.history.back();
+	 }
+</script>
