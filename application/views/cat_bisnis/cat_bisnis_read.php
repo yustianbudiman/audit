@@ -69,9 +69,11 @@
 									   
 									    <tr><td></td>
 									    	<td>
+									    		<?php if($this->session->userdata('id_user_level')=='4'){?>
 									    		<input type="hidden" name="id_cat_bisnis" id="id_cat_bisnis" value="<?php echo $one_cat_bisnis->id_cat_bisnis ?>">
         										<input type="hidden" name="id_cat_bisnis_header" id="id_cat_bisnis_header" value="<?php echo $one_cat_bisnis->id_cat_bisnis_header?>">
 									    		<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Simpan</button>
+									    		<?php } ?>
 									    		<button type="button" class="btn btn-default" onclick="goBack()"><i class="fa fa-close"></i> Cancel</button>
 									    	</td>
 									    </tr>
