@@ -398,7 +398,7 @@
                         
                     </div>
                     <div class="box-footer">
-                        <a href="<?php echo base_url('cat_bisnis');?>" class="btn btn-default"><i class="fa fa-close"></i> Cancel</a>
+                        <button type="button" class="btn btn-default" onclick="goBack()"><i class="fa fa-close"></i> Cancel</button>
                         <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
                     </div>
                             
@@ -439,7 +439,10 @@
         <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 
         <script type="text/javascript">
-            
+              function goBack() {
+                window.history.back();
+              }
+              
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_bisnis=$(this).attr('data-id');

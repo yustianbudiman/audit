@@ -33,6 +33,15 @@ class Cat_operasional extends CI_Controller
         echo $this->Cat_operasional_model->json();
     }
 
+    public function list_cat_operasional_detail($id){
+        $header=$this->Cat_operasional_model->get_One_Header_detail($id);
+        $data=[
+                'one_header_detail'=>$header,
+                'list_all_cat_operasional'=>$this->Cat_operasional_model->get_all_Cat_Operasional($header['id_cat_operasional_header']),
+            ];
+        $this->template->load('template','cat_operasional/cat_operasional_list_detail',$data);
+    }
+
     public function read($id) 
     {
         $row = $this->Cat_operasional_model->get_by_id($id);
@@ -77,14 +86,15 @@ class Cat_operasional extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create($id=null) 
     {
-    	$header=$this->Cat_operasional_model->list_cat_operasional_header_all();
+    	// $header=$this->Cat_operasional_model->list_cat_operasional_header_all();
+        $header=$this->Cat_operasional_model->get_One_Header_detail($id);
  		$data=[
             'action' => base_url('cat_operasional/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
-    		'list_cat_operasional_header'=>$header,
-    		'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
+    		// 'list_cat_operasional_header'=>$header,
+    		// 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
     		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
     		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
     		'list_environment'=>$this->Cont_environment_model->get_all(),
@@ -100,9 +110,9 @@ class Cat_operasional extends CI_Controller
             'information_comunication' => set_value('information_comunication'),
             'monitoring' => set_value('monitoring'),
             'id_cat_operasional' => set_value('id_cat_operasional'),
-            'id_cabang' => set_value('id_cabang'),
-            'nama_cabang' => set_value('nama_cabang'),
-            'alamat_cabang' => set_value('alamat_cabang'),
+            'id_cabang' => set_value('id_cabang',$header['id_cabang']),
+            'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
+            'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
             'periode' => set_value('periode'),
             'temuan' => set_value('temuan'),
             'kriteria' => set_value('kriteria'),
@@ -209,7 +219,8 @@ class Cat_operasional extends CI_Controller
 
             $this->Cat_operasional_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('cat_operasional'));
+            // redirect(site_url('cat_operasional'));
+            redirect($_SERVER['HTTP_REFERER']);            
         }
     }
     
@@ -223,8 +234,8 @@ class Cat_operasional extends CI_Controller
                 'button' => 'Update',
                 'action' => base_url('cat_operasional/update_action'),
                 'list_cabang'=>$this->Cabang_model->get_all(),
-                'list_cat_operasional_header'=>$header,
-                'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($id),
+                // 'list_cat_operasional_header'=>$header,
+                // 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
                 'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
                 'list_environment'=>$this->Cont_environment_model->get_all(),
@@ -233,7 +244,7 @@ class Cat_operasional extends CI_Controller
                 'list_information_comunication'=>$this->Information_comunication_model->get_all(),
                 'list_monitoring'=>$this->Monitoring_model->get_all(),
                 'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
-				'id_cat_operasional' => set_value('id_cat_operasional', $row->id_cat_operasional),
+                'id_cat_operasional' => set_value('id_cat_operasional', $row->id_cat_operasional),
 				'id_cabang' => set_value('id_cabang', $header['id_cabang']),
                 'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
                 'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
@@ -280,11 +291,11 @@ class Cat_operasional extends CI_Controller
     
     public function update_action() 
     {
-        // $this->_rules();
+        $this->_rules();
 
-        // if ($this->form_validation->run() == FALSE) {
-        //     $this->update($this->input->post('id_cat_operasional', TRUE));
-        // } else {
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id_cat_operasional', TRUE));
+        } else {
         	// print_r($_POST);
         	// exit();
             $data = array(
@@ -322,8 +333,9 @@ class Cat_operasional extends CI_Controller
 
             $this->Cat_operasional_model->update($this->input->post('id_cat_operasional', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('cat_operasional'));
-        // }
+            // redirect(site_url('cat_operasional'));
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
     
     public function delete($id) 
