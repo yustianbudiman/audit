@@ -19,6 +19,7 @@ class Cat_operasional extends CI_Controller
         $this->load->model('Information_comunication_model');
         $this->load->model('Monitoring_model');
         $this->load->model('Goal_strategic_model');
+        $this->load->model('Status_trx_model');
         $this->load->library('form_validation');        
 		$this->load->library('datatables');
     }
@@ -44,41 +45,12 @@ class Cat_operasional extends CI_Controller
 
     public function read($id) 
     {
-        $row = $this->Cat_operasional_model->get_by_id($id);
+         $row = $this->Cat_operasional_model->get_One_Cat_Operasional($id);
         if ($row) {
             $data = array(
-				'id_cat_operasional' => $row->id_cat_operasional,
-				'id_cabang' => $row->id_cabang,
-				'nama_cabang' => $row->nama_cabang,
-				'id_temuan' => $row->id_temuan,
-				'kriteria' => $row->kriteria,
-				'dampak' => $row->dampak,
-				'id_penyimpangan' => $row->id_penyimpangan,
-				'id_environment' => $row->id_environment,
-				'environment_value' => $row->environment_value,
-				'id_risk_assesment' => $row->id_risk_assesment,
-				'risk_assesment_value' => $row->risk_assesment_value,
-				'id_control_activity' => $row->id_control_activities,
-				'control_activity_value' => $row->control_activities_value,
-				'id_information_comunication' => $row->id_information_comunication,
-				'information_comunication_value' => $row->information_comunication_value,
-				'id_monitoring' => $row->id_monitoring,
-				'monitoring_value' => $row->monitoring_value,
-				'total_impact' => $row->total_impact,
-				'likelihood' => $row->likelihood,
-				'tev' => $row->tev,
-				'bobot_resiko' => $row->bobot_resiko,
-				'rekomendasi' => $row->rekomendasi,
-				'tanggapan_audit' => $row->tanggapan_audit,
-				'target_date' => $row->target_date,
-				'aktif' => $row->aktif,
-				'created_date' => $row->created_date,
-				'created_ip' => $row->created_ip,
-				'created_by' => $row->created_by,
-				'updated_date' => $row->updated_date,
-				'updated_ip' => $row->updated_ip,
-				'updated_by' => $row->updated_by,
-		    );
+                'one_cat_operasional' => $row,
+                'list_status' => $this->Status_trx_model->get_all(),
+            );
             $this->template->load('template','cat_operasional/cat_operasional_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -349,6 +321,27 @@ class Cat_operasional extends CI_Controller
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('cat_operasional'));
+        }
+    }
+
+    public function update_status() 
+    {
+
+        $id_cat_operasional_header =$this->input->post('id_cat_operasional_header',TRUE);
+        $id_cat_operasional =$this->input->post('id_cat_operasional',TRUE);
+
+        $row = $this->Cat_operasional_model->get_by_id($id_cat_operasional);
+        if ($row) {
+            // $this->Cat_operasional_model->delete($id);
+            $data=[
+                    'status'=>$this->input->post('status',TRUE)
+                ];
+            $this->Cat_operasional_model->update($id_cat_operasional, $data);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
 

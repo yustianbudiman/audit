@@ -38,7 +38,7 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">MANAGE
-                            <small>Data CAT Bisnis Detail</small>
+                            <small>Data CAT Operasional Detail</small>
                         </h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
@@ -90,8 +90,9 @@
                                 <td><?php echo $key['member'];?></td>
                                 <td style="text-align: center;"><label class="label label-warning"><?php echo $key['status_trx'];?></label></td>
                                 <td style="text-align: center;">
-                                    <a href="<?php echo base_url('cat_operasional/update/'.$key['id_cat_operasional']);?>" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-edit"></i> Edit</a>
-                                    <button type="button" class="btn btn-danger btn-xs btn-flat hapus_cat_binis" data-id_cat_binis="<?php echo $key['id_cat_operasional']?>" data-id_cat_binis_header="<?php echo $key['id_cat_operasional_header']?>" data-toggle="modal" data-target="#ModalDelete"><i class="fa fa-trash"></i> Hapus</button>
+                                    <a href="<?php echo base_url('cat_operasional/read/'.$key['id_cat_operasional']);?>" class="btn btn-success btn-xs btn-flat"><i class="fa fa-eye"></i> Read</a>
+                                    <a href="<?php echo base_url('cat_operasional/update/'.$key['id_cat_operasional']);?>" class="btn btn-primary btn-xs btn-flat <?php echo ($key['status']==2?'disabled':'');?>"><i class="fa fa-edit"></i> Edit</a>
+                                    <button type="button" class="btn btn-danger btn-xs btn-flat hapus_cat_binis" <?php echo ($key['status']==2?'disabled':'');?> data-id_cat_binis="<?php echo $key['id_cat_operasional']?>" data-id_cat_binis_header="<?php echo $key['id_cat_operasional_header']?>" data-toggle="modal" data-target="#ModalDelete"><i class="fa fa-trash"></i> Hapus</button>
                                 </td>
                             </tr>
                             <?php $no++; } ?>

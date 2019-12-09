@@ -21,8 +21,7 @@ class Cat_operasional_model extends CI_Model
         $this->datatables->from('cat_operasional_header');
         //add this line for join
         $this->datatables->join('cat_operasional', 'cat_operasional_header.id_cat_operasional_header = cat_operasional.id_cat_operasional_header');
-        $this->datatables->add_column('action', anchor(site_url('cat_operasional/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('cat_operasional/list_cat_operasional_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
+        $this->datatables->add_column('action', anchor(site_url('cat_operasional/list_cat_operasional_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
                 ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional_header,id_cat_operasional,periode,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
@@ -190,7 +189,7 @@ class Cat_operasional_model extends CI_Model
 
     function get_all_Cat_Operasional($id){
         $sql="SELECT
-                a.id_cat_operasional,a.id_cat_operasional_header, a.temuan, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member
+                a.id_cat_operasional,a.id_cat_operasional_header, a.temuan, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
             FROM
                 cat_operasional a
             INNER JOIN klasifikasi_temuan b ON a.klasifikasi_temuan = b.id_klasifikasi_temuan
@@ -199,6 +198,12 @@ class Cat_operasional_model extends CI_Model
          where a.id_cat_operasional_header='".$id."' and a.aktif='Aktif'";
         $query = $this->db->query($sql);
         return $query->result_array();
+    }
+    function get_One_Cat_Operasional($id){
+        $sql="SELECT * from v_cat_operasional a
+         where a.id_cat_operasional='".$id."' and a.aktif='Aktif'";
+        $query = $this->db->query($sql);
+        return $query->row();
     }
 
 }

@@ -55,16 +55,33 @@
 									    <tr><td style="width: 20%">Bobot Resiko</td><td><?php echo $one_cat_bisnis->bobot_resiko; ?></td></tr>
 									    <tr><td style="width: 20%">Rekomendasi</td><td><?php echo $one_cat_bisnis->rekomendasi; ?></td></tr>
 									    <tr><td style="width: 20%">Tanggapan Audit</td><td><?php echo $one_cat_bisnis->tanggapan_audit; ?></td></tr>
-									    <tr><td style="width: 20%">Target Date</td><td><?php echo $one_cat_bisnis->target_date; ?></td></tr>
+									    <tr><td style="width: 20%">Target Date</td>
+									    	<td>
+									    		<div class="col-lg-3">
+				                                    <?php if($_SESSION['id_user_level']==7){?>
+				                                    <div class="input-group date">
+				                                      <div class="input-group-addon">
+				                                        <i class="fa fa-calendar"></i>
+				                                      </div>
+									    				<input type="text" name="target_date" id="target_date" value="<?php echo date('d-m-Y',strtotime($one_cat_bisnis->target_date)); ?>" class="form-control">
+				                                    </div>
+								    				<?php }else{
+								    					 echo date('d-m-Y',strtotime($one_cat_bisnis->target_date)); 
+								    				} ?>
+				                                </div>
+									    	</td>
+									    </tr>
 									    <tr><td style="width: 20%">Aktif</td><td><?php echo $one_cat_bisnis->aktif; ?></td></tr>
 									    <tr>
 									    	<td style="width: 20%">Status</td>
 									    	<td>
-									    		<select class="form-control" name="status" style="width: 20%;">
-									    			<?php foreach ($list_status as $key) { ?>
-									    			<option value="<?php echo $key->id_status; ?>" <?php echo ($one_cat_bisnis->status_trx==$key->status_trx?'selected':''); ?>><?php echo $key->status_trx; ?></option>
-									    			<?php } ?>
-									    		</select>
+									    		<div class="col-lg-3">
+										    		<select class="form-control" name="status" >
+										    			<?php foreach ($list_status as $key) { ?>
+										    			<option value="<?php echo $key->id_status; ?>" <?php echo ($one_cat_bisnis->status_trx==$key->status_trx?'selected':''); ?>><?php echo $key->status_trx; ?></option>
+										    			<?php } ?>
+										    		</select>
+									    		</div>
 											</td></tr>
 									   
 									    <tr><td></td>
