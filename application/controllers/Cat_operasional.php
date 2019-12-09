@@ -334,7 +334,8 @@ class Cat_operasional extends CI_Controller
         if ($row) {
             // $this->Cat_operasional_model->delete($id);
             $data=[
-                    'status'=>$this->input->post('status',TRUE)
+                    'status'=>$this->input->post('status',TRUE),
+                    'target_date'=>($this->input->post('target_date',TRUE)!=''?$this->input->post('target_date',TRUE):$row->target_date),
                 ];
             $this->Cat_operasional_model->update($id_cat_operasional, $data);
             $this->session->set_flashdata('message', 'Delete Record Success');
@@ -482,6 +483,45 @@ class Cat_operasional extends CI_Controller
 
         xlsEOF();
         exit();
+    }
+    public function send_email(){
+        $config = [
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_user' => 'yustianbudiman@gmail.com',  // Email gmail
+            'smtp_pass'   => 'P@ssw0rd@123@',  // Password gmail
+            'smtp_crypto' => 'ssl',
+            'smtp_port'   => 465,
+            'crlf'    => "\r\n",
+            'newline' => "\r\n"
+        ];
+
+        // $this->load->library('email', $config);
+        $this->email->initialize($config);
+
+        // Email dan nama pengirim
+        $this->email->from('yustianbudiman@gmail.com', 'yustianbudiman');
+
+        // Email penerima
+        $this->email->to('yustianbudiman@gmail.com'); // Ganti dengan email tujuan
+
+        // Lampiran email, isi dengan url/path file
+        // $this->email->attach('https://masrud.com/content/images/20181215150137-codeigniter-smtp-gmail.png');
+
+        // Subject email
+        $this->email->subject('Kirim Email dengan SMTP Gmail ');
+
+        // Isi email
+        $this->email->message("Ini adalah contoh email yang dikirim menggunakan SMTP Gmail pada CodeIgniter");
+
+        // Tampilkan pesan sukses atau error
+        if ($this->email->send()) {
+            echo 'Sukses! email berhasil dikirim.';
+        } else {
+            echo 'Error! email tidak dapat dikirim.';
+        }
     }
 
 }

@@ -354,7 +354,8 @@ class Cat_bisnis extends CI_Controller
         if ($row) {
             // $this->Cat_bisnis_model->delete($id);
             $data=[
-                    'status'=>$this->input->post('status',TRUE)
+                    'status'=>$this->input->post('status',TRUE),
+                    'target_date'=>($this->input->post('target_date',TRUE)!=''?$this->input->post('target_date',TRUE):$row->target_date),
                 ];
             $this->Cat_bisnis_model->update($id_cat_bisnis, $data);
             $this->session->set_flashdata('message', 'Delete Record Success');

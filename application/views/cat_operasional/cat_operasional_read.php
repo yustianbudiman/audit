@@ -70,14 +70,14 @@
 				                                </div>
 									    	</td>
 									    </tr>
-									    <tr><td style="width: 20%">Aktif</td><td><?php echo $one_cat_operasional->aktif; ?></td></tr>
+									    <tr><td style="width: 20%">Aktif</td><td><?php echo $one_cat_operasional->aktif ?></td></tr>
 									    <tr>
 									    	<td style="width: 20%">Status</td>
 									    	<td>
 									    		<div class="col-lg-3">
 										    		<select class="form-control" name="status" >
 										    			<?php foreach ($list_status as $key) { ?>
-										    			<option value="<?php echo $key->id_status; ?>" <?php echo ($one_cat_operasional->status_trx==$key->status_trx?'selected':''); ?>><?php echo $key->status_trx; ?></option>
+										    			<option value="<?php echo $key->id_status; ?>" <?php echo ($one_cat_operasional->status_trx==$key->status_trx?'selected':''); ?> ><?php echo $key->status_trx; ?></option>
 										    			<?php } ?>
 										    		</select>
 									    		</div>
@@ -85,7 +85,7 @@
 									   
 									    <tr><td></td>
 									    	<td>
-									    		<?php if($this->session->userdata('id_user_level')=='4'){?>
+									    		<?php if($this->session->userdata('id_user_level')=='4' OR $this->session->userdata('id_user_level')=='7'){?>
 									    		<input type="hidden" name="id_cat_operasional" id="id_cat_operasional" value="<?php echo $one_cat_operasional->id_cat_operasional ?>">
         										<input type="hidden" name="id_cat_operasional_header" id="id_cat_operasional_header" value="<?php echo $one_cat_operasional->id_cat_operasional_header?>">
 									    		<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Simpan</button>

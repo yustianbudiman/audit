@@ -30,8 +30,15 @@ class Status_trx_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+         $sql="SELECT * from status_trx";
+         if ($this->session->userdata('id_user_level')=='4') {
+            $sql .=" where id_status in(1,2)";
+         }
+            $sql .=" order by id_status";
+        $query = $this->db->query($sql);
+        return $query->result();
     }
 
     // get data by id

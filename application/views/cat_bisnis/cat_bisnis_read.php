@@ -86,7 +86,7 @@
 									   
 									    <tr><td></td>
 									    	<td>
-									    		<?php if($this->session->userdata('id_user_level')=='4'){?>
+									    		<?php if($this->session->userdata('id_user_level')=='4' OR $this->session->userdata('id_user_level')=='7'){?>
 									    		<input type="hidden" name="id_cat_bisnis" id="id_cat_bisnis" value="<?php echo $one_cat_bisnis->id_cat_bisnis ?>">
         										<input type="hidden" name="id_cat_bisnis_header" id="id_cat_bisnis_header" value="<?php echo $one_cat_bisnis->id_cat_bisnis_header?>">
 									    		<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Simpan</button>
