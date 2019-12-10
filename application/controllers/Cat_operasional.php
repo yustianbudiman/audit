@@ -338,7 +338,7 @@ class Cat_operasional extends CI_Controller
                     'target_date'=>($this->input->post('target_date',TRUE)!=''?$this->input->post('target_date',TRUE):$row->target_date),
                 ];
             $this->Cat_operasional_model->update($id_cat_operasional, $data);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', 'Update Record Success');
             redirect($_SERVER['HTTP_REFERER']);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');

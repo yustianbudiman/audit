@@ -22,7 +22,7 @@
                             <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-minus"></i></button>
                             <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
                         <!-- /. tools -->
                     </div>
@@ -49,6 +49,90 @@
             </div>
         </div>
     </section>
+</div>
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <form class="form-horizontal">
+      <div class="modal-body">
+        <div class="col-sm-12">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div class="col-sm-8">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol>
+          <!-- Slider content (slider wrap)-->
+          <div class="carousel-inner">
+            <div class="item active">
+                <img src="<?php echo base_url('assets/img/logo.jpg')?>" alt="Slide 1">
+                <div class="carousel-caption">
+                    <h3>Label Caption 1</h3>
+                    <p>Lorem Ipsum is simply dummy text</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="<?php echo base_url('assets/img/logo.jpg')?>" alt="Slide 2">
+                <div class="carousel-caption">
+                    <h3>Label Caption 2</h3>
+                    <p>Lorem Ipsum is simply dummy text</p>
+                </div>
+            </div>
+        </div>
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+        <div class="col-sm-4">
+            <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol>
+            <div class="carousel-inner">
+            <div class="item active">
+                <img src="<?php echo base_url('assets/img/logo.jpg')?>" alt="Slide 1">
+                <div class="carousel-caption">
+                    <h3>Label Caption 1</h3>
+                    <p>Lorem Ipsum is simply dummy text</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="<?php echo base_url('assets/img/logo.jpg')?>" alt="Slide 2">
+                <div class="carousel-caption">
+                    <h3>Label Caption 2</h3>
+                    <p>Lorem Ipsum is simply dummy text</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        JUdul
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+      </form>
+    </div>
+
+  </div>
 </div>
         <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
