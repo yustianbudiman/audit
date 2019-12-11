@@ -189,7 +189,7 @@ class Cat_operasional_model extends CI_Model
 
     function get_all_Cat_Operasional($id){
         $sql="SELECT
-                a.id_cat_operasional,a.id_cat_operasional_header, a.temuan, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
+                a.id_cat_operasional,a.id_cat_operasional_header, a.temuan, a.kriteria, a.dampak, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
             FROM
                 cat_operasional a
             INNER JOIN klasifikasi_temuan b ON a.klasifikasi_temuan = b.id_klasifikasi_temuan

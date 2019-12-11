@@ -520,6 +520,15 @@ class Cat_bisnis extends CI_Controller
         exit();
     }
 
+    public function word($id){
+        $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
+        $data=[
+                'one_header_detail'=>$header,
+                'list_all_cat_bisnis'=>$this->Cat_bisnis_model->get_all_Cat_Bisnis($header['id_cat_bisnis_header']),
+            ];
+        $this->load->view('cat_bisnis/generate_docx',$data);
+    }
+
 }
 
 /* End of file Cat_bisnis.php */
