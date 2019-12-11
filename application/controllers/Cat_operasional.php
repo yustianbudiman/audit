@@ -20,6 +20,7 @@ class Cat_operasional extends CI_Controller
         $this->load->model('Monitoring_model');
         $this->load->model('Goal_strategic_model');
         $this->load->model('Status_trx_model');
+        $this->load->model('User_model');
         $this->load->library('form_validation');        
 		$this->load->library('datatables');
     }
@@ -65,6 +66,9 @@ class Cat_operasional extends CI_Controller
  		$data=[
             'action' => base_url('cat_operasional/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
+            'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+            'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
+            'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
     		// 'list_cat_operasional_header'=>$header,
     		// 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
     		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
@@ -206,6 +210,9 @@ class Cat_operasional extends CI_Controller
                 'button' => 'Update',
                 'action' => base_url('cat_operasional/update_action'),
                 'list_cabang'=>$this->Cabang_model->get_all(),
+                'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+                'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
+                'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
                 // 'list_cat_operasional_header'=>$header,
                 // 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),

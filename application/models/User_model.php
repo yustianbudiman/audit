@@ -120,6 +120,15 @@ class User_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function get_All_userBy_level($id){
+        $this->db->select('a.*, b.nama_level, c.nama_cabang, d.divisi');
+        $this->db->join('tbl_user_level b', 'a.id_user_level = b.id_user_level', 'left');
+        $this->db->join('cabang c', 'a.id_cabang = c.id_cabang', 'left');
+        $this->db->join('divisi d', 'a.id_divisi = d.id_divisi', 'left');
+        $this->db->where_in('a.id_user_level', $id);
+        return $this->db->get($this->table.' a')->result_array();
+    }
+
 }
 
 /* End of file User_model.php */

@@ -55,6 +55,7 @@
                         <div style="padding-bottom: 10px;">
                         <?php echo anchor(site_url('cat_bisnis/create/'.$one_header_detail['id_cat_bisnis_header']), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?>
                         <?php echo anchor(site_url('cat_bisnis/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
+                        <?php echo anchor(site_url('cat_bisnis/word'), '<i class="fa fa-file-word-o" aria-hidden="true"></i> Export Ms Word', 'class="btn btn-warning btn-sm"'); ?>
                     </div>
                     <table class="table table-bordered table-hover" id="dteail_cat_bisnis" style="font-size: 12px;">
                         <thead>

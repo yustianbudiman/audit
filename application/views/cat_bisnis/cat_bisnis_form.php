@@ -339,7 +339,9 @@
                                     <label for="" class="col-lg-3 control-label">TL</label>
                                   <div class="col-lg-6">
                                    <select name="tl" id="tl" class="form-control select2">
-                                       <option value="Robin Selamat">Robin Selamat</option>
+                                       <?php foreach ($list_tl as $key) { ?>
+                                       <option value="<?php echo $key['id_users'] ?>"><?php echo $key['full_name'] ?></option>
+                                       <?php } ?>
                                    </select>
                                   </div>
                                 </div>
@@ -348,9 +350,9 @@
                                     <label for="" class="col-lg-3 control-label">Member</label>
                                   <div class="col-lg-6">
                                    <select name="member[]" id="member" class="form-control select2" multiple="multiple">
-                                       <option value="A">A</option>
-                                       <option value="B">B</option>
-                                       <option value="C">C</option>
+                                       <?php foreach ($list_audit as $key) { ?>
+                                       <option value="<?php echo $key['id_users'] ?>"><?php echo $key['full_name'] ?></option>
+                                       <?php } ?>
                                    </select>
                                   </div>
                                 </div>
@@ -375,9 +377,9 @@
                                     <label for="" class="col-lg-3 control-label">Supervisor</label>
                                   <div class="col-lg-6">
                                    <select name="supervisor" id="supervisor" class="form-control select2">
-                                       <option>A</option>
-                                       <option>B</option>
-                                       <option>C</option>
+                                       <?php foreach ($list_supervisor as $key) { ?>
+                                       <option value="<?php echo $key['id_users'] ?>"><?php echo $key['full_name'] ?></option>
+                                       <?php } ?>
                                    </select>
                                   </div>
                                 </div>

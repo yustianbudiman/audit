@@ -19,13 +19,15 @@ class Cat_bisnis extends CI_Controller
         $this->load->model('Information_comunication_model');
         $this->load->model('Monitoring_model');
         $this->load->model('Goal_strategic_model');
+        $this->load->model('User_model');
         $this->load->library('form_validation');        
         $this->load->model('Status_trx_model');
 		$this->load->library('datatables');
     }
 
     public function index()
-    {
+    {   
+
         $this->template->load('template','cat_bisnis/cat_bisnis_list');
     } 
 
@@ -85,12 +87,16 @@ class Cat_bisnis extends CI_Controller
 
     public function create($id=null) 
     {
+      
         // $header=$this->Cat_bisnis_model->list_cat_bisnis_header_all();
         $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
 
  		$data=[
             'action' => base_url('cat_bisnis/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
+            'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+            'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
+            'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
     		// 'list_cat_bisnis_header'=>$header,
     		// 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
     		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
@@ -217,6 +223,9 @@ class Cat_bisnis extends CI_Controller
                 'button' => 'Update',
                 'action' => base_url('cat_bisnis/update_action'),
                 'list_cabang'=>$this->Cabang_model->get_all(),
+                'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+                'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
+                'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
                 // 'list_cat_bisnis_header'=>$header,
                 // 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
