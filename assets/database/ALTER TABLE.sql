@@ -1,0 +1,9 @@
+ALTER TABLE `cabang` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `control_activities` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `cont_environment` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `goal_strategic` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `information_comunication` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `klasifikasi_temuan` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `monitoring` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `penyimpangan` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
+ALTER TABLE `risk_assesment` CHANGE `aktif` `aktif` ENUM('Aktif','Nonaktif') NULL DEFAULT 'Aktif';
