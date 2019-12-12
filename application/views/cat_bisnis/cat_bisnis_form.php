@@ -35,7 +35,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Id Cabang: </label>
                                   <div class="col-lg-4">
-                                    <select class="form-control" name="id_cabang" id="id_cabang">
+                                    <select class="form-control" name="id_cabang" id="id_cabang" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_cabang as $key) { ?>
                                         <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->kode_cabang; ?></option>
@@ -49,7 +49,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Nama Cabang:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo $nama_cabang  ?>" class="form-control">
+                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo $nama_cabang  ?>" class="form-control" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
                                     <?php echo form_error('nama_cabang') ?>
                                   </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Alamat:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo $alamat_cabang ?>" class="form-control">
+                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo $alamat_cabang ?>" class="form-control" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
                                   </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="periode" id="periode" value="<?php echo $periode  ?>" class="form-control">
+                                        <input type="text" name="periode" id="periode" value="<?php echo $periode  ?>" class="form-control" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
                                         <?php echo form_error('periode') ?>
                                     </div>
                                   </div>
@@ -87,6 +87,7 @@
                                   <div class="col-lg-9">
                                      <input type="text" name="temuan" id="temuan" value="<?php echo $temuan  ?>" class="form-control">
                                      <input type="hidden" name="id_cat_bisnis" id="id_cat_bisnis" value="<?php echo $id_cat_bisnis  ?>" class="form-control">
+                                     <input type="hidden" name="id_cat_bisnis_header" id="id_cat_bisnis_header" value="<?php echo $id_cat_bisnis_header  ?>" class="form-control">
                                      <?php echo form_error('temuan') ?>
                                   </div>
                                 </div>
@@ -362,13 +363,22 @@
                             <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                    <label for="" class="col-lg-3 control-label">Tanggal Periksa</label>
+                                    <label for="" class="col-lg-3 control-label">Tanggal Awal</label>
                                   <div class="col-lg-4">
                                     <div class="input-group date">
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
                                         <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="<?php echo $tanggal_periksa  ?>" class="form-control" <?php echo (form_error('tanggal_periksa')!=''?'style="border-color:red;"':'') ?>>
+                                    </div>
+                                  </div>
+                                    <label for="" class="col-lg-1 control-label">Akhir</label>
+                                  <div class="col-lg-4">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                        <input type="text" name="tanggal_selesai" id="tanggal_selesai" value="<?php echo $tanggal_selesai  ?>" class="form-control" <?php echo (form_error('tanggal_selesai')!=''?'style="border-color:red;"':'') ?>>
                                     </div>
                                   </div>
                                 </div>
@@ -584,6 +594,7 @@
 $(document).ready(function() {
   $('#periode').datepicker();
   $('#tanggal_periksa').datepicker();
+  $('#tanggal_selesai').datepicker();
   $('#target_date').datepicker();
   var arr="<?php echo $member;?>";
   var pecah=arr.split(',');

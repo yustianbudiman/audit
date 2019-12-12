@@ -55,7 +55,7 @@ Class Auth extends CI_Controller{
     }
     
     function logout(){
-        // $this->session->sess_destroy();
+        $this->session->sess_destroy();
         $array_items = array('id_users', 'id_cabang', 'id_divisi', 'nik', 'full_name', 'email', 'password', 'images', 'id_user_level', 'is_aktif', 'tgl_daftar', 'tgl_update');
 
         $this->session->unset_userdata($array_items);

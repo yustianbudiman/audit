@@ -37,7 +37,7 @@
                             <tr>
                                 <th width="30px">No</th>
                     		    <th>Periode</th>
-                    		    <th>Id Cabang</th>
+                    		    <th>Kode Cabang</th>
                     		    <th>Nama Cabang</th>
                     		    <th width="200px">Action</th>
                             </tr>
@@ -89,7 +89,7 @@
                         {
                             "data": "id_cat_operasional_header",
                             "orderable": false
-                        },{"data": "periode"},{"data": "id_cabang"},{"data": "nama_cabang"},
+                        },{"data": "periode"},{"data": "kode_cabang"},{"data": "nama_cabang"},
                         {
                             "data" : "action",
                             "orderable": false,

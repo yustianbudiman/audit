@@ -69,15 +69,16 @@ class Cat_operasional extends CI_Controller
             'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
             'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
             'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
-    		// 'list_cat_operasional_header'=>$header,
-    		// 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
-    		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
-    		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
-    		'list_environment'=>$this->Cont_environment_model->get_all(),
-    		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
-    		'list_control_activities'=>$this->Control_activities_model->get_all(),
-    		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
-    		'list_monitoring'=>$this->Monitoring_model->get_all(),
+            'id_cat_operasional_header' => set_value('id_cat_operasional_header',$id),
+            // 'list_cat_operasional_header'=>$header,
+            // 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($header['id_cat_operasional_header']),
+            'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+            'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+            'list_environment'=>$this->Cont_environment_model->get_all(),
+            'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+            'list_control_activities'=>$this->Control_activities_model->get_all(),
+            'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+            'list_monitoring'=>$this->Monitoring_model->get_all(),
             'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
             'penyimpangan' => set_value('penyimpangan'),
             'environment' => set_value('environment'),
@@ -89,7 +90,7 @@ class Cat_operasional extends CI_Controller
             'id_cabang' => set_value('id_cabang',$header['id_cabang']),
             'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
             'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
-            'periode' => set_value('periode'),
+            'periode' => set_value('periode',$header['periode']),
             'temuan' => set_value('temuan'),
             'kriteria' => set_value('kriteria'),
             'dampak' => set_value('dampak'),
@@ -112,6 +113,7 @@ class Cat_operasional extends CI_Controller
             'tanggapan_audit' => set_value('tanggapan_audit'),
             'target_date' => set_value('target_date'),
             'tanggal_periksa' => set_value('tanggal_periksa'),
+            'tanggal_selesai' => set_value('tanggal_selesai'),
             'member' => set_value('member'),
             'bop' => set_value('bop'),
     	];
@@ -145,8 +147,7 @@ class Cat_operasional extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-        	// $cek_dulu=$this->Cat_operasional_model->list_cat_operasional_header($this->input->post('id_cabang',TRUE),date('y-m-d',strtotime($this->input->post('periode',TRUE))));
-        	// if(!$cek_dulu){
+        	if($this->input->post('id_cat_operasional_header',TRUE)==''){
         		$data_header=[
         				'id_cabang'=>$this->input->post('id_cabang',TRUE),
         				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
@@ -154,13 +155,17 @@ class Cat_operasional extends CI_Controller
         			];
         		$r=$this->Cat_operasional_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
+            }else{
+                $idnya=$this->input->post('id_cat_operasional_header',TRUE);
+            }
         	
             $data = array(
 				'id_cat_operasional_header' => $idnya,
 				'temuan' => $this->input->post('temuan',TRUE),
+                'klasifikasi_temuan' => $this->input->post('klasifikasi_temuan',TRUE),
 				'kriteria' => $this->input->post('kriteria',TRUE),
 				'dampak' => $this->input->post('dampak',TRUE),
-				'id_penyimpangan' => $this->input->post('sebab_penyimpangan',TRUE),
+				'id_penyimpangan' => $this->input->post('penyimpangan',TRUE),
 				'id_environment' => $this->input->post('environment',TRUE),
 				'environment_value' => $this->input->post('environment_value',TRUE),
 				'id_risk_assesment' => $this->input->post('risk_assesment',TRUE),
@@ -179,11 +184,15 @@ class Cat_operasional extends CI_Controller
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
 				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
-				'tl' =>$this->input->post('tl',TRUE),
+				'status' => '1',
+                'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'created_ip' => get_client_ip(),
+                'created_by' => $this->session->userdata('id_users'),
 				// 'aktif' => $this->input->post('aktif',TRUE),
 				// 'created_date' => $this->input->post('created_date',TRUE),
 				// 'created_ip' => $this->input->post('created_ip',TRUE),
@@ -213,6 +222,7 @@ class Cat_operasional extends CI_Controller
                 'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
                 'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
                 'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
+                 'id_cat_operasional_header' => set_value('id_cat_operasional_header', $header['id_cat_operasional_header']),
                 // 'list_cat_operasional_header'=>$header,
                 // 'list_cat_operasional'=>$this->Cat_operasional_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
@@ -252,6 +262,7 @@ class Cat_operasional extends CI_Controller
 				'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
                 'member' => set_value('member',$row->member),
                 'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
+                'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
                 'bop' => set_value('bop',$row->bop),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
@@ -289,7 +300,7 @@ class Cat_operasional extends CI_Controller
 				'risk_assesment_value' => $this->input->post('risk_assesment_value',TRUE),
 				'id_control_activities' => $this->input->post('control_activity',TRUE),
 				'control_activities_value' => $this->input->post('control_activity_value',TRUE),
-				'id_information_comunication' => $this->input->post('infomation_comunication',TRUE),
+				'id_information_comunication' => $this->input->post('information_comunication',TRUE),
 				'information_comunication_value' => $this->input->post('information_comunication_value',TRUE),
 				'id_monitoring' => $this->input->post('monitoring',TRUE),
 				'monitoring_value' => $this->input->post('monitoring_value',TRUE),
@@ -305,8 +316,11 @@ class Cat_operasional extends CI_Controller
 				'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'updated_ip' => get_client_ip(),
+                'updated_by' => $this->session->userdata('id_users'),
 				
 		    );
 
@@ -380,6 +394,7 @@ class Cat_operasional extends CI_Controller
 		$this->form_validation->set_rules('target_date', 'target date','trim|required');
 		// $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
+        $this->form_validation->set_rules('tanggal_selesai', 'target date', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
 		$this->form_validation->set_rules('periode', 'periode', 'trim|required');
 

@@ -17,12 +17,16 @@ class Cat_bisnis_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('cat_bisnis_header.id_cat_bisnis_header,periode,id_cabang,nama_cabang,id_cat_bisnis');
+        $this->datatables->select('cat_bisnis_header.id_cat_bisnis_header,periode,cabang.kode_cabang,cat_bisnis_header.nama_cabang,cat_bisnis_header.id_cabang');
         $this->datatables->from('cat_bisnis_header');
         //add this line for join
-        $this->datatables->join('cat_bisnis', 'cat_bisnis_header.id_cat_bisnis_header = cat_bisnis.id_cat_bisnis_header');
+        $this->datatables->join('cabang', 'cat_bisnis_header.id_cabang = cabang.id_cabang');
+        if($this->session->userdata('id_user_level')=='6'){
+            $this->datatables->where('cat_bisnis_header.created_by', $this->session->userdata('id_users'));
+        }
+
         $this->datatables->add_column('action', anchor(site_url('cat_bisnis/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cat_bisnis,id_cabang,nama_cabang');
+                ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -197,6 +201,9 @@ class Cat_bisnis_model extends CI_Model
 
     function get_One_Header_detail($id){
         $sql="SELECT a.periode, b.kode_cabang,b.nama_cabang, b.alamat,a.id_cat_bisnis_header,b.id_cabang from cat_bisnis_header a inner join cabang b on a.id_cabang=b.id_cabang where a.id_cat_bisnis_header='".$id."'";
+        if($this->session->userdata('id_user_level')=='6'){
+             $sql .=" and a.created_by='".$this->session->userdata('id_users')."'";
+        }
         $query = $this->db->query($sql);
         return $query->row_array();
     }
@@ -210,6 +217,9 @@ class Cat_bisnis_model extends CI_Model
             INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
             INNER JOIN status_trx d on a.status=d.id_status
          where a.id_cat_bisnis_header='".$id."' and a.aktif='Aktif'";
+        if($this->session->userdata('id_user_level')=='6'){
+             $sql .=" and a.created_by='".$this->session->userdata('id_users')."'";
+        }
         $query = $this->db->query($sql);
         return $query->result_array();
     }

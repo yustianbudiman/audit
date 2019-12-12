@@ -97,16 +97,17 @@ class Cat_bisnis extends CI_Controller
             'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
             'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
             'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
-    		// 'list_cat_bisnis_header'=>$header,
-    		// 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
-    		'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
-    		'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
-    		'list_environment'=>$this->Cont_environment_model->get_all(),
-    		'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
-    		'list_control_activities'=>$this->Control_activities_model->get_all(),
-    		'list_information_comunication'=>$this->Information_comunication_model->get_all(),
-    		'list_monitoring'=>$this->Monitoring_model->get_all(),
-    		'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
+            'id_cat_bisnis_header' => set_value('id_cat_bisnis_header',$id),
+            // 'list_cat_bisnis_header'=>$header,
+            // 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($header['id_cat_bisnis_header']),
+            'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
+            'list_penyimpangan'=>$this->Penyimpangan_model->get_all(),
+            'list_environment'=>$this->Cont_environment_model->get_all(),
+            'list_risk_assesment'=>$this->Risk_assesment_model->get_all(),
+            'list_control_activities'=>$this->Control_activities_model->get_all(),
+            'list_information_comunication'=>$this->Information_comunication_model->get_all(),
+            'list_monitoring'=>$this->Monitoring_model->get_all(),
+            'list_goal_strategic'=>$this->Goal_strategic_model->get_all(),
             'klasifikasi_temuan' => set_value('klasifikasi_temuan'),
             'penyimpangan' => set_value('penyimpangan'),
             'environment' => set_value('environment'),
@@ -119,7 +120,7 @@ class Cat_bisnis extends CI_Controller
             'id_cabang' => set_value('id_cabang',$header['id_cabang']),
             'nama_cabang' => set_value('nama_cabang',$header['nama_cabang']),
             'alamat_cabang' => set_value('alamat_cabang',$header['alamat']),
-            'periode' => set_value('periode'),
+            'periode' => set_value('periode',$header['periode']),
             'temuan' => set_value('temuan'),
             'kriteria' => set_value('kriteria'),
             'dampak' => set_value('dampak'),
@@ -144,6 +145,7 @@ class Cat_bisnis extends CI_Controller
             'tanggapan_audit' => set_value('tanggapan_audit'),
             'target_date' => set_value('target_date'),
             'tanggal_periksa' => set_value('tanggal_periksa'),
+            'tanggal_selesai' => set_value('tanggal_selesai'),
             'member' => set_value('member'),
             'bop' => set_value('bop'),
     	];
@@ -157,13 +159,18 @@ class Cat_bisnis extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-        		$data_header=[
-        				'id_cabang'=>$this->input->post('id_cabang',TRUE),
-        				'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
-        				'periode'=>date('Y-m-d',strtotime($this->input->post('periode',TRUE))),
-        			];
-        		$this->Cat_bisnis_model->insert_header($data_header);
+            if($this->input->post('id_cat_bisnis_header',TRUE)==''){
+
+                $data_header=[
+                        'id_cabang'=>$this->input->post('id_cabang',TRUE),
+                        'nama_cabang'=>$this->input->post('nama_cabang',TRUE),
+                        'periode'=>date('Y-m-d',strtotime($this->input->post('periode',TRUE))),
+                    ];
+                $this->Cat_bisnis_model->insert_header($data_header);
         		$idnya=$this->db->insert_id();
+            }else{
+                $idnya=$this->input->post('id_cat_bisnis_header',TRUE);
+            }
                
             $data = array(
 				'id_cat_bisnis_header' => $idnya,
@@ -192,12 +199,15 @@ class Cat_bisnis extends CI_Controller
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
                 'target_date' =>date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
-                'status' => 'Pending',
+                'status' => '1',
                 'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'created_ip' => get_client_ip(),
+                'created_by' => $this->session->userdata('id_users'),
 				// 'aktif' => $this->input->post('aktif',TRUE),
 
 				// 'created_date' => $this->input->post('created_date',TRUE),
@@ -226,6 +236,7 @@ class Cat_bisnis extends CI_Controller
                 'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
                 'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
                 'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
+                'id_cat_bisnis_header' => set_value('id_cat_bisnis_header', $header['id_cat_bisnis_header']),
                 // 'list_cat_bisnis_header'=>$header,
                 // 'list_cat_bisnis'=>$this->Cat_bisnis_model->get_by_idheader($id),
                 'list_klasifikasi_temuan'=>$this->Klasifikasi_temuan_model->get_all(),
@@ -268,6 +279,7 @@ class Cat_bisnis extends CI_Controller
 				'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
                 'member' => set_value('member',$row->member),
                 'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
+                'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
                 'bop' => set_value('bop',$row->bop),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
@@ -317,12 +329,15 @@ class Cat_bisnis extends CI_Controller
 				'bobot_resiko' => $this->input->post('bobot_resiko',TRUE),
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
-				'target_date' => $this->input->post('target_date',TRUE),
+				'target_date' => date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
 				'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
+                'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'updated_ip' => get_client_ip(),
+                'updated_by' => $this->session->userdata('id_users'),
 		    );
 
             $this->Cat_bisnis_model->update($this->input->post('id_cat_bisnis',TRUE), $data);
@@ -405,6 +420,7 @@ class Cat_bisnis extends CI_Controller
 
         // $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
+        $this->form_validation->set_rules('tanggal_selesai', 'target date', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
 
 		$this->form_validation->set_rules('aktif', 'aktif', '');
