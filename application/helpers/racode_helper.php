@@ -133,3 +133,24 @@ function get_client_ip()
 
       return $ipaddress;
  }
+
+ function get_member($data){
+    $ci = get_instance();
+    $data_arr=array_map('intval',explode(',', $data));
+    $data_arr=implode("','", $data_arr);
+    // $cmb = "<select name='$name' id='$name' class='form-control' required><option value='' selected>- Select -</option>";
+    // if($order){
+    //     $ci->db->order_by($field,$order);
+    // }
+    // $data = $ci->db->get('tbl_user')->result();
+    // foreach ($data as $d){
+    //     $cmb .="<option value='".$d->$pk."'";
+    //     $cmb .= $selected==$d->$pk?" selected='selected'":'';
+    //     $cmb .=">".  strtoupper($d->$field)."</option>";
+    // }
+    // $cmb .="</select>";
+    $sql="SELECT GROUP_CONCAT(full_name) as nama_member from tbl_user where id_users in('".$data_arr."')";
+     $query = $ci->db->query($sql);
+        return $query->row_array();
+    // return 'ssss';  
+}

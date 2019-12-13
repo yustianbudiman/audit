@@ -65,7 +65,7 @@
                                 <th style="text-align: center;">Klasifikasi</th>
                                 <th style="text-align: center;">Penyimpangan</th>
                                 <th style="text-align: center;">Total Impact</th>
-                                <th style="text-align: center;">Repeated</th>
+                                <th style="text-align: center;">Bobot_resiko</th>
                                 <th style="text-align: center;">TEV</th>
                                 <th style="text-align: center;">Rekomendasi</th>
                                 <th style="text-align: center;">Tanggapan</th>
@@ -83,12 +83,12 @@
                                 <td><?php echo $key['nama_klasifikasi_temuan'];?></td>
                                 <td><?php echo $key['nama_penyimpangan'];?></td>
                                 <td style="text-align: right;"><?php echo $key['total_impact'];?></td>
-                                <td><?php echo $key['repeated'];?></td>
+                                <td><?php echo $key['bobot_resiko'];?></td>
                                 <td style="text-align: right;"><?php echo $key['tev'];?></td>
                                 <td><?php echo $key['rekomendasi'];?></td>
                                 <td><?php echo $key['tanggapan_audit'];?></td>
                                 <td><?php echo date('d-M-Y',strtotime($key['target_date']));?></td>
-                                <td><?php echo $key['member'];?></td>
+                                <td><?php echo get_member($key['member'])['nama_member'];?></td>
                                 <td style="text-align: center;"><label class="label label-warning"><?php echo $key['status_trx'];?></label></td>
                                 <td style="text-align: center;">
                                     <a href="<?php echo base_url('cat_bisnis/read/'.$key['id_cat_bisnis']);?>" class="btn btn-success btn-xs btn-flat"><i class="fa fa-eye"></i> Read</a>

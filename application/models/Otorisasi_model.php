@@ -25,7 +25,7 @@ class Otorisasi_model extends CI_Model
             $this->datatables->where('cat_bisnis_header.created_by', $this->session->userdata('id_users'));
         }
 
-        $this->datatables->add_column('action', anchor(site_url('otorisasi/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Read', array('class' => 'btn btn-success btn-xs btn-flat')), 'id_cat_bisnis_header,id_cabang,nama_cabang');
+        $this->datatables->add_column('action', anchor(site_url('otorisasi/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i> View', array('class' => 'btn btn-success btn-xs btn-flat')), 'id_cat_bisnis_header,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -37,7 +37,7 @@ class Otorisasi_model extends CI_Model
         if($this->session->userdata('id_user_level')=='6'){
             $this->datatables->where('cat_operasional_header.created_by', $this->session->userdata('id_users'));
         }
-        $this->datatables->add_column('action', anchor(site_url('otorisasi/list_cat_operasional_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Read', array('class' => 'btn btn-success btn-xs btn-flat')), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang');
+        $this->datatables->add_column('action', anchor(site_url('otorisasi/list_cat_operasional_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>  View', array('class' => 'btn btn-success btn-xs btn-flat')), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 

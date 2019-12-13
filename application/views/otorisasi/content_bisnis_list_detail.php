@@ -92,7 +92,7 @@
                                 <td><?php echo $key['rekomendasi'];?></td>
                                 <td><?php echo $key['tanggapan_audit'];?></td>
                                 <td><?php echo date('d-M-Y',strtotime($key['target_date']));?></td>
-                                <td><?php echo $key['member'];?></td>
+                                <td><?php echo get_member($key['member'])['nama_member'];?></td>
                                 <td style="text-align: center;"><label class="label label-warning"><?php echo $key['status_trx'];?></label></td>
                                 <td style="text-align: center;">
                                     <a href="<?php echo base_url('otorisasi/otorisasi_read_bisnis/'.$key['id_cat_bisnis']);?>" class="btn btn-success btn-xs btn-flat"><i class="fa fa-eye"></i> Read</a>
