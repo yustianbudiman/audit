@@ -543,12 +543,14 @@ class Cat_bisnis extends CI_Controller
         exit();
     }
 
-    public function word($id){
-        $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
+    public function word($id,$periode_awal,$periode_akhir){
+        $header=$this->Cat_bisnis_model->get_One_Header_detail($id,$periode_awal,$periode_akhir);
         $data=[
                 'one_header_detail'=>$header,
-                'list_all_cat_bisnis'=>$this->Cat_bisnis_model->get_all_Cat_Bisnis($header['id_cat_bisnis_header']),
+                'list_all_cat_bisnis'=>$this->Cat_bisnis_model->get_all_Cat_Bisnis($header['id_cat_bisnis_header'],$periode_awal,$periode_akhir),
             ];
+            // print_r($data);
+            // exit();
         $this->load->view('cat_bisnis/generate_docx',$data);
     }
 

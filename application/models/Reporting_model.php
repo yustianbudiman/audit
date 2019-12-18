@@ -21,7 +21,7 @@ class Reporting_model extends CI_Model
             INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
             INNER JOIN status_trx d on a.status=d.id_status
             INNER JOIN cat_bisnis_header e on a.id_cat_bisnis_header=e.id_cat_bisnis_header
-         where e.id_cabang='".$cabang."' and e.periode BETWEEN ('".$periode_awal."' and '".$periode_akhir."') and e.aktif='Aktif' and a.aktif='Aktif'";
+         where e.id_cabang='".$cabang."' and e.aktif='Aktif' and a.aktif='Aktif' and a.tanggal_periksa BETWEEN '".$periode_awal."' and '".$periode_akhir."'";
         
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -35,10 +35,18 @@ class Reporting_model extends CI_Model
             INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
             INNER JOIN status_trx d on a.status=d.id_status
             INNER JOIN cat_operasional_header e on a.id_cat_operasional_header=e.id_cat_operasional_header
-         where e.id_cabang='".$cabang."' and e.periode BETWEEN ('".$periode_awal."' and '".$periode_akhir."') and e.aktif='Aktif' and a.aktif='Aktif'";
+         where e.id_cabang='".$cabang."' and e.aktif='Aktif' and a.aktif='Aktif' and a.tanggal_periksa BETWEEN '".$periode_awal."' and '".$periode_akhir."'";
         if($this->session->userdata('id_user_level')=='6'){
              $sql .=" and a.created_by='".$this->session->userdata('id_users')."'";
         }
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    function get_periode(){
+        $sql="select DISTINCT* from(SELECT DISTINCT tanggal_periksa from cat_bisnis
+            union all
+            SELECT DISTINCT tanggal_periksa from cat_operasional)x";
         $query = $this->db->query($sql);
         return $query->result_array();
     }

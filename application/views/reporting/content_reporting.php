@@ -38,11 +38,19 @@
                             <div class="col-md-12 col-sm-12">
                                 <label for="" class="col-lg-2 control-label">Periode</label>
                               <div class="col-lg-3">
-                                    <input type="text" name="periode_awal" id="periode_awal" class="form-control">
+                                    <select name="periode_awal" id="periode_awal" class="form-control">
+                                    <?php foreach ($periode as $key ) { ?>
+                                    <option value="<?php echo $key['tanggal_periksa']?>"><?php echo date('d-m-Y',strtotime($key['tanggal_periksa']))?></option>
+                                    <?php } ?>
+                                </select>
                               </div>
                                 <label for="" class="col-lg-1 control-label">Sampai</label>
                               <div class="col-lg-3">
-                                    <input type="text" name="periode_akhir" id="periode_akhir" class="form-control">
+                                    <select name="periode_akhir" id="periode_akhir" class="form-control">
+                                    <?php foreach ($periode as $key ) { ?>
+                                    <option value="<?php echo $key['tanggal_periksa']?>"><?php echo date('d-m-Y',strtotime($key['tanggal_periksa']))?></option>
+                                    <?php } ?>
+                                </select>
                               </div>
                             </div>
                         </div>
@@ -76,6 +84,7 @@ $(document).ready(function(){
         var cabang=$('#cabang').val();
         var periode_awal=$('#periode_awal').val();
         var periode_akhir=$('#periode_akhir').val();
+        if(periode_awal<=periode_akhir){
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
             url: "<?php echo base_url("reporting/cari"); ?>", // Isi dengan url/path file php yang dituju
@@ -94,9 +103,12 @@ $(document).ready(function(){
               alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
             }
         });
+    }else{
+        alert('Periode awal harus lebih kecil!');
+    }
     });
 
-     $('#periode_awal').datepicker({'dateFormat':'dd-mm-yy'});
-     $('#periode_akhir').datepicker({'dateFormat':'dd-mm-yy'});
+     // $('#periode_awal').datepicker({'dateFormat':'dd-mm-yy'});
+     // $('#periode_akhir').datepicker({'dateFormat':'dd-mm-yy'});
 });
 </script>
