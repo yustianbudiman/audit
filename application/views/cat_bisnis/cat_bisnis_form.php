@@ -283,7 +283,7 @@
                                 </div>
                           
                                 <div class="col-md-6 col-sm-6">
-                                    <label for="" class="col-lg-3 control-label">Repeated</label>
+                                    <label for="" class="col-lg-3 control-label">Repeated <?php echo $repeated; ?></label>
                                   <div class="col-lg-3">
                                     <select name="repeated" id="repeated" class="form-control" <?php echo (form_error('repeated')!=''?'style="border-color:red;"':'') ?>>
                                        <option value="">--Pilih--</option>
@@ -398,11 +398,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Supervisor</label>
                                   <div class="col-lg-6">
-                                   <select name="supervisor" id="supervisor" class="form-control select2">
-                                       <?php foreach ($list_supervisor as $key) { ?>
-                                       <option value="<?php echo $key['id_users'] ?>"><?php echo $key['full_name'] ?></option>
-                                       <?php } ?>
-                                   </select>
+                                    <textarea name="supervisor" id="supervisor" class="form-control" style="width: 408px;<?php echo (form_error('supervisor')!=''?'border-color:red;':'') ?>" ><?php echo $supervisor  ?></textarea>
                                   </div>
                                 </div>
                             </div>

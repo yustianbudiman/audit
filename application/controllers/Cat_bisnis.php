@@ -148,6 +148,7 @@ class Cat_bisnis extends CI_Controller
             'tanggal_periksa' => set_value('tanggal_periksa'),
             'tanggal_selesai' => set_value('tanggal_selesai'),
             'member' => set_value('member'),
+            'supervisor' => set_value('supervisor'),
             'bop' => set_value('bop'),
     	];
         $this->template->load('template','cat_bisnis/cat_bisnis_form', $data);
@@ -272,7 +273,7 @@ class Cat_bisnis extends CI_Controller
 				'goal_strategic_value' => set_value('goal_strategic_value', $row->goal_strategic_value),
 				'total_impact' => set_value('total_impact', $row->total_impact),
                 'likelihood' => set_value('likelihood', $row->likelihood),
-				'repeated' => set_value('likelihood', $row->repeated),
+				'repeated' => set_value('repeated', $row->repeated),
 				'tev' => set_value('tev', $row->tev),
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
@@ -281,6 +282,7 @@ class Cat_bisnis extends CI_Controller
                 'member' => set_value('member',$row->member),
                 'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
                 'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
+                'supervisor' => set_value('supervisor',$row->supervisor),
                 'bop' => set_value('bop',$row->bop),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
@@ -425,6 +427,7 @@ class Cat_bisnis extends CI_Controller
         // $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
         $this->form_validation->set_rules('tanggal_selesai', 'target date', 'trim|required');
+        $this->form_validation->set_rules('supervisor', 'Supervisor', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
 
 		$this->form_validation->set_rules('aktif', 'aktif', '');
