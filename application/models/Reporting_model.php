@@ -12,7 +12,7 @@ class Reporting_model extends CI_Model
     }
 
 
-    function get_all_Cat_Bisnis_byperiode($cabang,$periode){
+    function get_all_Cat_Bisnis_byperiode($cabang,$periode_awal,$periode_akhir){
         $sql="SELECT
                 a.id_cat_bisnis,a.id_cat_bisnis_header, a.temuan,a.kriteria, b.nama_klasifikasi_temuan,a.dampak, c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
             FROM
@@ -21,12 +21,12 @@ class Reporting_model extends CI_Model
             INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
             INNER JOIN status_trx d on a.status=d.id_status
             INNER JOIN cat_bisnis_header e on a.id_cat_bisnis_header=e.id_cat_bisnis_header
-         where e.id_cabang='".$cabang."' and e.periode='".$periode."' and e.aktif='Aktif' and a.aktif='Aktif'";
+         where e.id_cabang='".$cabang."' and e.periode BETWEEN ('".$periode_awal."' and '".$periode_akhir."') and e.aktif='Aktif' and a.aktif='Aktif'";
         
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-    function get_all_Cat_operasional_byperiode($cabang,$periode){
+    function get_all_Cat_operasional_byperiode($cabang,$periode_awal,$periode_akhir){
         $sql="SELECT
                 a.id_cat_operasional,a.id_cat_operasional_header, a.temuan, a.kriteria, a.dampak, b.nama_klasifikasi_temuan,c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
             FROM
@@ -35,7 +35,7 @@ class Reporting_model extends CI_Model
             INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
             INNER JOIN status_trx d on a.status=d.id_status
             INNER JOIN cat_operasional_header e on a.id_cat_operasional_header=e.id_cat_operasional_header
-         where e.id_cabang='".$cabang."' and e.periode='".$periode."' and e.aktif='Aktif' and a.aktif='Aktif'";
+         where e.id_cabang='".$cabang."' and e.periode BETWEEN ('".$periode_awal."' and '".$periode_akhir."') and e.aktif='Aktif' and a.aktif='Aktif'";
         if($this->session->userdata('id_user_level')=='6'){
              $sql .=" and a.created_by='".$this->session->userdata('id_users')."'";
         }

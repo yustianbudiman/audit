@@ -58,11 +58,10 @@
 							    		<?php echo form_error('keterangan') ?></td></tr>
 							    <tr>
 							    	<td width='200'>User Senior </td>
-							    	<?php print_r($id_user_senior);?>
 							    	<td><select class="form-control" name="id_user_senior" id="id_user_senior" placeholder="User Senior">
 							    		<option value="">--Pilih--</option>
 							    		<?php foreach ($user_senior as $key) { ?>
-							    		<option value="<?php echo $key->id_users ?>"><?php echo $key->full_name?></option>
+							    		<option value="<?php echo $key->id_users ?>" <?php echo ($key->id_users==$id_user_senior?'selected':'')?>><?php echo $key->full_name?></option>
 							    		<?php } ?>
 							    	</select>
 							    	<?php echo form_error('id_user_senior') ?></td></tr>

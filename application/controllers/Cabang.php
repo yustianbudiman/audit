@@ -113,19 +113,19 @@ class Cabang extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('cabang/update_action'),
-				'id_cabang' => set_value('id_cabang', $row->id_cabang),
-				'kode_cabang' => set_value('kode_cabang', $row->kode_cabang),
-				'nama_cabang' => set_value('nama_cabang', $row->nama_cabang),
-				'alamat' => set_value('alamat', $row->alamat),
-				'kota' => set_value('kota', $row->kota),
-				'provinsi' => set_value('provinsi', $row->provinsi),
-				'no_telepon' => set_value('no_telepon', $row->no_telepon),
-				'kepala_cabang' => set_value('kepala_cabang', $row->kepala_cabang),
+                'id_cabang' => set_value('id_cabang', $row->id_cabang),
+                'kode_cabang' => set_value('kode_cabang', $row->kode_cabang),
+                'nama_cabang' => set_value('nama_cabang', $row->nama_cabang),
+                'alamat' => set_value('alamat', $row->alamat),
+                'kota' => set_value('kota', $row->kota),
+                'provinsi' => set_value('provinsi', $row->provinsi),
+                'no_telepon' => set_value('no_telepon', $row->no_telepon),
+                'kepala_cabang' => set_value('kepala_cabang', $row->kepala_cabang),
                 'keterangan' => set_value('keterangan', $row->keterangan),
-				'id_user_senior' => set_value('id_user_senior', $row->id_user_senior),
-				'aktif' => set_value('aktif', $row->aktif),
+                'id_user_senior' => set_value('id_user_senior', $row->id_user_senior),
+                'aktif' => set_value('aktif', $row->aktif),
                 'user_senior' => $this->User_model->get_all_user_senior(),
-		    );
+            );
             $this->template->load('template','cabang/cabang_form', $data);
         } else {
             $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));

@@ -38,7 +38,11 @@
                             <div class="col-md-12 col-sm-12">
                                 <label for="" class="col-lg-2 control-label">Periode</label>
                               <div class="col-lg-3">
-                                    <input type="text" name="periode" id="periode" class="form-control">
+                                    <input type="text" name="periode_awal" id="periode_awal" class="form-control">
+                              </div>
+                                <label for="" class="col-lg-1 control-label">Sampai</label>
+                              <div class="col-lg-3">
+                                    <input type="text" name="periode_akhir" id="periode_akhir" class="form-control">
                               </div>
                             </div>
                         </div>
@@ -70,11 +74,12 @@ $(document).ready(function(){
     $('.cari').click(function(){
         var audit=$('#audit').val();
         var cabang=$('#cabang').val();
-        var periode=$('#periode').val();
+        var periode_awal=$('#periode_awal').val();
+        var periode_akhir=$('#periode_akhir').val();
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
             url: "<?php echo base_url("reporting/cari"); ?>", // Isi dengan url/path file php yang dituju
-            data: {'audit': audit,'cabang':cabang,'periode':periode}, // data yang akan dikirim ke file yang dituju
+            data: {'audit': audit,'cabang':cabang,'periode_awal':periode_awal,'periode_akhir':periode_akhir}, // data yang akan dikirim ke file yang dituju
             // dataType: "json",
             // beforeSend: function(e) {
             //   if(e && e.overrideMimeType) {
@@ -91,6 +96,7 @@ $(document).ready(function(){
         });
     });
 
-     $('#periode').datepicker({'dateFormat':'dd-mm-yy'});
+     $('#periode_awal').datepicker({'dateFormat':'dd-mm-yy'});
+     $('#periode_akhir').datepicker({'dateFormat':'dd-mm-yy'});
 });
 </script>
