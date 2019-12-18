@@ -17,7 +17,7 @@ class Cabang_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_cabang,kode_cabang,nama_cabang,alamat,kota,provinsi,no_telepon,kepala_cabang,keterangan,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
+        $this->datatables->select('id_cabang,kode_cabang,nama_cabang,alamat,kota,provinsi,no_telepon,kepala_cabang,keterangan,id_user_senior,aktif,created_date,created_ip,created_by,updated_date,updated_ip,updated_by');
         $this->datatables->from('cabang');
         //add this line for join
         //$this->datatables->join('table2', 'cabang.field = table2.field');
@@ -51,7 +51,8 @@ class Cabang_model extends CI_Model
 	$this->db->or_like('provinsi', $q);
 	$this->db->or_like('no_telepon', $q);
 	$this->db->or_like('kepala_cabang', $q);
-	$this->db->or_like('keterangan', $q);
+    $this->db->or_like('keterangan', $q);
+	$this->db->or_like('id_user_senior', $q);
 	$this->db->or_like('aktif', $q);
 	$this->db->or_like('created_date', $q);
 	$this->db->or_like('created_ip', $q);
@@ -74,7 +75,8 @@ class Cabang_model extends CI_Model
 	$this->db->or_like('provinsi', $q);
 	$this->db->or_like('no_telepon', $q);
 	$this->db->or_like('kepala_cabang', $q);
-	$this->db->or_like('keterangan', $q);
+    $this->db->or_like('keterangan', $q);
+	$this->db->or_like('id_user_senior', $q);
 	$this->db->or_like('aktif', $q);
 	$this->db->or_like('created_date', $q);
 	$this->db->or_like('created_ip', $q);

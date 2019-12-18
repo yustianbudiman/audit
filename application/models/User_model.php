@@ -129,6 +129,13 @@ class User_model extends CI_Model
         return $this->db->get($this->table.' a')->result_array();
     }
 
+    function get_all_user_senior()
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->where('id_user_level', 5);
+        return $this->db->get($this->table)->result();
+    }
+
 }
 
 /* End of file User_model.php */

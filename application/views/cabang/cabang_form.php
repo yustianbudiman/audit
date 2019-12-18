@@ -57,6 +57,16 @@
 							    	<td><input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" value="<?php echo $keterangan; ?>" />
 							    		<?php echo form_error('keterangan') ?></td></tr>
 							    <tr>
+							    	<td width='200'>User Senior </td>
+							    	<?php print_r($id_user_senior);?>
+							    	<td><select class="form-control" name="id_user_senior" id="id_user_senior" placeholder="User Senior">
+							    		<option value="">--Pilih--</option>
+							    		<?php foreach ($user_senior as $key) { ?>
+							    		<option value="<?php echo $key->id_users ?>"><?php echo $key->full_name?></option>
+							    		<?php } ?>
+							    	</select>
+							    	<?php echo form_error('id_user_senior') ?></td></tr>
+							    <tr>
 							    	<td width='200'>Status Aktif </td><td>
 				        			<?php echo form_dropdown('aktif', array('Aktif' => 'Aktif', 'Nonaktif' => 'Nonaktif'), $aktif, array('class' => 'form-control')); ?><?php echo form_error('aktif') ?></td></tr>
 	    

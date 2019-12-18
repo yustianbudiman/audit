@@ -10,6 +10,7 @@ class Cabang extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Cabang_model');
+        $this->load->model('User_model');
         $this->load->library('form_validation');        
 		$this->load->library('datatables');
     }
@@ -38,7 +39,8 @@ class Cabang extends CI_Controller
 				'provinsi' => $row->provinsi,
 				'no_telepon' => $row->no_telepon,
 				'kepala_cabang' => $row->kepala_cabang,
-				'keterangan' => $row->keterangan,
+                'keterangan' => $row->keterangan,
+				'id_user_senior' => $row->id_user_senior,
 				'aktif' => $row->aktif,
 				'created_date' => $row->created_date,
 				'created_ip' => $row->created_ip,
@@ -49,7 +51,7 @@ class Cabang extends CI_Controller
 		    );
             $this->template->load('template','cabang/cabang_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cabang'));
         }
     }
@@ -67,8 +69,10 @@ class Cabang extends CI_Controller
 		    'provinsi' => set_value('provinsi'),
 		    'no_telepon' => set_value('no_telepon'),
 		    'kepala_cabang' => set_value('kepala_cabang'),
-		    'keterangan' => set_value('keterangan'),
-		    'aktif' => set_value('aktif'),
+            'keterangan' => set_value('keterangan'),
+		    'id_user_senior' => set_value('id_user_senior'),
+            'aktif' => set_value('aktif'),
+		    'user_senior' => $this->User_model->get_all_user_senior(),
 		);
         $this->template->load('template','cabang/cabang_form', $data);
     }
@@ -88,14 +92,15 @@ class Cabang extends CI_Controller
 				'provinsi' => $this->input->post('provinsi',TRUE),
 				'no_telepon' => $this->input->post('no_telepon',TRUE),
 				'kepala_cabang' => $this->input->post('kepala_cabang',TRUE),
-				'keterangan' => $this->input->post('keterangan',TRUE),
+                'keterangan' => $this->input->post('keterangan',TRUE),
+				'id_user_senior' => $this->input->post('id_user_senior',TRUE),
 				'aktif' => $this->input->post('aktif',TRUE),	
 				'created_ip' => get_client_ip(),
 				'created_by' => $this->session->userdata('id_users'),
 			);
 
             $this->Cabang_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('cabang'));
         }
     }
@@ -116,12 +121,14 @@ class Cabang extends CI_Controller
 				'provinsi' => set_value('provinsi', $row->provinsi),
 				'no_telepon' => set_value('no_telepon', $row->no_telepon),
 				'kepala_cabang' => set_value('kepala_cabang', $row->kepala_cabang),
-				'keterangan' => set_value('keterangan', $row->keterangan),
+                'keterangan' => set_value('keterangan', $row->keterangan),
+				'id_user_senior' => set_value('id_user_senior', $row->id_user_senior),
 				'aktif' => set_value('aktif', $row->aktif),
+                'user_senior' => $this->User_model->get_all_user_senior(),
 		    );
             $this->template->load('template','cabang/cabang_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cabang'));
         }
     }
@@ -141,14 +148,15 @@ class Cabang extends CI_Controller
 				'provinsi' => $this->input->post('provinsi',TRUE),
 				'no_telepon' => $this->input->post('no_telepon',TRUE),
 				'kepala_cabang' => $this->input->post('kepala_cabang',TRUE),
-				'keterangan' => $this->input->post('keterangan',TRUE),
+                'keterangan' => $this->input->post('keterangan',TRUE),
+				'id_user_senior' => $this->input->post('id_user_senior',TRUE),
 				'aktif' => $this->input->post('aktif',TRUE),
 				'updated_ip' => get_client_ip(),
 				'updated_by' => $this->session->userdata('id_users'),
 		    );
 
             $this->Cabang_model->update($this->input->post('id_cabang', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('cabang'));
         }
     }
@@ -159,10 +167,10 @@ class Cabang extends CI_Controller
 
         if ($row) {
             $this->Cabang_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('cabang'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cabang'));
         }
     }
@@ -176,7 +184,8 @@ class Cabang extends CI_Controller
 		$this->form_validation->set_rules('provinsi', 'provinsi', 'trim|required');
 		$this->form_validation->set_rules('no_telepon', 'no telepon', 'trim|required');
 		$this->form_validation->set_rules('kepala_cabang', 'kepala cabang', 'trim|required');
-		$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+        $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+		$this->form_validation->set_rules('id_user_senior', 'User senior', 'trim|required');
 		$this->form_validation->set_rules('aktif', 'aktif', 'trim|required');
 
 		$this->form_validation->set_rules('id_cabang', 'id_cabang', 'trim');
@@ -233,7 +242,8 @@ class Cabang extends CI_Controller
 		    xlsWriteLabel($tablebody, $kolombody++, $data->provinsi);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->no_telepon);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->kepala_cabang);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
+		    xlsWriteLabel($tablebody, $kolombody++, $data->id_user_senior);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->aktif);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->created_ip);

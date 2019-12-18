@@ -2,18 +2,18 @@
     <section class="content">
         <div class="row">
             <div class="col-lg-12">
-                <?php if($this->session->flashdata('message')){ ?>
+                <?php if($this->session->flashdata('message')['pesan']){ ?>
                                 
                     <?php echo "<div class='row'>"; ?>
                     <?php echo "<div class='col-md-12'>"; ?>
-                    <?php echo "<div class='alert ' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')."</div>"; ?>
+                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
                     <?php echo "</div>"; ?>
                     <?php echo "</div>"; ?>
 
                 <?php } ?>
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">MANAGE
+                        <h3 class="box-title">MANAGE<?php print_r($this->session->flashdata('message'));?>
                             <small>Data Cabang</small>
                         </h3>
                         <!-- tools box -->
@@ -43,7 +43,7 @@
                     		    <th>Provinsi</th>
                     		    <th>No Telepon</th>
                     		    <th>Kepala Cabang</th>
-                    		    <th>Keterangan</th>
+                    		    <th>User Senior </th>
                     		    <th>Aktif</th>
                     		    <th width="200px">Action</th>
                             </tr>
@@ -103,7 +103,7 @@
                         {"data": "provinsi"},
                         {"data": "no_telepon"},
                         {"data": "kepala_cabang"},
-                        {"data": "keterangan"},
+                        {"data": "id_user_senior"},
                         {"data": "aktif"},
                         {
                             "data" : "action",
