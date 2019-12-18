@@ -3,11 +3,11 @@
     <section class="content">
         <div class="row">
             <div class="col-lg-12">
-                <?php if($this->session->flashdata('message')){ ?>
+                <?php if($this->session->flashdata('message')['pesan']){ ?>
                                 
                     <?php echo "<div class='row'>"; ?>
                     <?php echo "<div class='col-md-12'>"; ?>
-                    <?php echo "<div class='alert ' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')."</div>"; ?>
+                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
                     <?php echo "</div>"; ?>
                     <?php echo "</div>"; ?>
 
@@ -95,7 +95,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Klasifikasi Temuan</label>
                                   <div class="col-lg-9">
-                                    <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan">
+                                    <select class="form-control" name="klasifikasi_temuan" id="klasifikasi_temuan"  <?php echo (form_error('klasifikasi_temuan')!=''?'style="border-color:red;"':'') ?>>
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_klasifikasi_temuan as $key) { ?>
                                         <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo ($klasifikasi_temuan ==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
@@ -131,7 +131,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Penyimpangan</label>
                                   <div class="col-lg-9">
-                                    <select class="form-control select2" name="penyimpangan" id="penyimpangan">
+                                    <select class="form-control" name="penyimpangan" id="penyimpangan" <?php echo (form_error('penyimpangan')!=''?'style="border-color:red;"':'') ?>>
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_penyimpangan as $key) { ?>
                                         <option value="<?php echo $key->id_penyimpangan; ?>" <?php echo ($penyimpangan==$key->id_penyimpangan?'selected':'')  ?> ><?php echo $key->nama_penyimpangan; ?></option>
@@ -285,10 +285,10 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Repeated</label>
                                   <div class="col-lg-3">
-                                    <select name="repeated" id="repeated" class="form-control">
+                                    <select name="repeated" id="repeated" class="form-control" <?php echo (form_error('repeated')!=''?'style="border-color:red;"':'') ?>>
                                        <option value="">--Pilih--</option>
-                                       <option value="Yes">Yes</option>
-                                       <option value="No">No</option>
+                                       <option value="Yes" <?php echo ($repeated=='Yes'?'selected':'')  ?>>Yes</option>
+                                       <option value="No" <?php echo ($repeated=='No'?'selected':'')  ?>>No</option>
                                    </select>
                                   </div>
                                
@@ -387,6 +387,9 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
+                                        <?php if($button=='Update'){ ?>
+                                        <input type="hidden" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control">
+                                        <?php } ?>
                                         <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
                                   </div>
@@ -420,7 +423,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="button" class="btn btn-default" onclick="goBack()"><i class="fa fa-close"></i> Cancel</button>
-                        <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
+                        <button type="submit" class="btn btn-info save"><i class="fa fa-save"></i> Save</button>
                     </div>
                             
                     </form>

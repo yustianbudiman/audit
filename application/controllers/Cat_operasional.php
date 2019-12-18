@@ -66,7 +66,7 @@ class Cat_operasional extends CI_Controller
  		$data=[
             'action' => base_url('cat_operasional/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
-            'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+            'list_tl'=>$this->User_model->get_All_userBy_level(),
             'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
             'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
             'id_cat_operasional_header' => set_value('id_cat_operasional_header',$id),
@@ -219,7 +219,7 @@ class Cat_operasional extends CI_Controller
                 'button' => 'Update',
                 'action' => base_url('cat_operasional/update_action'),
                 'list_cabang'=>$this->Cabang_model->get_all(),
-                'list_tl'=>$this->User_model->get_All_userBy_level(array('5')),
+                'list_tl'=>$this->User_model->get_All_userBy_level(),
                 'list_supervisor'=>$this->User_model->get_All_userBy_level(array('5','4')),
                 'list_audit'=>$this->User_model->get_All_userBy_level(array('6')),
                  'id_cat_operasional_header' => set_value('id_cat_operasional_header', $header['id_cat_operasional_header']),

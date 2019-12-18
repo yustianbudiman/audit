@@ -370,6 +370,9 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
+                                       <?php if($action=='update_action'){ ?>
+                                        <input type="hidden" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control">
+                                        <?php } ?>
                                         <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
                                   </div>
