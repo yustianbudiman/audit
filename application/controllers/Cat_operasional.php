@@ -54,7 +54,7 @@ class Cat_operasional extends CI_Controller
             );
             $this->template->load('template','cat_operasional/cat_operasional_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cat_operasional'));
         }
     }
@@ -64,6 +64,7 @@ class Cat_operasional extends CI_Controller
     	// $header=$this->Cat_operasional_model->list_cat_operasional_header_all();
         $header=$this->Cat_operasional_model->get_One_Header_detail($id);
  		$data=[
+            'button' => 'Create',
             'action' => base_url('cat_operasional/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
             'list_tl'=>$this->User_model->get_All_userBy_level(),
@@ -107,6 +108,7 @@ class Cat_operasional extends CI_Controller
             'monitoring_value' => set_value('monitoring_value'),
             'total_impact' => set_value('total_impact'),
             'likelihood' => set_value('likelihood'),
+            'repeated' => set_value('repeated'),
             'tev' => set_value('tev'),
             'bobot_resiko' => set_value('bobot_resiko'),
             'rekomendasi' => set_value('rekomendasi'),
@@ -115,6 +117,7 @@ class Cat_operasional extends CI_Controller
             'tanggal_periksa' => set_value('tanggal_periksa'),
             'tanggal_selesai' => set_value('tanggal_selesai'),
             'member' => set_value('member'),
+            'supervisor' => set_value('supervisor'),
             'bop' => set_value('bop'),
     	];
         $this->template->load('template','cat_operasional/cat_operasional_form', $data);
@@ -203,7 +206,7 @@ class Cat_operasional extends CI_Controller
 		    );
 
             $this->Cat_operasional_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Create Record Success'));
             // redirect(site_url('cat_operasional'));
             redirect($_SERVER['HTTP_REFERER']);            
         }
@@ -254,7 +257,8 @@ class Cat_operasional extends CI_Controller
 				'monitoring' => set_value('monitoring', $row->id_monitoring),
 				'monitoring_value' => set_value('monitoring_value', $row->monitoring_value),
 				'total_impact' => set_value('total_impact', $row->total_impact),
-				'likelihood' => set_value('likelihood', $row->likelihood),
+                'likelihood' => set_value('likelihood', $row->likelihood),
+				'repeated' => set_value('repeated', $row->repeated),
 				'tev' => set_value('tev', $row->tev),
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
@@ -263,6 +267,7 @@ class Cat_operasional extends CI_Controller
                 'member' => set_value('member',$row->member),
                 'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
                 'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
+                'supervisor' => set_value('supervisor',$row->supervisor),
                 'bop' => set_value('bop',$row->bop),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
@@ -274,7 +279,7 @@ class Cat_operasional extends CI_Controller
 		    );
             $this->template->load('template','cat_operasional/cat_operasional_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cat_operasional'));
         }
     }
@@ -325,7 +330,7 @@ class Cat_operasional extends CI_Controller
 		    );
 
             $this->Cat_operasional_model->update($this->input->post('id_cat_operasional', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Update Record Success'));
             // redirect(site_url('cat_operasional'));
             redirect($_SERVER['HTTP_REFERER']);
         }
@@ -337,10 +342,10 @@ class Cat_operasional extends CI_Controller
 
         if ($row) {
             $this->Cat_operasional_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('cat_operasional'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('cat_operasional'));
         }
     }
@@ -359,10 +364,10 @@ class Cat_operasional extends CI_Controller
                     'target_date'=>($this->input->post('target_date',TRUE)!=''?$this->input->post('target_date',TRUE):$row->target_date),
                 ];
             $this->Cat_operasional_model->update($id_cat_operasional, $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect($_SERVER['HTTP_REFERER']);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
@@ -386,7 +391,8 @@ class Cat_operasional extends CI_Controller
 		$this->form_validation->set_rules('monitoring', 'id monitoring','trim|required');
 		$this->form_validation->set_rules('monitoring_value', 'monitoring value','trim|required');
 		$this->form_validation->set_rules('total_impact', 'total impact','trim|required');
-		$this->form_validation->set_rules('likelihood', 'likelihood','trim|required');
+        $this->form_validation->set_rules('likelihood', 'likelihood','trim|required');
+		$this->form_validation->set_rules('repeated', 'repeated','trim|required');
 		$this->form_validation->set_rules('tev', 'tev','trim|required');
 		$this->form_validation->set_rules('bobot_resiko', 'bobot resiko','trim|required');
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi','trim|required');
@@ -395,6 +401,7 @@ class Cat_operasional extends CI_Controller
 		// $this->form_validation->set_rules('member', 'member', 'trim|required');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
         $this->form_validation->set_rules('tanggal_selesai', 'target date', 'trim|required');
+        $this->form_validation->set_rules('supervisor', 'Supervisor', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
 		$this->form_validation->set_rules('periode', 'periode', 'trim|required');
 
@@ -536,7 +543,7 @@ class Cat_operasional extends CI_Controller
         $this->email->subject('Kirim Email dengan SMTP Gmail ');
 
         // Isi email
-        $this->email->message("Ini adalah contoh email yang dikirim menggunakan SMTP Gmail pada CodeIgniter");
+        $this->email->message("ini adalah contoh email yang dikirim menggunakan SMTP Gmail pada CodeIgniter");
 
         // Tampilkan pesan sukses atau error
         if ($this->email->send()) {
