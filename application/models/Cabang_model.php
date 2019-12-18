@@ -7,7 +7,7 @@ class Cabang_model extends CI_Model
 {
 
     public $table = 'cabang';
-    public $id = 'id_cabang';
+    public $id = 'kode_cabang';
     public $order = 'DESC';
 
     function __construct()
@@ -30,7 +30,7 @@ class Cabang_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by($this->id, 'ASC');
         return $this->db->get($this->table)->result();
     }
 

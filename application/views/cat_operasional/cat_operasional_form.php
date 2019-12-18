@@ -95,6 +95,7 @@
                                     <label for="" class="col-lg-3 control-label">Klasifikasi Temuan</label>
                                   <div class="col-lg-9">
                                     <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_klasifikasi_temuan as $key) { ?>
                                         <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo ($klasifikasi_temuan ==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
                                         <?php } ?>
@@ -130,6 +131,7 @@
                                     <label for="" class="col-lg-3 control-label">Penyimpangan</label>
                                   <div class="col-lg-9">
                                     <select class="form-control select2" name="penyimpangan" id="penyimpangan">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_penyimpangan as $key) { ?>
                                         <option value="<?php echo $key->id_penyimpangan; ?>" <?php echo ($penyimpangan==$key->id_penyimpangan?'selected':'')  ?> ><?php echo $key->nama_penyimpangan; ?></option>
                                         <?php } ?>
@@ -149,6 +151,7 @@
                                     <label for="" class="col-lg-3 control-label">Environment</label>
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="environment" id="environment">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_environment as $key) { ?>
                                         <option value="<?php echo $key->id_environment; ?>" <?php echo ($environment==$key->id_environment?'selected':'')  ?> ><?php echo $key->nama_environment; ?></option>
                                         <?php } ?>
@@ -165,6 +168,7 @@
                                     <label for="" class="col-lg-3 control-label">Risk Assesment</label>
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="risk_assesment" id="risk_assesment">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_risk_assesment as $key) { ?>
                                         <option value="<?php echo $key->id_risk_assesment; ?>" <?php echo ($risk_assesment==$key->id_risk_assesment?'selected':'')  ?> ><?php echo $key->nama_risk_assesment; ?></option>
                                         <?php } ?>
@@ -185,6 +189,7 @@
                                     <label for="" class="col-lg-3 control-label">Control Activity</label>
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="control_activity" id="control_activity">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_control_activities as $key) { ?>
                                         <option value="<?php echo $key->id_control_activities; ?>" <?php echo ($control_activity==$key->id_control_activities?'selected':'')  ?> ><?php echo $key->nama_control_activities; ?></option>
                                         <?php } ?>
@@ -201,6 +206,7 @@
                                     <label for="" class="col-lg-3 control-label">Inf. Comunication</label>
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="information_comunication" id="information_comunication">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_information_comunication as $key) { ?>
                                         <option value="<?php echo $key->id_information_comunication; ?>" <?php echo ($information_comunication==$key->id_information_comunication?'selected':'')  ?> ><?php echo $key->nama_information_comunication; ?></option>
                                         <?php } ?>
@@ -221,6 +227,7 @@
                                     <label for="" class="col-lg-3 control-label">Monitoring</label>
                                   <div class="col-lg-5">
                                     <select class="form-control select2" name="monitoring" id="monitoring">
+                                        <option value="">--Pilih--</option>
                                         <?php foreach ($list_monitoring as $key) { ?>
                                         <option value="<?php echo $key->id_monitoring; ?>" <?php echo ($monitoring==$key->id_monitoring?'selected':'')  ?> ><?php echo $key->nama_monitoring; ?></option>
                                         <?php } ?>
@@ -262,6 +269,7 @@
                                     <label for="" class="col-lg-3 control-label">Repeated</label>
                                   <div class="col-lg-3">
                                     <select name="repeated" id="repeated" class="form-control">
+                                       <option value="">--Pilih--</option>
                                        <option value="Yes">Yes</option>
                                        <option value="No">No</option>
                                    </select>
@@ -302,15 +310,24 @@
                                     <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" style="width: 408px;"><?php echo $tanggapan_audit  ?></textarea>
                                   </div>
                                 </div>
-                          
+                                
                                 <div class="col-md-6 col-sm-6">
-                                    <label for="" class="col-lg-3 control-label">Target Date</label>
+                                    <label for="" class="col-lg-3 control-label">Pemeriksaan Awal</label>
                                   <div class="col-lg-4">
                                     <div class="input-group date">
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?>>
+                                        <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="<?php echo $tanggal_periksa  ?>" class="form-control" <?php echo (form_error('tanggal_periksa')!=''?'style="border-color:red;"':'') ?>>
+                                    </div>
+                                  </div>
+                                  <label for="" class="col-lg-1 control-label">Akhir</label>
+                                  <div class="col-lg-4">
+                                    <div class="input-group date">
+                                      <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                      </div>
+                                        <input type="text" name="tanggal_selesai" id="tanggal_selesai" value="<?php echo $tanggal_selesai  ?>" class="form-control" <?php echo (form_error('tanggal_selesai')!=''?'style="border-color:red;"':'') ?>>
                                     </div>
                                   </div>
                                 </div>
@@ -347,22 +364,13 @@
                             <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                    <label for="" class="col-lg-3 control-label">Tanggal Awal</label>
+                                    <label for="" class="col-lg-3 control-label">Target Date</label>
                                   <div class="col-lg-4">
                                     <div class="input-group date">
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="tanggal_periksa" id="tanggal_periksa" value="<?php echo $tanggal_periksa  ?>" class="form-control" <?php echo (form_error('tanggal_periksa')!=''?'style="border-color:red;"':'') ?>>
-                                    </div>
-                                  </div>
-                                  <label for="" class="col-lg-1 control-label">Akhir</label>
-                                  <div class="col-lg-4">
-                                    <div class="input-group date">
-                                      <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                      </div>
-                                        <input type="text" name="tanggal_selesai" id="tanggal_selesai" value="<?php echo $tanggal_selesai  ?>" class="form-control" <?php echo (form_error('tanggal_selesai')!=''?'style="border-color:red;"':'') ?>>
+                                        <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
                                   </div>
                                 </div>
@@ -574,9 +582,21 @@
 
 $(document).ready(function() {
   $('#periode').datepicker();
-  $('#tanggal_periksa').datepicker();
-  $('#tanggal_selesai').datepicker();
-  $('#target_date').datepicker();
+  $('#tanggal_periksa').datepicker({
+    dateFormat: 'dd-mm-yy',
+    onSelect: function (dateText) {
+         var d3 = $(this).datepicker('getDate');
+         d3.setDate(d3.getDate() + parseInt(1));
+         $("#target_date").datepicker('option', 'minDate', d3);
+         $("#target_date").removeAttr('disabled');
+    },
+  });
+
+  $('#tanggal_selesai').datepicker({dateFormat: 'dd-mm-yy',});
+  $('#target_date').datepicker({
+    dateFormat: 'dd-mm-yy',
+  });
+  
   var arr="<?php echo $member;?>";
   var pecah=arr.split(',');
   $('#member').val(pecah);
