@@ -23,7 +23,7 @@
 
                             <table class='table table-bordered table-hover'>        
                                 <tr><td width='200'>NIK </td>
-                                    <td><input type="text" class="form-control" name="nik" id="nik" placeholder="NIK" value="<?php echo $nik; ?>" maxlength="16" /><?php echo form_error('nik') ?></td>
+                                    <td><input type="text" class="form-control" name="nik" id="nik" placeholder="NIK" onkeypress="return isNumber(event)" value="<?php echo $nik; ?>" maxlength="16" /><?php echo form_error('nik') ?></td>
                                 </tr>
                                 <tr><td width='200'>Nama Lengkap </td>
                                     <td><input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name" value="<?php echo $full_name; ?>" /><?php echo form_error('full_name') ?></td>
@@ -36,10 +36,10 @@
                                 </tr>
 
                                 <?php
-                                if ($this->uri->segment(2) == 'create') {
+                                if ($this->uri->segment(2) == 'create' || $this->uri->segment(2) == 'create_action') {
                                     ?>
 
-                                    <tr><td width='200'>Password </td><td><input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" /> <?php echo form_error('password') ?></td></tr>
+                                    <tr><td width='200'>Password </td><td><input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" required /> <?php echo form_error('password') ?></td></tr>
                                     <?php
                                 }
                                 ?>

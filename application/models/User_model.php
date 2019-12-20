@@ -26,19 +26,19 @@ class User_model extends CI_Model
         if($this->session->userdata('id_user_level') == 1){ // super admin
             $this->datatables->add_column('action',anchor(site_url('user/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'View Detail'))." 
                 ".anchor(site_url('user/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'Ubah Data'))." 
-                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password dan pin data ini ?\')"')." 
+                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password data ini ?\')"')." 
                 ".anchor(site_url('user/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Anda yakin ingin menghapus data ini ?\')"'), 'id_users');
         }else if($this->session->userdata('id_user_level') == 2){ // admin
             $this->datatables->where('a.id_user_level !=','1');
             $this->datatables->add_column('action',anchor(site_url('user/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'View Detail'))." 
                 ".anchor(site_url('user/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'Ubah Data'))." 
-                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" title="Reset Password" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password dan pin data ini ?\')"'), 'id_users');
+                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" title="Reset Password" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password data ini ?\')"'), 'id_users');
         }else{ //
             $this->datatables->where('a.id_user_level !=','2');
             $this->datatables->where('a.id_user_level !=','1');
             $this->datatables->add_column('action',anchor(site_url('user/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'View Detail'))." 
                 ".anchor(site_url('user/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm', 'title'=>'Ubah Data'))." 
-                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" title="Reset Password" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password dan pin data ini ?\')"'), 'id_users');
+                ".anchor(site_url('user/reset/$1'),'<i class="fa fa-refresh" aria-hidden="true"></i>','class="btn btn-danger btn-sm" title="Reset Password" onclick="javasciprt: return confirm(\'Anda yakin ingin mereset password data ini ?\')"'), 'id_users');
         }
         
         return $this->datatables->generate();
