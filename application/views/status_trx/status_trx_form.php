@@ -24,7 +24,8 @@
             
 		      				<table class='table table-bordered table-hover'>    
 
-							    <tr><td width='200'>Status Trx <?php echo form_error('status_trx') ?></td><td><input type="text" class="form-control" name="status_trx" id="status_trx" placeholder="Status Trx" value="<?php echo $status_trx; ?>" /></td></tr>
+							    <tr><td width='200'>Status Trx </td><td><input type="text" class="form-control" name="status_trx" id="status_trx" placeholder="Status Trx" value="<?php echo $status_trx; ?>" />
+							    <?php echo form_error('status_trx') ?></td></tr>
 							    <tr><td width='200'>Status Aktif </td>
 							    	<td><?php echo form_dropdown('aktif', array('Aktif' => 'Aktif', 'Nonaktif' => 'Nonaktif'), $aktif, array('class' => 'form-control')); ?>
 							    	<?php echo form_error('aktif') ?></td></tr>
