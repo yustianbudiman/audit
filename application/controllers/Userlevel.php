@@ -29,12 +29,12 @@ class Userlevel extends CI_Controller
         $row = $this->User_level_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_user_level' => $row->id_user_level,
-		'nama_level' => $row->nama_level,
-	    );
+        		'id_user_level' => $row->id_user_level,
+        		'nama_level' => $row->nama_level,
+    	    );
             $this->template->load('template','userlevel/tbl_user_level_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('userlevel'));
         }
     }
@@ -66,9 +66,9 @@ class Userlevel extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('userlevel/create_action'),
-	    'id_user_level' => set_value('id_user_level'),
-	    'nama_level' => set_value('nama_level'),
-	);
+    	    'id_user_level' => set_value('id_user_level'),
+    	    'nama_level' => set_value('nama_level'),
+    	);
         $this->template->load('template','userlevel/tbl_user_level_form', $data);
     }
     
@@ -80,11 +80,11 @@ class Userlevel extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_level' => $this->input->post('nama_level',TRUE),
-	    );
+    		  'nama_level' => $this->input->post('nama_level',TRUE),
+    	    );
 
             $this->User_level_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('userlevel'));
         }
     }
@@ -97,12 +97,12 @@ class Userlevel extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('userlevel/update_action'),
-		'id_user_level' => set_value('id_user_level', $row->id_user_level),
-		'nama_level' => set_value('nama_level', $row->nama_level),
-	    );
+        		'id_user_level' => set_value('id_user_level', $row->id_user_level),
+        		'nama_level' => set_value('nama_level', $row->nama_level),
+    	    );
             $this->template->load('template','userlevel/tbl_user_level_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('userlevel'));
         }
     }
@@ -115,11 +115,11 @@ class Userlevel extends CI_Controller
             $this->update($this->input->post('id_user_level', TRUE));
         } else {
             $data = array(
-		'nama_level' => $this->input->post('nama_level',TRUE),
-	    );
+    		  'nama_level' => $this->input->post('nama_level',TRUE),
+    	    );
 
             $this->User_level_model->update($this->input->post('id_user_level', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('userlevel'));
         }
     }
@@ -130,20 +130,20 @@ class Userlevel extends CI_Controller
 
         if ($row) {
             $this->User_level_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('userlevel'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('userlevel'));
         }
     }
 
     public function _rules() 
     {
-	$this->form_validation->set_rules('nama_level', 'nama level', 'trim|required');
+    	$this->form_validation->set_rules('nama_level', 'nama level', 'trim|required');
 
-	$this->form_validation->set_rules('id_user_level', 'id_user_level', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    	$this->form_validation->set_rules('id_user_level', 'id_user_level', 'trim');
+    	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()

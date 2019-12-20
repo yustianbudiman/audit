@@ -43,7 +43,7 @@ class Risk_assesment extends CI_Controller
     	    );
             $this->template->load('template','risk_assesment/risk_assesment_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('risk_assesment'));
         }
     }
@@ -77,7 +77,7 @@ class Risk_assesment extends CI_Controller
     	    );
 
             $this->Risk_assesment_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('risk_assesment'));
         }
     }
@@ -98,7 +98,7 @@ class Risk_assesment extends CI_Controller
     	    );
             $this->template->load('template','risk_assesment/risk_assesment_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('risk_assesment'));
         }
     }
@@ -119,7 +119,7 @@ class Risk_assesment extends CI_Controller
     	    );
 
             $this->Risk_assesment_model->update($this->input->post('id_risk_assesment', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('risk_assesment'));
         }
     }
@@ -130,10 +130,10 @@ class Risk_assesment extends CI_Controller
 
         if ($row) {
             $this->Risk_assesment_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('risk_assesment'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('risk_assesment'));
         }
     }

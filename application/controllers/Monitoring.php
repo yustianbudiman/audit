@@ -43,7 +43,7 @@ class Monitoring extends CI_Controller
     	    );
             $this->template->load('template','monitoring/monitoring_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('monitoring'));
         }
     }
@@ -77,7 +77,7 @@ class Monitoring extends CI_Controller
     	    );
 
             $this->Monitoring_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('monitoring'));
         }
     }
@@ -97,7 +97,7 @@ class Monitoring extends CI_Controller
     	    );
             $this->template->load('template','monitoring/monitoring_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('monitoring'));
         }
     }
@@ -118,7 +118,7 @@ class Monitoring extends CI_Controller
     	    );
 
             $this->Monitoring_model->update($this->input->post('id_monitoring', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('monitoring'));
         }
     }
@@ -129,10 +129,10 @@ class Monitoring extends CI_Controller
 
         if ($row) {
             $this->Monitoring_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('monitoring'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('monitoring'));
         }
     }

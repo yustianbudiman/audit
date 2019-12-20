@@ -108,7 +108,7 @@ class Cabang extends CI_Controller
     public function update($id) 
     {
         $row = $this->Cabang_model->get_by_id($id);
-
+        // print_r($row);die();
         if ($row) {
             $data = array(
                 'button' => 'Update',

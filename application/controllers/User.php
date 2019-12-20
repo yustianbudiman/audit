@@ -85,7 +85,7 @@ class User extends CI_Controller
             );
             $this->template->load('template','user/tbl_user_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('user'));
         }
     }
@@ -139,7 +139,7 @@ class User extends CI_Controller
                     $notif .= "<p style='color:white'><b>Email sudah digunakan</b></p>";
                 }
 
-                $this->session->set_flashdata('message', $notif);
+                $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>$notif));
                 redirect(site_url('user'));
             }
             
@@ -161,7 +161,7 @@ class User extends CI_Controller
     	    );
 
             $this->User_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success. <b>Email = '.$email.', Password = '.$password.'</b>');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success. <b>Email = '.$email.', Password = '.$password.'</b>'));
             redirect(site_url('user'));
         }
     }
@@ -188,7 +188,7 @@ class User extends CI_Controller
     	    );
             $this->template->load('template','user/tbl_user_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('user'));
         }
     }
@@ -253,11 +253,11 @@ class User extends CI_Controller
                             $notif .= "<p style='color:white'><b>Email sudah digunakan</b></p>";
                         }
 
-                        $this->session->set_flashdata('message', $notif);
+                        $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>$notif));
                         redirect(site_url('user'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', 'Update Record Success');
+                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
                         redirect(site_url('user'));
                     }
                     
@@ -273,11 +273,11 @@ class User extends CI_Controller
                             $notif .= "<p style='color:white'><b>Email sudah digunakan</b></p>";
                         }
 
-                        $this->session->set_flashdata('message', $notif);
+                        $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>$notif));
                         redirect(site_url('user'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', 'Update Record Success');
+                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
                         redirect(site_url('user'));
                     }
                 }
@@ -303,10 +303,10 @@ class User extends CI_Controller
 
         if ($row) {
             $this->User_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('user'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('user'));
         }
     }
@@ -325,10 +325,10 @@ class User extends CI_Controller
                 'password'    => $hashPassword
             );
             $this->User_model->update($id,$data);
-            $this->session->set_flashdata('message', 'Reset Record Success. New password = <b>'.$password.'</b>');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Reset Record Success. New password = <b>'.$password.'</b>'));
             redirect(site_url('user'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('user'));
         }
     }

@@ -36,7 +36,7 @@ class Status_trx extends CI_Controller
     	    );
             $this->template->load('template','status_trx/status_trx_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('status_trx'));
         }
     }
@@ -66,7 +66,7 @@ class Status_trx extends CI_Controller
     	    );
 
             $this->Status_trx_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('status_trx'));
         }
     }
@@ -85,7 +85,7 @@ class Status_trx extends CI_Controller
     	    );
             $this->template->load('template','status_trx/status_trx_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('status_trx'));
         }
     }
@@ -103,7 +103,7 @@ class Status_trx extends CI_Controller
     	    );
 
             $this->Status_trx_model->update($this->input->post('id_status', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('status_trx'));
         }
     }
@@ -114,10 +114,10 @@ class Status_trx extends CI_Controller
 
         if ($row) {
             $this->Status_trx_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('status_trx'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('status_trx'));
         }
     }

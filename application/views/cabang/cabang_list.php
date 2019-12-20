@@ -13,7 +13,7 @@
                 <?php } ?>
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">MANAGE<?php print_r($this->session->flashdata('message'));?>
+                        <h3 class="box-title">MANAGE
                             <small>Data Cabang</small>
                         </h3>
                         <!-- tools box -->

@@ -43,7 +43,7 @@ class Klasifikasi_temuan extends CI_Controller
     	    );
             $this->template->load('template','klasifikasi_temuan/klasifikasi_temuan_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('klasifikasi_temuan'));
         }
     }
@@ -78,7 +78,7 @@ class Klasifikasi_temuan extends CI_Controller
     	    );
 
             $this->Klasifikasi_temuan_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('klasifikasi_temuan'));
         }
     }
@@ -98,7 +98,7 @@ class Klasifikasi_temuan extends CI_Controller
     	    );
             $this->template->load('template','klasifikasi_temuan/klasifikasi_temuan_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('klasifikasi_temuan'));
         }
     }
@@ -119,7 +119,7 @@ class Klasifikasi_temuan extends CI_Controller
     	    );
 
             $this->Klasifikasi_temuan_model->update($this->input->post('id_klasifikasi_temuan', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('klasifikasi_temuan'));
         }
     }
@@ -130,10 +130,10 @@ class Klasifikasi_temuan extends CI_Controller
 
         if ($row) {
             $this->Klasifikasi_temuan_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('klasifikasi_temuan'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('klasifikasi_temuan'));
         }
     }

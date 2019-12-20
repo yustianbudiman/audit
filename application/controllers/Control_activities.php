@@ -43,7 +43,7 @@ class Control_activities extends CI_Controller
     	    );
             $this->template->load('template','control_activities/control_activities_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('control_activities'));
         }
     }
@@ -77,7 +77,7 @@ class Control_activities extends CI_Controller
     	    );
 
             $this->control_activities_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('control_activities'));
         }
     }
@@ -97,7 +97,7 @@ class Control_activities extends CI_Controller
     	    );
             $this->template->load('template','control_activities/control_activities_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('control_activities'));
         }
     }
@@ -118,7 +118,7 @@ class Control_activities extends CI_Controller
     	    );
 
             $this->control_activities_model->update($this->input->post('id_control_activities', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('control_activities'));
         }
     }
@@ -129,10 +129,10 @@ class Control_activities extends CI_Controller
 
         if ($row) {
             $this->control_activities_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('control_activities'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('control_activities'));
         }
     }

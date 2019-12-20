@@ -7,7 +7,7 @@ class Cabang_model extends CI_Model
 {
 
     public $table = 'cabang';
-    public $id = 'kode_cabang';
+    public $id = 'id_cabang';
     public $order = 'DESC';
 
     function __construct()

@@ -43,7 +43,7 @@ class Information_comunication extends CI_Controller
     	    );
             $this->template->load('template','information_comunication/information_comunication_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('information_comunication'));
         }
     }
@@ -78,7 +78,7 @@ class Information_comunication extends CI_Controller
     	    );
 
             $this->Information_comunication_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('information_comunication'));
         }
     }
@@ -99,7 +99,7 @@ class Information_comunication extends CI_Controller
     	    );
             $this->template->load('template','information_comunication/information_comunication_form', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('information_comunication'));
         }
     }
@@ -120,7 +120,7 @@ class Information_comunication extends CI_Controller
     	    );
 
             $this->Information_comunication_model->update($this->input->post('id_information_comunication', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect(site_url('information_comunication'));
         }
     }
@@ -131,10 +131,10 @@ class Information_comunication extends CI_Controller
 
         if ($row) {
             $this->Information_comunication_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('information_comunication'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('information_comunication'));
         }
     }

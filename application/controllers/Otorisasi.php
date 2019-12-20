@@ -69,7 +69,7 @@ class Otorisasi extends CI_Controller
             );
             $this->template->load('template','cat_bisnis/cat_bisnis_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('otorisasi'));
         }
     }
@@ -84,7 +84,7 @@ class Otorisasi extends CI_Controller
             );
             $this->template->load('template','cat_operasional/cat_operasional_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>'Record Not Found'));
             redirect(site_url('otorisasi'));
         }
     }
