@@ -79,7 +79,6 @@ class Goal_strategic extends CI_Controller
 
             $this->Goal_strategic_model->insert($data);
             $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Create Record Success'));
-            $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('goal_strategic'));
         }
     }
