@@ -54,12 +54,18 @@ Class Auth extends CI_Controller{
        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
     
-    function logout(){
-        $this->session->sess_destroy();
+    function logout($flag = null){
+        // $this->session->sess_destroy();
         $array_items = array('id_users', 'id_cabang', 'id_divisi', 'nik', 'full_name', 'email', 'password', 'images', 'id_user_level', 'is_aktif', 'tgl_daftar', 'tgl_update');
 
         $this->session->unset_userdata($array_items);
-        $this->session->set_flashdata('status_login','Berhasil Logout');
+        // print_r($flag);die();
+        if($flag == "00" || $flag != null || $flag != ""){
+            $this->session->set_flashdata('status_login','<pre style="color:green;">Update Success. Please relogin.!</pre>');
+        }else{
+            $this->session->set_flashdata('status_login','Berhasil Logout');
+        }
+        
         redirect('auth');
     }
 }

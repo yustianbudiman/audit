@@ -152,7 +152,11 @@ class Welcome extends CI_Controller {
                         redirect(site_url('welcome/read'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
+                        if($password != ""){
+                            redirect(site_url('auth/logout/00'));
+                        }else{
+                            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
+                        }
                         redirect(site_url('welcome/read'));
                     }
                     
@@ -172,7 +176,11 @@ class Welcome extends CI_Controller {
                         redirect(site_url('welcome/read'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
+                        if($password != ""){
+                            redirect(site_url('auth/logout/00'));
+                        }else{
+                            $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
+                        }
                         redirect(site_url('welcome/read'));
                     }
                 }
