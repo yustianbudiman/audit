@@ -32,19 +32,20 @@ class Welcome extends CI_Controller {
             $data = array(
                 'button'        => 'Update',
                 'action'        => site_url('welcome/read_action'),
-                'id_users'      => set_value('id_users', $row->id_users),
-                'id_sekolah'    => set_value('id_sekolah', $row->id_sekolah),
-                'nama_sekolah'    => set_value('nama_sekolah', $row->nama_sekolah),
-                'kecamatan'    => set_value('kecamatan', $row->kecamatan),
-                'full_name'     => set_value('full_name', $row->full_name),
-                'email'         => set_value('email', $row->email),
-                'password'      => set_value('password', $row->password),
-                'images'        => set_value('images', $row->images),
-                'id_user_level' => set_value('id_user_level', $row->id_user_level),
-                'nama_level' => set_value('nama_level', $row->nama_level),
-                'id_kecamatan'  => set_value('id_kecamatan', $row->id_kecamatan),
-                'no_hp'         => set_value('no_hp', $row->no_hp),
-                'is_aktif'      => set_value('is_aktif', $row->is_aktif),
+                'id_users'      => $row->id_users,
+                'nik'           => $row->nik,
+                'full_name'     => $row->full_name,
+                'email'         => $row->email,
+                'images'        => $row->images,
+                'id_user_level' => $row->id_user_level,
+                'nama_level'    => $row->nama_level,
+                'no_hp'         => $row->no_hp,
+                'id_cabang'     => $row->id_cabang,
+                'nama_cabang'   => $row->nama_cabang,
+                'id_divisi'     => $row->id_divisi,
+                'divisi'        => $row->divisi,
+                'tgl_daftar'    => $row->tgl_daftar,
+                'is_aktif'      => $row->is_aktif,
             );
             $this->template->load('template','user/tbl_user_read_welcome', $data);
         } else {
@@ -69,22 +70,24 @@ class Welcome extends CI_Controller {
             if($foto['file_name']==''){
                 if($password == ""){
                     $data = array(
-                        'id_sekolah'    => $this->input->post('id_sekolah',TRUE),
+                        'nik'           => $this->input->post('nik',TRUE),
                         'full_name'     => $this->input->post('full_name',TRUE),
                         'email'         => $email,
+                        'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                        'id_divisi'     => $this->input->post('id_divisi',TRUE),
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
-                        'id_kecamatan'  => $this->input->post('id_kecamatan',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE)
                     );
                 }else{
                     $data = array(
-                        'id_sekolah'    => $this->input->post('id_sekolah',TRUE),
+                        'nik'           => $this->input->post('nik',TRUE),
                         'full_name'     => $this->input->post('full_name',TRUE),
                         'email'         => $email,
                         'password'      => $hashPassword,
+                        'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                        'id_divisi'     => $this->input->post('id_divisi',TRUE),
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
-                        'id_kecamatan'  => $this->input->post('id_kecamatan',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE)
                     );
@@ -93,24 +96,26 @@ class Welcome extends CI_Controller {
             }else{
                 if($password == ""){
                     $data = array(
-                        'id_sekolah'    => $this->input->post('id_sekolah',TRUE),
+                        'nik'           => $this->input->post('nik',TRUE),
                         'full_name'     => $this->input->post('full_name',TRUE),
                         'email'         => $email,
                         'images'        => $foto['file_name'],
+                        'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                        'id_divisi'     => $this->input->post('id_divisi',TRUE),
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
-                        'id_kecamatan'  => $this->input->post('id_kecamatan',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE)
                     );
                 }else{
                     $data = array(
-                        'id_sekolah'    => $this->input->post('id_sekolah',TRUE),
+                        'nik'           => $this->input->post('nik',TRUE),
                         'full_name'     => $this->input->post('full_name',TRUE),
                         'email'         => $email,
-                        'password'         => $hashPassword,
+                        'password'      => $hashPassword,
                         'images'        => $foto['file_name'],
+                        'id_cabang'     => $this->input->post('id_cabang',TRUE),
+                        'id_divisi'     => $this->input->post('id_divisi',TRUE),
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
-                        'id_kecamatan'  => $this->input->post('id_kecamatan',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE)
                     );
@@ -143,11 +148,11 @@ class Welcome extends CI_Controller {
                             $notif .= "<p style='color:white'><b>Email sudah digunakan</b></p>";
                         }
 
-                        $this->session->set_flashdata('message', $notif);
+                        $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>$notif));
                         redirect(site_url('welcome/read'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', 'Update Record Success');
+                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
                         redirect(site_url('welcome/read'));
                     }
                     
@@ -163,11 +168,11 @@ class Welcome extends CI_Controller {
                             $notif .= "<p style='color:white'><b>Email sudah digunakan</b></p>";
                         }
 
-                        $this->session->set_flashdata('message', $notif);
+                        $this->session->set_flashdata('message', array('type'=>'alert-warning','pesan'=>$notif));
                         redirect(site_url('welcome/read'));
                     }else{
                         $this->User_model->update($id_users, $data);
-                        $this->session->set_flashdata('message', 'Update Record Success');
+                        $this->session->set_flashdata('message', array('type'=>'alert-success','pesan'=>'Update Record Success'));
                         redirect(site_url('welcome/read'));
                     }
                 }

@@ -4,11 +4,11 @@
     <section class="content">
         <div class="row">
             <div class="col-lg-10">
-                <?php if($this->session->flashdata('message')){ ?>
+                <?php if($this->session->flashdata('message')['pesan']){ ?>
                                 
                     <?php echo "<div class='row'>"; ?>
                     <?php echo "<div class='col-md-12'>"; ?>
-                    <?php echo "<div class='alert ' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')."</div>"; ?>
+                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
                     <?php echo "</div>"; ?>
                     <?php echo "</div>"; ?>
 
@@ -38,26 +38,18 @@
                                 <?php }else{ ?>
                                     <tr><td colspan="2"><center><img src="<?php echo base_url()?>assets/foto_profil/atomix_user31.png" width="200px" class="user-image"></center></td></tr>
                                 <?php }?>       
-                                <tr id="kecamatan_id"><td width='200'>Kecamatan </td>
-                                    <td>
-                                        <?php echo $kecamatan?><input type="hidden" name="id_kecamatan" id="id_kecamatan" value="<?php echo $id_kecamatan?>">
-                                        <?php echo form_error('id_kecamatan') ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width='200'>Sekolah </td>
-                                    <td><?php echo $nama_sekolah?><input type="hidden" name="id_sekolah" id="id_sekolah" value="<?php echo $id_sekolah?>">
-                                        <?php echo form_error('id_sekolah') ?>
-                                    </td>
+
+                                <tr><td width='200'>NIK </td>
+                                    <td><input type="text" class="form-control" name="nik" id="nik" placeholder="NIK" onkeypress="return isNumber(event)" value="<?php echo $nik; ?>" maxlength="16" /><?php echo form_error('nik') ?></td>
                                 </tr>
                                 <tr><td width='200'>Nama Lengkap </td>
-                                    <td><input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name" value="<?php echo $full_name; ?>" required/><?php echo form_error('full_name') ?></td>
+                                    <td><input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name" value="<?php echo $full_name; ?>" /><?php echo form_error('full_name') ?></td>
                                 </tr>
                                 <tr><td width='200'>No HP </td>
-                                    <td><input type="text" class="form-control" name="no_hp" id="no_hp" maxlength="15" placeholder="No HP" onkeypress="return isNumber(event)" value="<?php echo $no_hp; ?>" required/><span id="notif_no_hp"></span><?php echo form_error('no_hp') ?></td>
+                                    <td><input type="text" class="form-control" name="no_hp" id="no_hp" maxlength="15" placeholder="No HP" onkeypress="return isNumber(event)" value="<?php echo $no_hp; ?>" /><span id="notif_no_hp"></span><?php echo form_error('no_hp') ?></td>
                                 </tr>
                                 <tr><td width='200'>Email </td>
-                                    <td><input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>" required /><span id="notif_email"></span><?php echo form_error('email') ?></td>
+                                    <td><input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>" /><span id="notif_email"></span><?php echo form_error('email') ?></td>
                                 </tr>
 
                                 <tr><td width='200'>Password </td>
@@ -65,16 +57,50 @@
                                     <?php echo form_error('password') ?></td></tr>
                                     
                                 <tr><td width='200'>Level User </td><td>
-                                        <?php echo $nama_level?><input type="hidden" name="id_user_level" id="id_user_level" value="<?php echo $id_user_level?>">
+                                        <?php //echo cmb_dinamis('id_user_level', 'tbl_user_level', 'nama_level', 'id_user_level', $id_user_level,'DESC');
+                                        $this->db->order_by("nama_level","ASC");
+                                        if($this->session->userdata("id_user_level") == 3 || $this->session->userdata("id_user_level") == 4){ //sekolah / dinas
+                                            $this->db->where("id_user_level !=",1);
+                                            $this->db->where("id_user_level !=",2);
+                                            $sql_level = $this->db->get("tbl_user_level")->result();
+                                        }else if($this->session->userdata("id_user_level") == 2){
+                                            $this->db->where("id_user_level !=",1);
+                                            $sql_level = $this->db->get("tbl_user_level")->result();
+                                        }else{
+                                            $sql_level = $this->db->get("tbl_user_level")->result();
+                                        }
+                                            
+                                         ?>
+                                        <select name="id_user_level" id="id_user_level" class="form-control" required>
+                                            <option value="">- Select -</option>
+                                            <?php foreach ($sql_level as $d){ 
+                                                if($id_user_level == $d->id_user_level){ ?>
+                                                    <option value="<?php echo $d->id_user_level?>" selected><?php echo $d->nama_level?></option>
+                                                <?php }else{ ?>
+                                                    <option value="<?php echo $d->id_user_level?>"><?php echo $d->nama_level?></option>
+                                                <?php }
+                                                ?>
+                                                
+                                            <?php } ?>
+                                        </select>
                                         <?php echo form_error('id_user_level') ?>
                                     </td></tr>
-                                
+                                <tr id="cabang_id" ><td width='200'>Cabang </td>
+                                    <td>
+                                        <?php echo cmb_dinamis('id_cabang', 'cabang', 'nama_cabang', 'id_cabang', $id_cabang,'ASC') ?>
+                                        <?php echo form_error('id_cabang') ?>
+                                    </td>
+                                </tr>
+                                <tr id="divisi_id"><td width='200'>Divisi </td>
+                                    <td>
+                                        <?php echo cmb_dinamis('id_divisi', 'divisi', 'divisi', 'id_divisi', $id_divisi,'ASC') ?>
+                                        <?php echo form_error('id_divisi') ?>
+                                    </td>
+                                </tr>
                                 <tr><td width='200'>Status Aktif </td><td>
-                                    <?php if($is_aktif=="y"){ echo "AKTIF"; }else{ echo "TIDAK AKTIF"; }?> <input type="hidden" name="is_aktif" id="is_aktif" value="<?php echo $is_aktif?>">
+                                        <?php echo form_dropdown('is_aktif', array('y' => 'AKTIF', 'n' => 'TIDAK AKTIF'), $is_aktif, array('class' => 'form-control')); ?>
                                         <?php echo form_error('is_aktif') ?>
                                     </td></tr>
-                                <tr><td width='200'>Foto Profile </td>
-                                    <td> <input type="file" name="images"> <?php echo form_error('images') ?></td></tr>
                                 <tr><td></td><td><input type="hidden" name="id_users" value="<?php echo $id_users; ?>" /> 
                                         <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button> 
                                         <a href="<?php echo site_url('welcome') ?>" class="btn btn-warning"><i class="fa fa-sign-out"></i> Kembali</a></td></tr>
