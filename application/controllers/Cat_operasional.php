@@ -557,7 +557,7 @@ class Cat_operasional extends CI_Controller
         $header=$this->Cat_operasional_model->get_One_Header_detail($id,$periode_awal,$periode_akhir);
         $data=[
                 'one_header_detail'=>$header,
-                'list_all_cat_operasional'=>$this->Cat_operasional_model->get_all_Cat_Operasional($header['id_cat_operasional_header'],$periode_awal,$periode_akhir),
+                'list_all_cat_operasional'=>$this->Cat_operasional_model->get_all_Cat_Operasional_Word($header['id_cat_operasional_header'],$periode_awal,$periode_akhir),
             ];
         $this->load->view('cat_operasional/generate_docx',$data);
     }

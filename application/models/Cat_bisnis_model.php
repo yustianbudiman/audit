@@ -208,7 +208,23 @@ class Cat_bisnis_model extends CI_Model
         return $query->row_array();
     }
 
-    function get_all_Cat_Bisnis($id,$periode_awal,$periode_akhir){
+    function get_all_Cat_Bisnis($id){
+        $sql="SELECT
+                a.id_cat_bisnis,a.id_cat_bisnis_header, a.temuan,a.kriteria, b.nama_klasifikasi_temuan,a.dampak, c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
+            FROM
+                cat_bisnis a
+            INNER JOIN klasifikasi_temuan b ON a.klasifikasi_temuan = b.id_klasifikasi_temuan
+            INNER JOIN penyimpangan c ON a.id_penyimpangan = c.id_penyimpangan
+            INNER JOIN status_trx d on a.status=d.id_status
+         where a.id_cat_bisnis_header='".$id."' and a.aktif='Aktif'";
+        if($this->session->userdata('id_user_level')=='6'){
+             $sql .=" and a.created_by='".$this->session->userdata('id_users')."'";
+        }
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    function get_all_Cat_Bisnis_Word($id,$periode_awal,$periode_akhir){
         $sql="SELECT
                 a.id_cat_bisnis,a.id_cat_bisnis_header, a.temuan,a.kriteria, b.nama_klasifikasi_temuan,a.dampak, c.nama_penyimpangan,a.total_impact,a.repeated,a.tev,a.bobot_resiko,a.rekomendasi,a.tanggapan_audit,a.target_date,d.status_trx,a.member,a.status
             FROM
