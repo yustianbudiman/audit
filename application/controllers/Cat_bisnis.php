@@ -442,7 +442,7 @@ class Cat_bisnis extends CI_Controller
 		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    public function excel()
+    public function excel($id)
     {
         $this->load->helper('exportexcel');
         $namaFile = "cat_bisnis.xls";
@@ -464,12 +464,11 @@ class Cat_bisnis extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-		xlsWriteLabel($tablehead, $kolomhead++, "Id Cabang");
-		xlsWriteLabel($tablehead, $kolomhead++, "Nama Cabang");
-		xlsWriteLabel($tablehead, $kolomhead++, "Id Temuan");
+		xlsWriteLabel($tablehead, $kolomhead++, "Temuan");
 		xlsWriteLabel($tablehead, $kolomhead++, "Kriteria");
+        xlsWriteLabel($tablehead, $kolomhead++, "Klasifikasi");
 		xlsWriteLabel($tablehead, $kolomhead++, "Dampak");
-		xlsWriteLabel($tablehead, $kolomhead++, "Id Penyimpangan");
+		xlsWriteLabel($tablehead, $kolomhead++, "Penyimpangan");
 		xlsWriteLabel($tablehead, $kolomhead++, "Id Environment");
 		xlsWriteLabel($tablehead, $kolomhead++, "Environment Value");
 		xlsWriteLabel($tablehead, $kolomhead++, "Id Risk Assesment");
@@ -497,43 +496,44 @@ class Cat_bisnis extends CI_Controller
 		xlsWriteLabel($tablehead, $kolomhead++, "Updated Ip");
 		xlsWriteLabel($tablehead, $kolomhead++, "Updated By");
 
-		foreach ($this->Cat_bisnis_model->get_all() as $data) {
+		foreach ($this->Cat_bisnis_model->get_all_Cat_Bisnis($id) as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_cabang);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->nama_cabang);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_cabang);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->nama_cabang);
 		    xlsWriteNumber($tablebody, $kolombody++, $data->temuan);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->kriteria);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kriteria);
+		    xlsWriteLabel($tablebody, $kolombody++, $data->nama_klasifikasi_temuan);
 		    xlsWriteLabel($tablebody, $kolombody++, $data->dampak);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_penyimpangan);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_environment);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->environment_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_risk_assesment);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->risk_assesment_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_control_activities);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->control_activities_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_information_comunication);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->information_comunication_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_monitoring);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->monitoring_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->id_goal_strategic);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->goal_strategic_value);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->total_impact);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->likelihood);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->tev);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->bobot_resiko);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->rekomendasi);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->tanggapan_audit);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->target_date);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->aktif);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->created_ip);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->created_by);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->updated_date);
-		    xlsWriteLabel($tablebody, $kolombody++, $data->updated_ip);
-		    xlsWriteNumber($tablebody, $kolombody++, $data->updated_by);
+		    xlsWriteNumber($tablebody, $kolombody++, $data->nama_penyimpangan);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_environment);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->environment_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_risk_assesment);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->risk_assesment_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_control_activities);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->control_activities_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_information_comunication);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->information_comunication_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_monitoring);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->monitoring_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->id_goal_strategic);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->goal_strategic_value);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->total_impact);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->likelihood);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->tev);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->bobot_resiko);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->rekomendasi);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->tanggapan_audit);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->target_date);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->aktif);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->created_ip);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->created_by);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->updated_date);
+		    // xlsWriteLabel($tablebody, $kolombody++, $data->updated_ip);
+		    // xlsWriteNumber($tablebody, $kolombody++, $data->updated_by);
 
 		    $tablebody++;
             $nourut++;

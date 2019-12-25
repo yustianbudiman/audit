@@ -20,8 +20,8 @@
     <div class="login-wrap">
 
         <header class="login-header">
-            <h5 class="little-big-header">SELAMAT DATANG</h5>
-            <h4 class="little-small-header">DI LAYANAN INFORMASI AUDIT PORTAL</h3>
+            <h1 class="little-big-header">SELAMAT DATANG</h1>
+            <h4 class="little-small-header">DI LAYANAN INFORMASI AUDIT PORTAL <strong>Change Password</strong></h3>
         </header>
 
       <div class="flex-grid">
@@ -32,17 +32,14 @@
 
             <?php
             $status_login = $this->session->userdata('status_login');
-            if (empty($status_login)) {
-                $message = "Silahkan login untuk melanjutkan";
-            } else {
-                $message = $status_login;
-            }
-            ?>
-            <div class="login-error-message">
-                <?php echo $message; ?>
+            if (!empty($status_login)) { ?>
+               <div class="login-error-message">
+                <?php echo $status_login; ?>
             </div>
+            <?php } ?>
+            
 
-            <form class="top-label-form" action="auth/cheklogin" id="form_login" accept-charset="UTF-8" method="post">
+            <form class="top-label-form" action="<?php echo base_url('auth/proses_change') ?>" id="form_login" accept-charset="UTF-8" method="post">
               
               <div id="login-email" class="field">
                 <label for="login-email-field">Email</label>
@@ -55,16 +52,31 @@
                 <input name="password" required="required" type="password" id="password_login"/>
                 <span style="color: red"><?php echo form_error('password') ?></span>
               </div>
-              <a href="<?php echo base_url('auth/change_password')?>">Change password</a>
+
+              <div id="login-password" class="field">
+                <label for="login-password-field">New Password</label>
+                <input name="new_password" required="required" type="password" id="password_login"/>
+                <span style="color: red"><?php echo form_error('password') ?></span>
+              </div>
+
+              <div id="login-password" class="field">
+                <label for="login-password-field">Conf New Password</label>
+                <input name="conf_new_password" required="required" type="password" id="password_login"/>
+                <span style="color: red"><?php echo form_error('password') ?></span>
+              </div>
               <div id="login-error"></div>
 
               <div>
                 <label class="spacing-label">&nbsp;</label>
 
                 <button type="submit" class="button green" id="button_submit">
-                  <span class="label">Login</span>
+                  <span class="label">Save</span>
                   <span class="spinner"></span>
                 </button>
+                <a href="<?php echo base_url('auth')?>" class="button blue">
+                  <span class="label">Cancel</span>
+                  <span class="spinner"></span>
+                </a>
               </div>
 
             </form>

@@ -136,6 +136,18 @@ class User_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    public function cek_expire($id){
+        $sql="select datediff(CURRENT_DATE,expire_date) as expire_date from tbl_user where id_users='".$id."'";
+        $query = $this->db->query($sql);
+        $hasil=$query->row_array();
+        return $hasil['expire_date'];
+    }
+
+    public function update_expire($id,$pass){
+        $sql="update tbl_user set expire_date=CURRENT_DATE+INTERVAL 30 DAY, password='".$pass."'  where id_users='".$id."'";
+        $query = $this->db->query($sql);
+    }
+
 }
 
 /* End of file User_model.php */
