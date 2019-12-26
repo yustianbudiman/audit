@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Gtev_model extends CI_Model
 {
 
-    public $table = 'v_gtev';
+    public $table = 'v_gtev_bisnis';
     public $table2 = 'v_gtev_operasional';
 
     function __construct()
@@ -36,13 +36,65 @@ class Gtev_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    function get_all()
+    function get_all($id)
     {
-        return $this->db->get($this->table)->result_array();
+        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Monitoring' as kategori, sum(monitoring_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Goal Strategic' as kategori, sum(goal_strategic_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Total temuan' as kategori, count(id_cat_bisnis) as total_,'' as bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'GTEV' as kategori, sum(tev) as total_,'' as bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            union all
+            select 'Overall Rating' as kategori, 
+                    case
+                     when sum(tev)<10 then
+                     'Strong'
+                     when sum(tev)>=10 and sum(tev)<=15 then
+                     'Satisfactory'
+                     else
+                     'high'
+                     end as total_,'' as bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'";
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
-    function get_all_operasional()
+    function get_all_operasional($id)
     {
-        return $this->db->get($this->table2)->result_array();
+        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Monitoring' as kategori, sum(monitoring_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Total temuan' as kategori, count(id_cat_operasional) as total_,'' as bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'GTEV' as kategori, sum(tev) as total_,'' as bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            union all
+            select 'Overall Rating' as kategori, 
+                    case
+                     when sum(tev)<10 then
+                     'Strong'
+                     when sum(tev)>=10 and sum(tev)<=15 then
+                     'Satisfactory'
+                     else
+                     'high'
+                     end as total_,'' as bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'";
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
     function get_one_bisnis_header_detail($id){

@@ -22,7 +22,7 @@
                              <tr>
                                  <td><?php echo $no; ?></td>
                                  <td><?php echo $key['kategori'] ?></td>
-                                 <td style="text-align: right;"><?php echo number_format((float)$key['total_'],0,",","."); ?></td>
+                                 <td style="text-align: right;"><?php echo ($key['kategori']=='GTEV'?number_format((float)$key['total_'],2,',','.'):$key['total_']); ?></td>
                                  <td><?php echo $key['bobot_resiko'] ?></td>
                              </tr>
                          <?php $no++; } ?>

@@ -30,11 +30,11 @@ class Gtev extends CI_Controller
         if($cat=='cat_bisnis'){
             $header=$this->Gtev_model->get_one_bisnis_header_detail($id);
             $detail=$this->Gtev_model->get_all_Cat_Bisnis($header['id_cat_bisnis_header']);
-            $gtev=$this->Gtev_model->get_all();
+            $gtev=$this->Gtev_model->get_all($id);
         }else{
             $header=$this->Gtev_model->get_one_operasional_header_detail($id);
             $detail=$this->Gtev_model->get_all_Cat_Operasional($header['id_cat_operasional_header']);
-            $gtev=$this->Gtev_model->get_all_operasional();
+            $gtev=$this->Gtev_model->get_all_operasional($id);
         }
 
         $data=[
