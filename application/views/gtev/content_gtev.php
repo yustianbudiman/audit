@@ -6,7 +6,7 @@
                     <div class="box-header with-border">
                       <i class="fa fa-text-width"></i>
 
-                      <h3 class="box-title">GTEV</h3>
+                      <h3 class="box-title">GTEV (<?php echo str_replace('_', ' ', $cat);?>)</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -86,6 +86,7 @@
                                 <?php $no++; } ?>
                             </tbody>
                         </table>
+                        <a href="<?php echo base_url('gtev');?>" class="btn btn-primary btn-sm btn-flat" style="margin-top: 10px;">Back</a>
                     </div>
                     <!-- /.box-body -->
                 </div>

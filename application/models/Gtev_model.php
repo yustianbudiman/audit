@@ -7,6 +7,7 @@ class Gtev_model extends CI_Model
 {
 
     public $table = 'v_gtev';
+    public $table2 = 'v_gtev_operasional';
 
     function __construct()
     {
@@ -35,9 +36,13 @@ class Gtev_model extends CI_Model
         return $this->datatables->generate();
     }
 
-     function get_all()
+    function get_all()
     {
         return $this->db->get($this->table)->result_array();
+    }
+    function get_all_operasional()
+    {
+        return $this->db->get($this->table2)->result_array();
     }
 
     function get_one_bisnis_header_detail($id){
