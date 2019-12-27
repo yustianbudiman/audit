@@ -247,6 +247,13 @@ class Cat_bisnis_model extends CI_Model
         return $query->row();
     }
 
+    function get_All_Cat_Bisnis_excel($id){
+        $sql="SELECT * from v_cat_bisnis a
+         where a.id_cat_bisnis_header='".$id."' and a.aktif='Aktif'";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 }
 
 /* End of file Cat_bisnis_model.php */

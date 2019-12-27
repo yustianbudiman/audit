@@ -230,6 +230,12 @@ class Cat_operasional_model extends CI_Model
         $query = $this->db->query($sql);
         return $query->row();
     }
+    function get_All_Cat_Operasional_excel($id){
+            $sql="SELECT * from v_cat_operasional a
+             where a.id_cat_operasional_header='".$id."' and a.aktif='Aktif'";
+            $query = $this->db->query($sql);
+            return $query->result_array();
+        }
 
 }
 
