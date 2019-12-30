@@ -56,12 +56,16 @@ class Gtev_model extends CI_Model
             union all
             select 'Overall Rating' as kategori, 
                     case
-                     when sum(tev)<10 then
+                     when sum(tev)<=10 then
                      'Strong'
-                     when sum(tev)>=10 and sum(tev)<=15 then
+                     when sum(tev)>=11 and sum(tev)<=25 then
                      'Satisfactory'
+                     when sum(tev)>=26 and sum(tev)<=40 then
+                     'Fair'
+                     when sum(tev)>=41 and sum(tev)<=50 then
+                     'Marginal'
                      else
-                     'high'
+                     'Unsatisfactory'
                      end as total_,'' as bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'";
         
         $query = $this->db->query($sql);
@@ -85,12 +89,16 @@ class Gtev_model extends CI_Model
             union all
             select 'Overall Rating' as kategori, 
                     case
-                     when sum(tev)<10 then
+                     when sum(tev)<=10 then
                      'Strong'
-                     when sum(tev)>=10 and sum(tev)<=15 then
+                     when sum(tev)>=11 and sum(tev)<=25 then
                      'Satisfactory'
+                     when sum(tev)>=26 and sum(tev)<=40 then
+                     'Fair'
+                     when sum(tev)>=41 and sum(tev)<=50 then
+                     'Marginal'
                      else
-                     'high'
+                     'Unsatisfactory'
                      end as total_,'' as bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'";
         
         $query = $this->db->query($sql);

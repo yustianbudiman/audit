@@ -480,11 +480,11 @@
                           var tmp_tev=(jml*likelihood);
                         }
                         $('#tev').val(tmp_tev.toFixed(2));
-                        if(tmp_tev < 1.7){
+                        if(jml <=10){
                             $('#bobot_resiko').val('Low');
-                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                        }else if(jml >=11 && jml<=25){
                             $('#bobot_resiko').val('Moderate');
-                        }else if(tmp_tev >3){
+                        }else if(jml >25){
                             $('#bobot_resiko').val('Height');
                         }
                     }
@@ -519,11 +519,11 @@
                           var tmp_tev=(jml*likelihood);
                         }
                         $('#tev').val(tmp_tev.toFixed(2));
-                        if(tmp_tev < 1.7){
+                        if(tmp_tev <=10){
                             $('#bobot_resiko').val('Low');
-                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                        }else if(tmp_tev >=11 && tmp_tev<=25){
                             $('#bobot_resiko').val('Moderate');
-                        }else if(tmp_tev >3){
+                        }else if(tmp_tev >25){
                             $('#bobot_resiko').val('Height');
                         }
                     }
@@ -541,11 +541,11 @@
                       var tmp_tev=(jml*likelihood);
                     }
                     $('#tev').val(tmp_tev.toFixed(2));
-                    if(tmp_tev < 1.7){
+                    if(jml <=10){
                         $('#bobot_resiko').val('Low');
-                    }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                    }else if(jml >=11 && jml<=25){
                         $('#bobot_resiko').val('Moderate');
-                    }else if(tmp_tev >3){
+                    }else if(jml >25){
                         $('#bobot_resiko').val('Height');
                     }
                 }
@@ -562,11 +562,11 @@
                       var tmp_tev=(jml*likelihood);
                     }
                     $('#tev').val(tmp_tev.toFixed(2));
-                    if(tmp_tev < 1.7){
+                    if(jml <=10){
                         $('#bobot_resiko').val('Low');
-                    }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                    }else if(jml >=11 && jml<=25){
                         $('#bobot_resiko').val('Moderate');
-                    }else if(tmp_tev >3){
+                    }else if(jml >25){
                         $('#bobot_resiko').val('Height');
                     }
                 }

@@ -140,6 +140,7 @@ class Cat_bisnis extends CI_Controller
             'goal_strategic_value' => set_value('goal_strategic_value'),
             'total_impact' => set_value('total_impact'),
             'likelihood' => set_value('likelihood'),
+            'repeated' => set_value('repeated'),
             'tev' => set_value('tev'),
             'bobot_resiko' => set_value('bobot_resiko'),
             'rekomendasi' => set_value('rekomendasi'),
