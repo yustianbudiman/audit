@@ -361,8 +361,20 @@ class Cat_operasional extends CI_Controller
             // $this->Cat_operasional_model->delete($id);
             $data=[
                     'status'=>$this->input->post('status',TRUE),
-                    'target_date'=>($this->input->post('target_date',TRUE)!=''?$this->input->post('target_date',TRUE):$row->target_date),
+                    'target_date'=>($this->input->post('target_date',TRUE)!=''?date('Y-m-d',strtotime($this->input->post('target_date',TRUE))):$row->target_date),
                 ];
+
+            if($this->input->post('target_date',TRUE)!=''){
+            $data_log=[
+                    'id_cat'=>$id_cat_operasional,
+                    'target_date_old'=>$row->target_date,
+                    'target_date_new'=>date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
+                    'kategori'=>'cat_operasional',
+                    'create_ip'=>get_client_ip(),
+                    'create_by'=>$this->session->userdata('id_users'),
+                ];
+            $this->Cat_operasional_model->save_log($data_log);
+            }
             $this->Cat_operasional_model->update($id_cat_operasional, $data);
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Update Record Success'));
             redirect($_SERVER['HTTP_REFERER']);

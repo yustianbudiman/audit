@@ -1,12 +1,13 @@
+<link rel="stylesheet" href="<?php echo base_url('assets/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>">
 <div class="content-wrapper">
     <section class="content">
         <div class="row">
             <div class="col-lg-12">
-                <?php if($this->session->flashdata('message')){ ?>
+               <?php if($this->session->flashdata('message')['pesan']){ ?>
                                 
                     <?php echo "<div class='row'>"; ?>
                     <?php echo "<div class='col-md-12'>"; ?>
-                    <?php echo "<div class='alert ' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')."</div>"; ?>
+                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
                     <?php echo "</div>"; ?>
                     <?php echo "</div>"; ?>
 
@@ -103,8 +104,12 @@
         </div>
     </section>
 </div>
+<script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
 <script type="text/javascript">
 	function goBack() {
 	    window.history.back();
 	 }
+	$(document).ready(function() {
+	  $('#target_date').datepicker();
+	});
 </script>

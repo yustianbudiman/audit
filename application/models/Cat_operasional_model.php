@@ -235,7 +235,11 @@ class Cat_operasional_model extends CI_Model
              where a.id_cat_operasional_header='".$id."' and a.aktif='Aktif'";
             $query = $this->db->query($sql);
             return $query->result_array();
-        }
+    }
+
+    function save_log($data){
+        $this->db->insert('log_target_date', $data);
+    }
 
 }
 

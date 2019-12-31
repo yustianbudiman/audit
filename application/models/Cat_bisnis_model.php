@@ -254,6 +254,10 @@ class Cat_bisnis_model extends CI_Model
         return $query->result_array();
     }
 
+    function save_log($data){
+        $this->db->insert('log_target_date', $data);
+    }
+
 }
 
 /* End of file Cat_bisnis_model.php */
