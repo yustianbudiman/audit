@@ -38,17 +38,71 @@ class Gtev_model extends CI_Model
 
     function get_all($id)
     {
-        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,
+                case
+                 when sum(environment_value)<=10 then
+                 'Low'
+                 when sum(environment_value)>=11 and sum(environment_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
-            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,
+                case
+                 when sum(risk_assesment_value)<=10 then
+                 'Low'
+                 when sum(risk_assesment_value)>=11 and sum(risk_assesment_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
-            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,
+                case
+                 when sum(control_activities_value)<=10 then
+                 'Low'
+                 when sum(control_activities_value)>=11 and sum(control_activities_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
-            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,
+                case
+                 when sum(information_comunication_value)<=10 then
+                 'Low'
+                 when sum(information_comunication_value)>=11 and sum(information_comunication_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
-            select 'Monitoring' as kategori, sum(monitoring_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            select 'Monitoring' as kategori, sum(monitoring_value) as total_,
+                case
+                 when sum(monitoring_value)<=10 then
+                 'Low'
+                 when sum(monitoring_value)>=11 and sum(monitoring_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
-            select 'Goal Strategic' as kategori, sum(goal_strategic_value) as total_,bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
+            select 'Goal Strategic' as kategori, sum(goal_strategic_value) as total_,
+                case
+                 when sum(goal_strategic_value)<=10 then
+                 'Low'
+                 when sum(goal_strategic_value)>=11 and sum(goal_strategic_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
             select 'Total temuan' as kategori, count(id_cat_bisnis) as total_,'' as bobot_resiko from cat_bisnis where id_cat_bisnis_header='".$id."'
             union all
@@ -73,15 +127,60 @@ class Gtev_model extends CI_Model
     }
     function get_all_operasional($id)
     {
-        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+        $sql="select 'Cont. environment' as kategori, sum(environment_value) as total_,
+                case
+                 when sum(environment_value)<=10 then
+                 'Low'
+                 when sum(environment_value)>=11 and sum(environment_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_operasional where id_cat_operasional_header='".$id."'
             union all
-            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            select 'Risk Assesment' as kategori, sum(risk_assesment_value) as total_,
+                case
+                 when sum(risk_assesment_value)<=10 then
+                 'Low'
+                 when sum(risk_assesment_value)>=11 and sum(risk_assesment_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_operasional where id_cat_operasional_header='".$id."'
             union all
-            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            select 'Controll Activity' as kategori, sum(control_activities_value) as total_,
+                case
+                 when sum(control_activities_value)<=10 then
+                 'Low'
+                 when sum(control_activities_value)>=11 and sum(control_activities_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_operasional where id_cat_operasional_header='".$id."'
             union all
-            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            select 'Inf. Comunication' as kategori, sum(information_comunication_value) as total_,
+                case
+                 when sum(information_comunication_value)<=10 then
+                 'Low'
+                 when sum(information_comunication_value)>=11 and sum(information_comunication_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_operasional where id_cat_operasional_header='".$id."'
             union all
-            select 'Monitoring' as kategori, sum(monitoring_value) as total_,bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
+            select 'Monitoring' as kategori, sum(monitoring_value) as total_,
+                case
+                 when sum(monitoring_value)<=10 then
+                 'Low'
+                 when sum(monitoring_value)>=11 and sum(monitoring_value)<=25 then
+                 'Medium'
+                 else
+                 'High'
+                end as bobot_resiko
+             from cat_operasional where id_cat_operasional_header='".$id."'
             union all
             select 'Total temuan' as kategori, count(id_cat_operasional) as total_,'' as bobot_resiko from cat_operasional where id_cat_operasional_header='".$id."'
             union all

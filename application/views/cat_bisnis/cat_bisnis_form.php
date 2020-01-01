@@ -498,12 +498,12 @@
                           var tmp_tev=(jml*likelihood);
                         }
                         $('#tev').val(tmp_tev.toFixed(2));
-                        if(jml <=10){
+                        if(tmp_tev < 1.7){
                             $('#bobot_resiko').val('Low');
-                        }else if(jml >=11 && jml<=25){
+                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
                             $('#bobot_resiko').val('Moderate');
-                        }else if(jml >25){
-                            $('#bobot_resiko').val('Height');
+                        }else if(tmp_tev >3){
+                            $('#bobot_resiko').val('High');
                         }
                     }
              });
@@ -538,12 +538,12 @@
                           var tmp_tev=(jml*likelihood);
                         }
                         $('#tev').val(tmp_tev.toFixed(2));
-                        if(jml <=10){
+                        if(tmp_tev < 1.7){
                             $('#bobot_resiko').val('Low');
-                        }else if(jml >=11 && jml<=25){
+                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
                             $('#bobot_resiko').val('Moderate');
-                        }else if(jml >25){
-                            $('#bobot_resiko').val('Height');
+                        }else if(tmp_tev >3){
+                            $('#bobot_resiko').val('High');
                         }
                     }
              });
@@ -560,13 +560,13 @@
                       var tmp_tev=(jml*likelihood);
                     }
                     $('#tev').val(tmp_tev.toFixed(2));
-                    if(jml <=10){
-                        $('#bobot_resiko').val('Low');
-                    }else if(jml >=11 && jml<=25){
-                        $('#bobot_resiko').val('Moderate');
-                    }else if(jml >25){
-                        $('#bobot_resiko').val('Height');
-                    }
+                       if(tmp_tev < 1.7){
+                            $('#bobot_resiko').val('Low');
+                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                            $('#bobot_resiko').val('Moderate');
+                        }else if(tmp_tev >3){
+                            $('#bobot_resiko').val('High');
+                        }
                   }
               });
 
@@ -581,13 +581,13 @@
                       var tmp_tev=(jml*likelihood);
                     }
                     $('#tev').val(tmp_tev.toFixed(2));
-                    if(jml <=10){
-                        $('#bobot_resiko').val('Low');
-                    }else if(jml >=11 && jml<=25){
-                        $('#bobot_resiko').val('Moderate');
-                    }else if(jml >25){
-                        $('#bobot_resiko').val('Height');
-                    }
+                       if(tmp_tev < 1.7){
+                            $('#bobot_resiko').val('Low');
+                        }else if(tmp_tev >=1.7 && tmp_tev<=3){
+                            $('#bobot_resiko').val('Moderate');
+                        }else if(tmp_tev >3){
+                            $('#bobot_resiko').val('High');
+                        }
                 }
               });
 
