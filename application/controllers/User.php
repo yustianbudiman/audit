@@ -146,6 +146,8 @@ class User extends CI_Controller
             $options        = array("cost"=>4);
             $hashPassword   = password_hash($password,PASSWORD_BCRYPT,$options);
             // $pin            = substr(number_format(time() * rand(),0,'',''),0,6);
+            $time = strtotime(date("Y-m-d H:i:s"));
+            $final = date("Y-m-d H:i:s", strtotime("+1 month", $time));
             $data = array(
                 'nik'           => $this->input->post('nik',TRUE),
         		'full_name'     => $fullname,
@@ -157,7 +159,8 @@ class User extends CI_Controller
                 'id_user_level' => $this->input->post('id_user_level',TRUE),
                 'no_hp'         => $this->input->post('no_hp',TRUE),
                 'is_aktif'      => $this->input->post('is_aktif',TRUE),
-        		'tgl_daftar'    => date('Y-m-d h:i:s'),
+                'tgl_daftar'    => date('Y-m-d h:i:s'),
+        		'expire_date'    => $final,
     	    );
 
             $this->User_model->insert($data);
