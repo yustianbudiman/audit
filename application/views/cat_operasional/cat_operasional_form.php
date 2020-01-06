@@ -294,8 +294,8 @@
                           
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Rekomendasi</label>
-                                  <div class="col-lg-8">
-                                     <textarea name="rekomendasi" id="rekomendasi" class="form-control" style="width: 408px;"><?php echo $rekomendasi  ?></textarea>
+                                  <div class="col-lg-9">
+                                     <textarea name="rekomendasi" id="rekomendasi" class="form-control" ><?php echo $rekomendasi  ?></textarea>
                                   </div>
                                
                                 </div>
@@ -306,8 +306,8 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Tanggapan Audit</label>
-                                  <div class="col-lg-3">
-                                    <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" style="width: 408px;"><?php echo $tanggapan_audit  ?></textarea>
+                                  <div class="col-lg-9">
+                                    <textarea name="tanggapan_audit" id="tanggapan_audit" class="form-control" ><?php echo $tanggapan_audit  ?></textarea>
                                   </div>
                                 </div>
                                 
@@ -380,8 +380,8 @@
                           
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Supervisor</label>
-                                  <div class="col-lg-6">
-                                   <textarea name="supervisor" id="supervisor" class="form-control" style="width: 408px;<?php echo (form_error('supervisor')!=''?'border-color:red;':'') ?>" ><?php echo $supervisor  ?></textarea>
+                                  <div class="col-lg-9">
+                                   <textarea name="supervisor" id="supervisor" class="form-control" style="<?php echo (form_error('supervisor')!=''?'border-color:red;':'') ?>" ><?php echo $supervisor  ?></textarea>
                                    </select>
                                   </div>
                                 </div>
@@ -441,7 +441,11 @@
         <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
         <script src="<?php echo base_url('assets/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
-
+        <style type="text/css">
+          .select2{
+            width: 100%!important;
+          }
+        </style>
         <script type="text/javascript">
               function goBack() {
                 window.history.back();
