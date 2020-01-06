@@ -155,6 +155,18 @@ function get_client_ip()
     // return 'ssss';  
 }
 
+function add_months($months, DateTime $dateObject) 
+{
+    $next = new DateTime($dateObject->format('Y-m-d'));
+    $next->modify('last day of +'.$months.' month');
+
+    if($dateObject->format('d') > $next->format('d')) {
+        return $dateObject->diff($next);
+    } else {
+        return new DateInterval('P'.$months.'M');
+    }
+}
+
 function endCycle($d1, $months)
 {
     $date = new DateTime($d1);
