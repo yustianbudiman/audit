@@ -67,7 +67,7 @@ class Welcome extends CI_Controller {
             $password = $this->input->post('password',TRUE);
             $options        = array("cost"=>4);
             $hashPassword   = password_hash($password,PASSWORD_BCRYPT,$options);
-            $final = date("Y-m-d H:i:s", strtotime("+1 month", date("Y-m-d H:i:s")));
+            $expire = endCycle(date("Y-m-d"),1);
             if($foto['file_name']==''){
                 if($password == ""){
                     $data = array(
@@ -91,7 +91,7 @@ class Welcome extends CI_Controller {
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE),
-                        'expire_date'   => $final,
+                        'expire_date'   => $expire,
                     );
                 }
                 
@@ -120,7 +120,7 @@ class Welcome extends CI_Controller {
                         'id_user_level' => $this->input->post('id_user_level',TRUE),
                         'no_hp'         => $no_hp,
                         'is_aktif'      => $this->input->post('is_aktif',TRUE),
-                        'expire_date'   => $final,
+                        'expire_date'   => $expire,
                     );
                 }
                 

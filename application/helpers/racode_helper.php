@@ -154,3 +154,19 @@ function get_client_ip()
         return $query->row_array();
     // return 'ssss';  
 }
+
+function endCycle($d1, $months)
+{
+    $date = new DateTime($d1);
+
+    // call second function to add the months
+    $newDate = $date->add(add_months($months, $date));
+
+    // goes back 1 day from date, remove if you want same day of month
+    $newDate->sub(new DateInterval('P1D')); 
+
+    //formats final date to Y-m-d form
+    $dateReturned = $newDate->format('Y-m-d'); 
+
+    return $dateReturned;
+}
