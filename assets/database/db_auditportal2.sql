@@ -30,24 +30,24 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `cabang`;
 CREATE TABLE `cabang` (
-  `id_cabang` int(5) NOT NULL,
-  `kode_cabang` varchar(20) NOT NULL,
-  `nama_cabang` varchar(150) NOT NULL,
-  `alamat` varchar(150) NOT NULL,
-  `kota` varchar(150) NOT NULL,
-  `provinsi` varchar(150) NOT NULL,
-  `no_telepon` varchar(150) NOT NULL,
-  `kepala_cabang` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `id_user_senior` int(11) DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_cabang` INT(5) NOT NULL,
+  `kode_cabang` VARCHAR(20) NOT NULL,
+  `nama_cabang` VARCHAR(150) NOT NULL,
+  `alamat` VARCHAR(150) NOT NULL,
+  `kota` VARCHAR(150) NOT NULL,
+  `provinsi` VARCHAR(150) NOT NULL,
+  `no_telepon` VARCHAR(150) NOT NULL,
+  `kepala_cabang` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `id_user_senior` INT(11) DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cabang`
@@ -68,48 +68,48 @@ INSERT INTO `cabang` (`id_cabang`, `kode_cabang`, `nama_cabang`, `alamat`, `kota
 
 DROP TABLE IF EXISTS `cat_bisnis`;
 CREATE TABLE `cat_bisnis` (
-  `id_cat_bisnis` int(5) NOT NULL,
-  `id_cat_bisnis_header` int(5) DEFAULT NULL,
-  `temuan` varchar(200) DEFAULT NULL,
-  `klasifikasi_temuan` int(11) DEFAULT NULL,
-  `kriteria` varchar(200) DEFAULT NULL,
-  `dampak` varchar(200) DEFAULT NULL,
-  `id_penyimpangan` int(5) DEFAULT NULL,
-  `id_environment` int(5) DEFAULT NULL,
-  `environment_value` int(11) DEFAULT NULL,
-  `id_risk_assesment` int(5) DEFAULT NULL,
-  `risk_assesment_value` int(11) DEFAULT NULL,
-  `id_control_activities` int(5) DEFAULT NULL,
-  `control_activities_value` int(11) DEFAULT NULL,
-  `id_information_comunication` int(5) DEFAULT NULL,
-  `information_comunication_value` int(11) DEFAULT NULL,
-  `id_monitoring` int(5) DEFAULT NULL,
-  `monitoring_value` int(11) DEFAULT NULL,
-  `id_goal_strategic` int(5) DEFAULT NULL,
-  `goal_strategic_value` int(11) DEFAULT NULL,
-  `total_impact` int(11) DEFAULT NULL,
-  `likelihood` float DEFAULT NULL,
-  `repeated` varchar(10) DEFAULT NULL,
-  `tev` float DEFAULT NULL,
-  `bobot_resiko` varchar(100) DEFAULT NULL,
-  `rekomendasi` varchar(200) DEFAULT NULL,
-  `tanggapan_audit` varchar(100) DEFAULT NULL,
-  `target_date` datetime DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `tl` varchar(100) DEFAULT NULL,
-  `member` varchar(200) DEFAULT NULL,
-  `tanggal_periksa` datetime DEFAULT NULL,
-  `supervisor` varchar(100) DEFAULT NULL,
-  `bop` varchar(100) DEFAULT NULL,
-  `tanggal_selesai` datetime DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_cat_bisnis` INT(5) NOT NULL,
+  `id_cat_bisnis_header` INT(5) DEFAULT NULL,
+  `temuan` VARCHAR(200) DEFAULT NULL,
+  `klasifikasi_temuan` INT(11) DEFAULT NULL,
+  `kriteria` VARCHAR(200) DEFAULT NULL,
+  `dampak` VARCHAR(200) DEFAULT NULL,
+  `id_penyimpangan` INT(5) DEFAULT NULL,
+  `id_environment` INT(5) DEFAULT NULL,
+  `environment_value` INT(11) DEFAULT NULL,
+  `id_risk_assesment` INT(5) DEFAULT NULL,
+  `risk_assesment_value` INT(11) DEFAULT NULL,
+  `id_control_activities` INT(5) DEFAULT NULL,
+  `control_activities_value` INT(11) DEFAULT NULL,
+  `id_information_comunication` INT(5) DEFAULT NULL,
+  `information_comunication_value` INT(11) DEFAULT NULL,
+  `id_monitoring` INT(5) DEFAULT NULL,
+  `monitoring_value` INT(11) DEFAULT NULL,
+  `id_goal_strategic` INT(5) DEFAULT NULL,
+  `goal_strategic_value` INT(11) DEFAULT NULL,
+  `total_impact` INT(11) DEFAULT NULL,
+  `likelihood` FLOAT DEFAULT NULL,
+  `repeated` VARCHAR(10) DEFAULT NULL,
+  `tev` FLOAT DEFAULT NULL,
+  `bobot_resiko` VARCHAR(100) DEFAULT NULL,
+  `rekomendasi` VARCHAR(200) DEFAULT NULL,
+  `tanggapan_audit` VARCHAR(100) DEFAULT NULL,
+  `target_date` DATETIME DEFAULT NULL,
+  `status` VARCHAR(10) DEFAULT NULL,
+  `tl` VARCHAR(100) DEFAULT NULL,
+  `member` VARCHAR(200) DEFAULT NULL,
+  `tanggal_periksa` DATETIME DEFAULT NULL,
+  `supervisor` VARCHAR(100) DEFAULT NULL,
+  `bop` VARCHAR(100) DEFAULT NULL,
+  `tanggal_selesai` DATETIME DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cat_bisnis`
@@ -129,18 +129,18 @@ INSERT INTO `cat_bisnis` (`id_cat_bisnis`, `id_cat_bisnis_header`, `temuan`, `kl
 
 DROP TABLE IF EXISTS `cat_bisnis_header`;
 CREATE TABLE `cat_bisnis_header` (
-  `id_cat_bisnis_header` int(5) NOT NULL,
-  `id_cabang` int(5) DEFAULT NULL,
-  `nama_cabang` varchar(150) NOT NULL,
-  `periode` date DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_cat_bisnis_header` INT(5) NOT NULL,
+  `id_cabang` INT(5) DEFAULT NULL,
+  `nama_cabang` VARCHAR(150) NOT NULL,
+  `periode` DATE DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cat_bisnis_header`
@@ -158,46 +158,46 @@ INSERT INTO `cat_bisnis_header` (`id_cat_bisnis_header`, `id_cabang`, `nama_caba
 
 DROP TABLE IF EXISTS `cat_operasional`;
 CREATE TABLE `cat_operasional` (
-  `id_cat_operasional` int(5) NOT NULL,
-  `id_cat_operasional_header` int(11) DEFAULT NULL,
-  `temuan` varchar(200) DEFAULT NULL,
-  `klasifikasi_temuan` int(11) DEFAULT NULL,
-  `kriteria` varchar(200) DEFAULT NULL,
-  `dampak` varchar(200) DEFAULT NULL,
-  `id_penyimpangan` int(5) DEFAULT NULL,
-  `id_environment` int(5) DEFAULT NULL,
-  `environment_value` int(11) DEFAULT NULL,
-  `id_risk_assesment` int(5) DEFAULT NULL,
-  `risk_assesment_value` int(11) DEFAULT NULL,
-  `id_control_activities` int(5) DEFAULT NULL,
-  `control_activities_value` int(11) DEFAULT NULL,
-  `id_information_comunication` int(5) DEFAULT NULL,
-  `information_comunication_value` int(11) DEFAULT NULL,
-  `id_monitoring` int(5) DEFAULT NULL,
-  `monitoring_value` int(11) DEFAULT '0',
-  `total_impact` int(11) DEFAULT NULL,
-  `likelihood` float DEFAULT NULL,
-  `repeated` varchar(10) DEFAULT NULL,
-  `tev` float DEFAULT NULL,
-  `bobot_resiko` varchar(100) DEFAULT NULL,
-  `rekomendasi` varchar(200) DEFAULT NULL,
-  `tanggapan_audit` varchar(100) DEFAULT NULL,
-  `target_date` datetime DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `tl` varchar(100) DEFAULT NULL,
-  `member` varchar(200) DEFAULT NULL,
-  `tanggal_periksa` datetime DEFAULT NULL,
-  `supervisor` varchar(100) DEFAULT NULL,
-  `bop` varchar(100) DEFAULT NULL,
-  `tanggal_selesai` datetime DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_cat_operasional` INT(5) NOT NULL,
+  `id_cat_operasional_header` INT(11) DEFAULT NULL,
+  `temuan` VARCHAR(200) DEFAULT NULL,
+  `klasifikasi_temuan` INT(11) DEFAULT NULL,
+  `kriteria` VARCHAR(200) DEFAULT NULL,
+  `dampak` VARCHAR(200) DEFAULT NULL,
+  `id_penyimpangan` INT(5) DEFAULT NULL,
+  `id_environment` INT(5) DEFAULT NULL,
+  `environment_value` INT(11) DEFAULT NULL,
+  `id_risk_assesment` INT(5) DEFAULT NULL,
+  `risk_assesment_value` INT(11) DEFAULT NULL,
+  `id_control_activities` INT(5) DEFAULT NULL,
+  `control_activities_value` INT(11) DEFAULT NULL,
+  `id_information_comunication` INT(5) DEFAULT NULL,
+  `information_comunication_value` INT(11) DEFAULT NULL,
+  `id_monitoring` INT(5) DEFAULT NULL,
+  `monitoring_value` INT(11) DEFAULT '0',
+  `total_impact` INT(11) DEFAULT NULL,
+  `likelihood` FLOAT DEFAULT NULL,
+  `repeated` VARCHAR(10) DEFAULT NULL,
+  `tev` FLOAT DEFAULT NULL,
+  `bobot_resiko` VARCHAR(100) DEFAULT NULL,
+  `rekomendasi` VARCHAR(200) DEFAULT NULL,
+  `tanggapan_audit` VARCHAR(100) DEFAULT NULL,
+  `target_date` DATETIME DEFAULT NULL,
+  `status` VARCHAR(10) DEFAULT NULL,
+  `tl` VARCHAR(100) DEFAULT NULL,
+  `member` VARCHAR(200) DEFAULT NULL,
+  `tanggal_periksa` DATETIME DEFAULT NULL,
+  `supervisor` VARCHAR(100) DEFAULT NULL,
+  `bop` VARCHAR(100) DEFAULT NULL,
+  `tanggal_selesai` DATETIME DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cat_operasional`
@@ -215,18 +215,18 @@ INSERT INTO `cat_operasional` (`id_cat_operasional`, `id_cat_operasional_header`
 
 DROP TABLE IF EXISTS `cat_operasional_header`;
 CREATE TABLE `cat_operasional_header` (
-  `id_cat_operasional_header` int(5) NOT NULL,
-  `id_cabang` int(5) DEFAULT NULL,
-  `nama_cabang` varchar(150) NOT NULL,
-  `periode` date DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_cat_operasional_header` INT(5) NOT NULL,
+  `id_cabang` INT(5) DEFAULT NULL,
+  `nama_cabang` VARCHAR(150) NOT NULL,
+  `periode` DATE DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cat_operasional_header`
@@ -243,11 +243,11 @@ INSERT INTO `cat_operasional_header` (`id_cat_operasional_header`, `id_cabang`, 
 
 DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE `ci_sessions` (
-  `id` varchar(128) NOT NULL,
-  `ip_address` varchar(45) NOT NULL,
-  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` VARCHAR(128) NOT NULL,
+  `ip_address` VARCHAR(45) NOT NULL,
+  `timestamp` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` BLOB NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ci_sessions`
@@ -338,17 +338,17 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 
 DROP TABLE IF EXISTS `control_activities`;
 CREATE TABLE `control_activities` (
-  `id_control_activities` int(5) NOT NULL,
-  `nama_control_activities` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_control_activities` INT(5) NOT NULL,
+  `nama_control_activities` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `control_activities`
@@ -366,17 +366,17 @@ INSERT INTO `control_activities` (`id_control_activities`, `nama_control_activit
 
 DROP TABLE IF EXISTS `cont_environment`;
 CREATE TABLE `cont_environment` (
-  `id_environment` int(5) NOT NULL,
-  `nama_environment` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_environment` INT(5) NOT NULL,
+  `nama_environment` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cont_environment`
@@ -394,10 +394,10 @@ INSERT INTO `cont_environment` (`id_environment`, `nama_environment`, `keteranga
 
 DROP TABLE IF EXISTS `divisi`;
 CREATE TABLE `divisi` (
-  `id_divisi` int(11) NOT NULL,
-  `divisi` varchar(100) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_divisi` INT(11) NOT NULL,
+  `divisi` VARCHAR(100) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') NOT NULL DEFAULT 'Aktif'
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `divisi`
@@ -414,17 +414,17 @@ INSERT INTO `divisi` (`id_divisi`, `divisi`, `aktif`) VALUES
 
 DROP TABLE IF EXISTS `goal_strategic`;
 CREATE TABLE `goal_strategic` (
-  `id_goal_strategic` int(5) NOT NULL,
-  `nama_goal_strategic` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_goal_strategic` INT(5) NOT NULL,
+  `nama_goal_strategic` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `goal_strategic`
@@ -442,17 +442,17 @@ INSERT INTO `goal_strategic` (`id_goal_strategic`, `nama_goal_strategic`, `keter
 
 DROP TABLE IF EXISTS `information_comunication`;
 CREATE TABLE `information_comunication` (
-  `id_information_comunication` int(5) NOT NULL,
-  `nama_information_comunication` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_information_comunication` INT(5) NOT NULL,
+  `nama_information_comunication` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `information_comunication`
@@ -470,17 +470,17 @@ INSERT INTO `information_comunication` (`id_information_comunication`, `nama_inf
 
 DROP TABLE IF EXISTS `klasifikasi_temuan`;
 CREATE TABLE `klasifikasi_temuan` (
-  `id_klasifikasi_temuan` int(5) NOT NULL,
-  `nama_klasifikasi_temuan` varchar(150) NOT NULL,
-  `keterangan` varchar(50) DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_klasifikasi_temuan` INT(5) NOT NULL,
+  `nama_klasifikasi_temuan` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `klasifikasi_temuan`
@@ -498,15 +498,15 @@ INSERT INTO `klasifikasi_temuan` (`id_klasifikasi_temuan`, `nama_klasifikasi_tem
 
 DROP TABLE IF EXISTS `log_target_date`;
 CREATE TABLE `log_target_date` (
-  `id_log_cat` int(11) NOT NULL,
-  `id_cat` int(11) NOT NULL,
-  `target_date_old` date NOT NULL,
-  `target_date_new` date NOT NULL,
-  `kategori` varchar(15) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `create_ip` varchar(15) NOT NULL,
-  `create_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_log_cat` INT(11) NOT NULL,
+  `id_cat` INT(11) NOT NULL,
+  `target_date_old` DATE NOT NULL,
+  `target_date_new` DATE NOT NULL,
+  `kategori` VARCHAR(15) NOT NULL,
+  `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_ip` VARCHAR(15) NOT NULL,
+  `create_by` INT(11) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `log_target_date`
@@ -526,17 +526,17 @@ INSERT INTO `log_target_date` (`id_log_cat`, `id_cat`, `target_date_old`, `targe
 
 DROP TABLE IF EXISTS `monitoring`;
 CREATE TABLE `monitoring` (
-  `id_monitoring` int(5) NOT NULL,
-  `nama_monitoring` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_monitoring` INT(5) NOT NULL,
+  `nama_monitoring` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `monitoring`
@@ -554,17 +554,17 @@ INSERT INTO `monitoring` (`id_monitoring`, `nama_monitoring`, `keterangan`, `akt
 
 DROP TABLE IF EXISTS `penyimpangan`;
 CREATE TABLE `penyimpangan` (
-  `id_penyimpangan` int(5) NOT NULL,
-  `nama_penyimpangan` varchar(150) NOT NULL,
-  `keterangan` varchar(50) DEFAULT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_penyimpangan` INT(5) NOT NULL,
+  `nama_penyimpangan` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) DEFAULT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `penyimpangan`
@@ -582,17 +582,17 @@ INSERT INTO `penyimpangan` (`id_penyimpangan`, `nama_penyimpangan`, `keterangan`
 
 DROP TABLE IF EXISTS `risk_assesment`;
 CREATE TABLE `risk_assesment` (
-  `id_risk_assesment` int(5) NOT NULL,
-  `nama_risk_assesment` varchar(150) NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_ip` varchar(15) DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_ip` varchar(15) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_risk_assesment` INT(5) NOT NULL,
+  `nama_risk_assesment` VARCHAR(150) NOT NULL,
+  `keterangan` VARCHAR(50) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_ip` VARCHAR(15) DEFAULT NULL,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_ip` VARCHAR(15) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `risk_assesment`
@@ -610,10 +610,10 @@ INSERT INTO `risk_assesment` (`id_risk_assesment`, `nama_risk_assesment`, `keter
 
 DROP TABLE IF EXISTS `status_trx`;
 CREATE TABLE `status_trx` (
-  `id_status` int(11) NOT NULL,
-  `status_trx` varchar(100) NOT NULL,
-  `aktif` enum('Aktif','Nonaktif') NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_status` INT(11) NOT NULL,
+  `status_trx` VARCHAR(100) NOT NULL,
+  `aktif` ENUM('Aktif','Nonaktif') NOT NULL DEFAULT 'Aktif'
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `status_trx`
@@ -634,10 +634,10 @@ INSERT INTO `status_trx` (`id_status`, `status_trx`, `aktif`) VALUES
 
 DROP TABLE IF EXISTS `tbl_hak_akses`;
 CREATE TABLE `tbl_hak_akses` (
-  `id` int(11) NOT NULL,
-  `id_user_level` int(11) NOT NULL,
-  `id_menu` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `id_user_level` INT(11) NOT NULL,
+  `id_menu` INT(11) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_hak_akses`
@@ -755,14 +755,14 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 
 DROP TABLE IF EXISTS `tbl_log_user`;
 CREATE TABLE `tbl_log_user` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `tgl_log_history` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `action` varchar(100) NOT NULL,
-  `data` text NOT NULL,
-  `deskripsi` varchar(225) NOT NULL,
-  `action_url` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `id_user` INT(11) NOT NULL,
+  `tgl_log_history` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `action` VARCHAR(100) NOT NULL,
+  `data` TEXT NOT NULL,
+  `deskripsi` VARCHAR(225) NOT NULL,
+  `action_url` VARCHAR(255) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -772,13 +772,13 @@ CREATE TABLE `tbl_log_user` (
 
 DROP TABLE IF EXISTS `tbl_menu`;
 CREATE TABLE `tbl_menu` (
-  `id_menu` int(11) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `url` varchar(30) NOT NULL,
-  `icon` varchar(30) NOT NULL,
-  `is_main_menu` int(11) NOT NULL,
-  `is_aktif` enum('y','n') NOT NULL COMMENT 'y=yes,n=no'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_menu` INT(11) NOT NULL,
+  `title` VARCHAR(50) NOT NULL,
+  `url` VARCHAR(30) NOT NULL,
+  `icon` VARCHAR(30) NOT NULL,
+  `is_main_menu` INT(11) NOT NULL,
+  `is_aktif` ENUM('y','n') NOT NULL COMMENT 'y=yes,n=no'
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_menu`
@@ -816,10 +816,10 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 
 DROP TABLE IF EXISTS `tbl_setting`;
 CREATE TABLE `tbl_setting` (
-  `id_setting` int(11) NOT NULL,
-  `nama_setting` varchar(50) NOT NULL,
-  `value` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_setting` INT(11) NOT NULL,
+  `nama_setting` VARCHAR(50) NOT NULL,
+  `value` VARCHAR(40) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_setting`
@@ -836,28 +836,28 @@ INSERT INTO `tbl_setting` (`id_setting`, `nama_setting`, `value`) VALUES
 
 DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE `tbl_user` (
-  `id_users` int(11) NOT NULL,
-  `nik` varchar(50) DEFAULT NULL,
-  `full_name` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `no_hp` varchar(20) DEFAULT NULL,
-  `images` text NOT NULL,
-  `id_user_level` int(11) NOT NULL,
-  `id_cabang` varchar(20) NOT NULL,
-  `id_divisi` int(11) NOT NULL,
-  `is_aktif` enum('y','n') NOT NULL,
-  `tgl_daftar` datetime NOT NULL,
-  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `expire_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_users` INT(11) NOT NULL,
+  `nik` VARCHAR(50) DEFAULT NULL,
+  `full_name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `no_hp` VARCHAR(20) DEFAULT NULL,
+  `images` TEXT NOT NULL,
+  `id_user_level` INT(11) NOT NULL,
+  `id_cabang` VARCHAR(20) NOT NULL,
+  `id_divisi` INT(11) NOT NULL,
+  `is_aktif` ENUM('y','n') NOT NULL,
+  `tgl_daftar` DATETIME NOT NULL,
+  `tgl_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `expire_date` DATETIME DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id_users`, `nik`, `full_name`, `email`, `password`, `no_hp`, `images`, `id_user_level`, `id_cabang`, `id_divisi`, `is_aktif`, `tgl_daftar`, `tgl_update`, `expire_date`) VALUES
-(1, NULL, 'Bayu Ihsanudin', 'bayu070494@gmail.com', '$2y$04$6PdCjZ4x6VleBTIyIMRnI.3uTvdEVlcAawmfk1utWPDaQfG7D1682', NULL, 'atomix_user31.png', 1, '', 0, 'y', '2018-09-01 00:00:00', '2019-12-25 16:16:56', '2020-01-24 00:00:00'),
+(1, NULL, 'Bayu Ihsanudin', 'bayu070494@gmail.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', NULL, 'atomix_user31.png', 1, '', 0, 'y', '2018-09-01 00:00:00', '2019-12-25 16:16:56', '2020-01-24 00:00:00'),
 (2, '3211030304890004', 'yustian budiman', 'yustianbudiman@gmail.com', '$2y$04$OE18cB.2BgfNwH8GS54E4uJRSA5/HpmANMEw5XeH7gd1ESM8Jd1U6', '085215322899', 'atomix_user31.png', 4, '1', 1, 'y', '2019-12-06 08:23:41', '2019-12-31 14:56:32', '2020-01-30 00:00:00'),
 (3, '3211030304890004', 'audit1', 'audit1@gmail.com', '$2y$04$XcUfc43f9RWlBIY75ThvZOHoqZ.urBHD8zYFdZQf3XQhUA0bvPZuO', '129312371873183', '', 6, '1', 1, 'y', '2019-12-06 08:37:43', '2019-12-25 14:50:36', '2019-12-24 00:00:00'),
 (4, '3211030304890003', 'piket', 'piket@gmail.com', '$2y$04$82dV88q1/0Bp2aCjP.XGtOXTyxzE5.c9jfIv1X3etz4.i8YxWhLuq', '085215322890', '', 7, '1', 1, 'y', '2019-12-09 11:07:22', '2019-12-31 14:58:18', '2020-01-30 00:00:00'),
@@ -872,9 +872,9 @@ INSERT INTO `tbl_user` (`id_users`, `nik`, `full_name`, `email`, `password`, `no
 
 DROP TABLE IF EXISTS `tbl_user_level`;
 CREATE TABLE `tbl_user_level` (
-  `id_user_level` int(11) NOT NULL,
-  `nama_level` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_user_level` INT(11) NOT NULL,
+  `nama_level` VARCHAR(30) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_level`
@@ -892,158 +892,39 @@ INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_cat_bisnis`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `v_cat_bisnis`;
-CREATE TABLE `v_cat_bisnis` (
-`id_cat_bisnis` int(5)
-,`id_cat_bisnis_header` int(5)
-,`id_cabang` int(5)
-,`nama_cabang` varchar(150)
-,`alamat` varchar(150)
-,`temuan` varchar(200)
-,`nama_klasifikasi_temuan` varchar(150)
-,`kriteria` varchar(200)
-,`dampak` varchar(200)
-,`nama_penyimpangan` varchar(150)
-,`nama_environment` varchar(150)
-,`environment_value` int(11)
-,`nama_risk_assesment` varchar(150)
-,`risk_assesment_value` int(11)
-,`nama_control_activities` varchar(150)
-,`control_activities_value` int(11)
-,`nama_information_comunication` varchar(150)
-,`information_comunication_value` int(11)
-,`nama_monitoring` varchar(150)
-,`monitoring_value` int(11)
-,`nama_goal_strategic` varchar(150)
-,`goal_strategic_value` int(11)
-,`total_impact` int(11)
-,`likelihood` float
-,`repeated` varchar(10)
-,`tev` float
-,`bobot_resiko` varchar(100)
-,`rekomendasi` varchar(200)
-,`tanggapan_audit` varchar(100)
-,`target_date` datetime
-,`tl` varchar(100)
-,`member` varchar(200)
-,`tanggal_periksa` datetime
-,`supervisor` varchar(100)
-,`bop` varchar(100)
-,`status_trx` varchar(100)
-,`aktif` enum('Aktif','Nonaktif')
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_cat_operasional`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `v_cat_operasional`;
-CREATE TABLE `v_cat_operasional` (
-`id_cat_operasional` int(5)
-,`id_cat_operasional_header` int(11)
-,`id_cabang` int(5)
-,`nama_cabang` varchar(150)
-,`alamat` varchar(150)
-,`temuan` varchar(200)
-,`nama_klasifikasi_temuan` varchar(150)
-,`kriteria` varchar(200)
-,`dampak` varchar(200)
-,`nama_penyimpangan` varchar(150)
-,`nama_environment` varchar(150)
-,`environment_value` int(11)
-,`nama_risk_assesment` varchar(150)
-,`risk_assesment_value` int(11)
-,`nama_control_activities` varchar(150)
-,`control_activities_value` int(11)
-,`nama_information_comunication` varchar(150)
-,`information_comunication_value` int(11)
-,`nama_monitoring` varchar(150)
-,`monitoring_value` int(11)
-,`total_impact` int(11)
-,`likelihood` float
-,`repeated` varchar(10)
-,`tev` float
-,`bobot_resiko` varchar(100)
-,`rekomendasi` varchar(200)
-,`tanggapan_audit` varchar(100)
-,`target_date` datetime
-,`tl` varchar(100)
-,`member` varchar(200)
-,`tanggal_periksa` datetime
-,`supervisor` varchar(100)
-,`bop` varchar(100)
-,`status_trx` varchar(100)
-,`aktif` enum('Aktif','Nonaktif')
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_jatuhtempo`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `v_jatuhtempo`;
-CREATE TABLE `v_jatuhtempo` (
-`id_cat` int(11)
-,`nama_cat` varchar(15)
-,`selisih` bigint(20)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_notifikasi`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `v_notifikasi`;
-CREATE TABLE `v_notifikasi` (
-`nama_cat` varchar(15)
-,`tanggal_periksa` datetime
-,`nama_cabang` varchar(150)
-,`tanggal_notif` datetime
-,`status` bigint(20)
-);
-
--- --------------------------------------------------------
-
---
 -- Structure for view `v_cat_bisnis`
 --
-DROP TABLE IF EXISTS `v_cat_bisnis`;
+DROP VIEW IF EXISTS `v_cat_bisnis`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cat_bisnis`  AS  select `a`.`id_cat_bisnis` AS `id_cat_bisnis`,`a`.`id_cat_bisnis_header` AS `id_cat_bisnis_header`,`k`.`id_cabang` AS `id_cabang`,`k`.`nama_cabang` AS `nama_cabang`,`l`.`alamat` AS `alamat`,`a`.`temuan` AS `temuan`,`b`.`nama_klasifikasi_temuan` AS `nama_klasifikasi_temuan`,`a`.`kriteria` AS `kriteria`,`a`.`dampak` AS `dampak`,`c`.`nama_penyimpangan` AS `nama_penyimpangan`,`e`.`nama_environment` AS `nama_environment`,`a`.`environment_value` AS `environment_value`,`f`.`nama_risk_assesment` AS `nama_risk_assesment`,`a`.`risk_assesment_value` AS `risk_assesment_value`,`g`.`nama_control_activities` AS `nama_control_activities`,`a`.`control_activities_value` AS `control_activities_value`,`h`.`nama_information_comunication` AS `nama_information_comunication`,`a`.`information_comunication_value` AS `information_comunication_value`,`i`.`nama_monitoring` AS `nama_monitoring`,`a`.`monitoring_value` AS `monitoring_value`,`j`.`nama_goal_strategic` AS `nama_goal_strategic`,`a`.`goal_strategic_value` AS `goal_strategic_value`,`a`.`total_impact` AS `total_impact`,`a`.`likelihood` AS `likelihood`,`a`.`repeated` AS `repeated`,`a`.`tev` AS `tev`,`a`.`bobot_resiko` AS `bobot_resiko`,`a`.`rekomendasi` AS `rekomendasi`,`a`.`tanggapan_audit` AS `tanggapan_audit`,`a`.`target_date` AS `target_date`,`a`.`tl` AS `tl`,`a`.`member` AS `member`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`a`.`supervisor` AS `supervisor`,`a`.`bop` AS `bop`,`d`.`status_trx` AS `status_trx`,`a`.`aktif` AS `aktif` from (((((((((((`cat_bisnis` `a` join `klasifikasi_temuan` `b` on((`a`.`klasifikasi_temuan` = `b`.`id_klasifikasi_temuan`))) join `penyimpangan` `c` on((`a`.`id_penyimpangan` = `c`.`id_penyimpangan`))) join `status_trx` `d` on((`a`.`status` = `d`.`id_status`))) join `cont_environment` `e` on((`a`.`id_environment` = `e`.`id_environment`))) join `risk_assesment` `f` on((`a`.`id_risk_assesment` = `f`.`id_risk_assesment`))) join `control_activities` `g` on((`a`.`id_control_activities` = `g`.`id_control_activities`))) join `information_comunication` `h` on((`a`.`id_information_comunication` = `h`.`id_information_comunication`))) join `monitoring` `i` on((`a`.`id_monitoring` = `i`.`id_monitoring`))) join `goal_strategic` `j` on((`a`.`id_goal_strategic` = `j`.`id_goal_strategic`))) join `cat_bisnis_header` `k` on((`a`.`id_cat_bisnis_header` = `k`.`id_cat_bisnis_header`))) join `cabang` `l` on((`k`.`id_cabang` = `l`.`id_cabang`))) ;
+CREATE VIEW `v_cat_bisnis`  AS  SELECT `a`.`id_cat_bisnis` AS `id_cat_bisnis`,`a`.`id_cat_bisnis_header` AS `id_cat_bisnis_header`,`k`.`id_cabang` AS `id_cabang`,`k`.`nama_cabang` AS `nama_cabang`,`l`.`alamat` AS `alamat`,`a`.`temuan` AS `temuan`,`b`.`nama_klasifikasi_temuan` AS `nama_klasifikasi_temuan`,`a`.`kriteria` AS `kriteria`,`a`.`dampak` AS `dampak`,`c`.`nama_penyimpangan` AS `nama_penyimpangan`,`e`.`nama_environment` AS `nama_environment`,`a`.`environment_value` AS `environment_value`,`f`.`nama_risk_assesment` AS `nama_risk_assesment`,`a`.`risk_assesment_value` AS `risk_assesment_value`,`g`.`nama_control_activities` AS `nama_control_activities`,`a`.`control_activities_value` AS `control_activities_value`,`h`.`nama_information_comunication` AS `nama_information_comunication`,`a`.`information_comunication_value` AS `information_comunication_value`,`i`.`nama_monitoring` AS `nama_monitoring`,`a`.`monitoring_value` AS `monitoring_value`,`j`.`nama_goal_strategic` AS `nama_goal_strategic`,`a`.`goal_strategic_value` AS `goal_strategic_value`,`a`.`total_impact` AS `total_impact`,`a`.`likelihood` AS `likelihood`,`a`.`repeated` AS `repeated`,`a`.`tev` AS `tev`,`a`.`bobot_resiko` AS `bobot_resiko`,`a`.`rekomendasi` AS `rekomendasi`,`a`.`tanggapan_audit` AS `tanggapan_audit`,`a`.`target_date` AS `target_date`,`a`.`tl` AS `tl`,`a`.`member` AS `member`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`a`.`supervisor` AS `supervisor`,`a`.`bop` AS `bop`,`d`.`status_trx` AS `status_trx`,`a`.`aktif` AS `aktif` FROM (((((((((((`cat_bisnis` `a` JOIN `klasifikasi_temuan` `b` ON((`a`.`klasifikasi_temuan` = `b`.`id_klasifikasi_temuan`))) JOIN `penyimpangan` `c` ON((`a`.`id_penyimpangan` = `c`.`id_penyimpangan`))) JOIN `status_trx` `d` ON((`a`.`status` = `d`.`id_status`))) JOIN `cont_environment` `e` ON((`a`.`id_environment` = `e`.`id_environment`))) JOIN `risk_assesment` `f` ON((`a`.`id_risk_assesment` = `f`.`id_risk_assesment`))) JOIN `control_activities` `g` ON((`a`.`id_control_activities` = `g`.`id_control_activities`))) JOIN `information_comunication` `h` ON((`a`.`id_information_comunication` = `h`.`id_information_comunication`))) JOIN `monitoring` `i` ON((`a`.`id_monitoring` = `i`.`id_monitoring`))) JOIN `goal_strategic` `j` ON((`a`.`id_goal_strategic` = `j`.`id_goal_strategic`))) JOIN `cat_bisnis_header` `k` ON((`a`.`id_cat_bisnis_header` = `k`.`id_cat_bisnis_header`))) JOIN `cabang` `l` ON((`k`.`id_cabang` = `l`.`id_cabang`))) ;
 
 -- --------------------------------------------------------
 
 --
 -- Structure for view `v_cat_operasional`
 --
-DROP TABLE IF EXISTS `v_cat_operasional`;
+DROP VIEW IF EXISTS `v_cat_operasional`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cat_operasional`  AS  select `a`.`id_cat_operasional` AS `id_cat_operasional`,`a`.`id_cat_operasional_header` AS `id_cat_operasional_header`,`k`.`id_cabang` AS `id_cabang`,`k`.`nama_cabang` AS `nama_cabang`,`l`.`alamat` AS `alamat`,`a`.`temuan` AS `temuan`,`b`.`nama_klasifikasi_temuan` AS `nama_klasifikasi_temuan`,`a`.`kriteria` AS `kriteria`,`a`.`dampak` AS `dampak`,`c`.`nama_penyimpangan` AS `nama_penyimpangan`,`e`.`nama_environment` AS `nama_environment`,`a`.`environment_value` AS `environment_value`,`f`.`nama_risk_assesment` AS `nama_risk_assesment`,`a`.`risk_assesment_value` AS `risk_assesment_value`,`g`.`nama_control_activities` AS `nama_control_activities`,`a`.`control_activities_value` AS `control_activities_value`,`h`.`nama_information_comunication` AS `nama_information_comunication`,`a`.`information_comunication_value` AS `information_comunication_value`,`i`.`nama_monitoring` AS `nama_monitoring`,`a`.`monitoring_value` AS `monitoring_value`,`a`.`total_impact` AS `total_impact`,`a`.`likelihood` AS `likelihood`,`a`.`repeated` AS `repeated`,`a`.`tev` AS `tev`,`a`.`bobot_resiko` AS `bobot_resiko`,`a`.`rekomendasi` AS `rekomendasi`,`a`.`tanggapan_audit` AS `tanggapan_audit`,`a`.`target_date` AS `target_date`,`a`.`tl` AS `tl`,`a`.`member` AS `member`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`a`.`supervisor` AS `supervisor`,`a`.`bop` AS `bop`,`d`.`status_trx` AS `status_trx`,`a`.`aktif` AS `aktif` from ((((((((((`cat_operasional` `a` join `klasifikasi_temuan` `b` on((`a`.`klasifikasi_temuan` = `b`.`id_klasifikasi_temuan`))) join `penyimpangan` `c` on((`a`.`id_penyimpangan` = `c`.`id_penyimpangan`))) join `status_trx` `d` on((`a`.`status` = `d`.`id_status`))) join `cont_environment` `e` on((`a`.`id_environment` = `e`.`id_environment`))) join `risk_assesment` `f` on((`a`.`id_risk_assesment` = `f`.`id_risk_assesment`))) join `control_activities` `g` on((`a`.`id_control_activities` = `g`.`id_control_activities`))) join `information_comunication` `h` on((`a`.`id_information_comunication` = `h`.`id_information_comunication`))) join `monitoring` `i` on((`a`.`id_monitoring` = `i`.`id_monitoring`))) join `cat_operasional_header` `k` on((`a`.`id_cat_operasional_header` = `k`.`id_cat_operasional_header`))) join `cabang` `l` on((`k`.`id_cabang` = `l`.`id_cabang`))) ;
+CREATE VIEW `v_cat_operasional`  AS  SELECT `a`.`id_cat_operasional` AS `id_cat_operasional`,`a`.`id_cat_operasional_header` AS `id_cat_operasional_header`,`k`.`id_cabang` AS `id_cabang`,`k`.`nama_cabang` AS `nama_cabang`,`l`.`alamat` AS `alamat`,`a`.`temuan` AS `temuan`,`b`.`nama_klasifikasi_temuan` AS `nama_klasifikasi_temuan`,`a`.`kriteria` AS `kriteria`,`a`.`dampak` AS `dampak`,`c`.`nama_penyimpangan` AS `nama_penyimpangan`,`e`.`nama_environment` AS `nama_environment`,`a`.`environment_value` AS `environment_value`,`f`.`nama_risk_assesment` AS `nama_risk_assesment`,`a`.`risk_assesment_value` AS `risk_assesment_value`,`g`.`nama_control_activities` AS `nama_control_activities`,`a`.`control_activities_value` AS `control_activities_value`,`h`.`nama_information_comunication` AS `nama_information_comunication`,`a`.`information_comunication_value` AS `information_comunication_value`,`i`.`nama_monitoring` AS `nama_monitoring`,`a`.`monitoring_value` AS `monitoring_value`,`a`.`total_impact` AS `total_impact`,`a`.`likelihood` AS `likelihood`,`a`.`repeated` AS `repeated`,`a`.`tev` AS `tev`,`a`.`bobot_resiko` AS `bobot_resiko`,`a`.`rekomendasi` AS `rekomendasi`,`a`.`tanggapan_audit` AS `tanggapan_audit`,`a`.`target_date` AS `target_date`,`a`.`tl` AS `tl`,`a`.`member` AS `member`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`a`.`supervisor` AS `supervisor`,`a`.`bop` AS `bop`,`d`.`status_trx` AS `status_trx`,`a`.`aktif` AS `aktif` FROM ((((((((((`cat_operasional` `a` JOIN `klasifikasi_temuan` `b` ON((`a`.`klasifikasi_temuan` = `b`.`id_klasifikasi_temuan`))) JOIN `penyimpangan` `c` ON((`a`.`id_penyimpangan` = `c`.`id_penyimpangan`))) JOIN `status_trx` `d` ON((`a`.`status` = `d`.`id_status`))) JOIN `cont_environment` `e` ON((`a`.`id_environment` = `e`.`id_environment`))) JOIN `risk_assesment` `f` ON((`a`.`id_risk_assesment` = `f`.`id_risk_assesment`))) JOIN `control_activities` `g` ON((`a`.`id_control_activities` = `g`.`id_control_activities`))) JOIN `information_comunication` `h` ON((`a`.`id_information_comunication` = `h`.`id_information_comunication`))) JOIN `monitoring` `i` ON((`a`.`id_monitoring` = `i`.`id_monitoring`))) JOIN `cat_operasional_header` `k` ON((`a`.`id_cat_operasional_header` = `k`.`id_cat_operasional_header`))) JOIN `cabang` `l` ON((`k`.`id_cabang` = `l`.`id_cabang`))) ;
 
 -- --------------------------------------------------------
 
 --
 -- Structure for view `v_jatuhtempo`
 --
-DROP TABLE IF EXISTS `v_jatuhtempo`;
+DROP VIEW IF EXISTS `v_jatuhtempo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`cpses_mjw4etn3mh`@`localhost` SQL SECURITY DEFINER VIEW `v_jatuhtempo`  AS  select `cat_bisnis`.`id_cat_bisnis` AS `id_cat`,'cat bisnis' AS `nama_cat`,(to_days(`cat_bisnis`.`target_date`) - to_days(curdate())) AS `selisih` from `cat_bisnis` union all select `cat_operasional`.`id_cat_operasional` AS `id_cat`,'cat operasional' AS `nama_cat`,(to_days(`cat_operasional`.`target_date`) - to_days(curdate())) AS `selisih` from `cat_operasional` ;
+CREATE VIEW `v_jatuhtempo`  AS  SELECT `cat_bisnis`.`id_cat_bisnis` AS `id_cat`,'cat bisnis' AS `nama_cat`,(TO_DAYS(`cat_bisnis`.`target_date`) - TO_DAYS(CURDATE())) AS `selisih` FROM `cat_bisnis` UNION ALL SELECT `cat_operasional`.`id_cat_operasional` AS `id_cat`,'cat operasional' AS `nama_cat`,(TO_DAYS(`cat_operasional`.`target_date`) - TO_DAYS(CURDATE())) AS `selisih` FROM `cat_operasional` ;
 
 -- --------------------------------------------------------
 
 --
 -- Structure for view `v_notifikasi`
 --
-DROP TABLE IF EXISTS `v_notifikasi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`cpses_mjw4etn3mh`@`localhost` SQL SECURITY DEFINER VIEW `v_notifikasi`  AS  select 'Cat Bisnis' AS `nama_cat`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`c`.`nama_cabang` AS `nama_cabang`,(`a`.`tanggal_periksa` - interval 3 day) AS `tanggal_notif`,(to_days(`a`.`tanggal_periksa`) - to_days(curdate())) AS `status` from ((`cat_bisnis` `a` join `cat_bisnis_header` `b` on((`a`.`id_cat_bisnis_header` = `b`.`id_cat_bisnis_header`))) join `cabang` `c` on((`b`.`id_cabang` = `c`.`id_cabang`))) union all select 'Cat Operasional' AS `nama_cat`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`c`.`nama_cabang` AS `nama_cabang`,(`a`.`tanggal_periksa` - interval 3 day) AS `tanggal_notif`,(to_days(`a`.`tanggal_periksa`) - to_days(curdate())) AS `status` from ((`cat_operasional` `a` join `cat_operasional_header` `b` on((`a`.`id_cat_operasional_header` = `b`.`id_cat_operasional_header`))) join `cabang` `c` on((`b`.`id_cabang` = `c`.`id_cabang`))) ;
+DROP VIEW IF EXISTS `v_notifikasi`;
+
+CREATE VIEW `v_notifikasi`  AS  SELECT 'Cat Bisnis' AS `nama_cat`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`c`.`nama_cabang` AS `nama_cabang`,(`a`.`tanggal_periksa` - INTERVAL 3 DAY) AS `tanggal_notif`,(TO_DAYS(`a`.`tanggal_periksa`) - TO_DAYS(CURDATE())) AS `status` FROM ((`cat_bisnis` `a` JOIN `cat_bisnis_header` `b` ON((`a`.`id_cat_bisnis_header` = `b`.`id_cat_bisnis_header`))) JOIN `cabang` `c` ON((`b`.`id_cabang` = `c`.`id_cabang`))) UNION ALL SELECT 'Cat Operasional' AS `nama_cat`,`a`.`tanggal_periksa` AS `tanggal_periksa`,`c`.`nama_cabang` AS `nama_cabang`,(`a`.`tanggal_periksa` - INTERVAL 3 DAY) AS `tanggal_notif`,(TO_DAYS(`a`.`tanggal_periksa`) - TO_DAYS(CURDATE())) AS `status` FROM ((`cat_operasional` `a` JOIN `cat_operasional_header` `b` ON((`a`.`id_cat_operasional_header` = `b`.`id_cat_operasional_header`))) JOIN `cabang` `c` ON((`b`.`id_cabang` = `c`.`id_cabang`))) ;
 
 --
 -- Indexes for dumped tables
@@ -1197,133 +1078,133 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT for table `cabang`
 --
 ALTER TABLE `cabang`
-  MODIFY `id_cabang` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_cabang` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cat_bisnis`
 --
 ALTER TABLE `cat_bisnis`
-  MODIFY `id_cat_bisnis` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_cat_bisnis` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `cat_bisnis_header`
 --
 ALTER TABLE `cat_bisnis_header`
-  MODIFY `id_cat_bisnis_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_cat_bisnis_header` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `cat_operasional`
 --
 ALTER TABLE `cat_operasional`
-  MODIFY `id_cat_operasional` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_cat_operasional` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `cat_operasional_header`
 --
 ALTER TABLE `cat_operasional_header`
-  MODIFY `id_cat_operasional_header` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_cat_operasional_header` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `control_activities`
 --
 ALTER TABLE `control_activities`
-  MODIFY `id_control_activities` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_control_activities` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cont_environment`
 --
 ALTER TABLE `cont_environment`
-  MODIFY `id_environment` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_environment` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `divisi`
 --
 ALTER TABLE `divisi`
-  MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_divisi` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `goal_strategic`
 --
 ALTER TABLE `goal_strategic`
-  MODIFY `id_goal_strategic` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_goal_strategic` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `information_comunication`
 --
 ALTER TABLE `information_comunication`
-  MODIFY `id_information_comunication` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_information_comunication` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `klasifikasi_temuan`
 --
 ALTER TABLE `klasifikasi_temuan`
-  MODIFY `id_klasifikasi_temuan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_klasifikasi_temuan` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `log_target_date`
 --
 ALTER TABLE `log_target_date`
-  MODIFY `id_log_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_log_cat` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `monitoring`
 --
 ALTER TABLE `monitoring`
-  MODIFY `id_monitoring` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_monitoring` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `penyimpangan`
 --
 ALTER TABLE `penyimpangan`
-  MODIFY `id_penyimpangan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_penyimpangan` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `risk_assesment`
 --
 ALTER TABLE `risk_assesment`
-  MODIFY `id_risk_assesment` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_risk_assesment` INT(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `status_trx`
 --
 ALTER TABLE `status_trx`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_status` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `tbl_log_user`
 --
 ALTER TABLE `tbl_log_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_menu` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `tbl_setting`
 --
 ALTER TABLE `tbl_setting`
-  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_setting` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_users` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_level`
 --
 ALTER TABLE `tbl_user_level`
-  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user_level` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
