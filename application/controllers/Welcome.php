@@ -67,8 +67,7 @@ class Welcome extends CI_Controller {
             $password = $this->input->post('password',TRUE);
             $options        = array("cost"=>4);
             $hashPassword   = password_hash($password,PASSWORD_BCRYPT,$options);
-            $time = strtotime(date("Y-m-d H:i:s"));
-            $final = date("Y-m-d H:i:s", strtotime("+1 month", $time));
+            $final = date("Y-m-d H:i:s", strtotime("+1 month", date("Y-m-d H:i:s")));
             if($foto['file_name']==''){
                 if($password == ""){
                     $data = array(

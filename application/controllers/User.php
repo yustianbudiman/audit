@@ -146,8 +146,7 @@ class User extends CI_Controller
             $options        = array("cost"=>4);
             $hashPassword   = password_hash($password,PASSWORD_BCRYPT,$options);
             // $pin            = substr(number_format(time() * rand(),0,'',''),0,6);
-            $time = strtotime(date("Y-m-d H:i:s"));
-            $final = date("Y-m-d H:i:s", strtotime("+1 month", $time));
+            $final = date("Y-m-d H:i:s", strtotime("+1 month", date("Y-m-d H:i:s")));
             $data = array(
                 'nik'           => $this->input->post('nik',TRUE),
         		'full_name'     => $fullname,
