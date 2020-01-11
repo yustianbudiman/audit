@@ -16,7 +16,7 @@ class JatuhTempo_model extends CI_Model
 
     // datatables
     function json_bisnis() {
-        $this->datatables->select('cat_bisnis_header.id_cat_bisnis_header,periode,cabang.kode_cabang,cat_bisnis_header.nama_cabang,cat_bisnis_header.id_cabang,(select count(id_cat_bisnis) from cat_bisnis where id_cat_bisnis_header=cat_bisnis_header.id_cat_bisnis_header and status=3) as jml');
+        $this->datatables->select('cat_bisnis_header.id_cat_bisnis_header,periode,cabang.kode_cabang,cat_bisnis_header.nama_cabang,cat_bisnis_header.id_cabang,(select count(id_cat_bisnis) from cat_bisnis where id_cat_bisnis_header=cat_bisnis_header.id_cat_bisnis_header and status=3 and aktif="Aktif") as jml');
         $this->datatables->from('cat_bisnis_header');
         //add this line for join
         $this->datatables->join('cabang', 'cat_bisnis_header.id_cabang = cabang.id_cabang');
@@ -27,12 +27,12 @@ class JatuhTempo_model extends CI_Model
     }
 
     function json_operasional() {
-        $this->datatables->select('cat_operasional_header.id_cat_operasional_header,periode,cabang.kode_cabang,cat_operasional_header.nama_cabang,cat_operasional_header.id_cabang,(select count(id_cat_operasional) from cat_operasional where id_cat_operasional_header=cat_operasional_header.id_cat_operasional_header and status=3) as jml');
+        $this->datatables->select('cat_operasional_header.id_cat_operasional_header,periode,cabang.kode_cabang,cat_operasional_header.nama_cabang,cat_operasional_header.id_cabang,(select count(id_cat_operasional) from cat_operasional where id_cat_operasional_header=cat_operasional_header.id_cat_operasional_header and status=3 and aktif="Aktif") as jml');
         $this->datatables->from('cat_operasional_header');
         //add this line for join
         $this->datatables->join('cabang', 'cat_operasional_header.id_cabang = cabang.id_cabang');
         
-        $this->datatables->add_column('action', anchor(site_url('jatuh_tempo/detail/$1/cat_operasional'),'<i class="fa fa-eye" aria-hidden="true"></i>  Detail &nbsp;&nbsp;<span class="label label-danger"> $4</span>', array('class' => 'btn btn-info btn-xs btn-flat')), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang,jml');
+        $this->datatables->add_column('action', anchor(site_url('jatuh_tempo/detail/$1/cat_operasional'),'<i class="fa fa-eye" aria-hidden="true"></i>  Detail &nbsp;&nbsp;<span class="label label-danger"> $6</span>', array('class' => 'btn btn-info btn-xs btn-flat')), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang,jml');
         return $this->datatables->generate();
     }
 
