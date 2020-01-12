@@ -24,9 +24,9 @@ class Cat_bisnis_model extends CI_Model
         if($this->session->userdata('id_user_level')=='6'){
             $this->datatables->where('cat_bisnis_header.created_by', $this->session->userdata('id_users'));
         }
-
+        $this->datatables->where('cat_bisnis_header.aktif', 'Aktif');
         $this->datatables->add_column('action', anchor(site_url('cat_bisnis/list_cat_bisnis_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_bisnis/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cabang,nama_cabang');
+                ".anchor(site_url('cat_bisnis/delete_header/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_bisnis_header,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -150,8 +150,8 @@ class Cat_bisnis_model extends CI_Model
     // delete data
     function delete($id)
     {
-        $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
+        $this->db->where('id_cat_bisnis', $id);
+        $this->db->update('cat_bisnis', array('aktif'=>'Nonaktif'));
     }
 
     //list cabang
@@ -256,6 +256,17 @@ class Cat_bisnis_model extends CI_Model
 
     function save_log($data){
         $this->db->insert('log_target_date', $data);
+    }
+
+    function delete_by_id_header($id){
+        $this->db->where('id_cat_bisnis_header', $id);
+        $this->db->update('cat_bisnis_header', array('aktif'=>'Nonaktif'));
+    }
+
+    function get_by_id_header($id)
+    {
+        $this->db->where('id_cat_bisnis_header', $id);
+        return $this->db->get('cat_bisnis_header')->row();
     }
 
 }

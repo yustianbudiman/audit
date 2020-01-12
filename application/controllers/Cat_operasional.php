@@ -114,11 +114,13 @@ class Cat_operasional extends CI_Controller
             'rekomendasi' => set_value('rekomendasi'),
             'tanggapan_audit' => set_value('tanggapan_audit'),
             'target_date' => set_value('target_date'),
+            'status' => set_value('status'),
             'tanggal_periksa' => set_value('tanggal_periksa'),
             'tanggal_selesai' => set_value('tanggal_selesai'),
             'member' => set_value('member'),
             'supervisor' => set_value('supervisor'),
             'bop' => set_value('bop'),
+            'tmp_attachment' => set_value('tmp_attachment'),
     	];
         $this->template->load('template','cat_operasional/cat_operasional_form', $data);
     }
@@ -161,7 +163,22 @@ class Cat_operasional extends CI_Controller
             }else{
                 $idnya=$this->input->post('id_cat_operasional_header',TRUE);
             }
-        	
+        	   $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = '*';
+                $config['max_size']             = 3000;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('attachment'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                }else{
+                        $hasil_upload = array('upload_data' => $this->upload->data());
+                        if(empty($this->input->post('status_otomatis',TRUE))){
+                            $status= "1";
+                        }else{
+                            $status= "4";
+                        }
             $data = array(
 				'id_cat_operasional_header' => $idnya,
 				'temuan' => $this->input->post('temuan',TRUE),
@@ -187,13 +204,14 @@ class Cat_operasional extends CI_Controller
 				'rekomendasi' => $this->input->post('rekomendasi',TRUE),
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
 				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
-				'status' => '1',
+				'status' => $status,
                 'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
                 'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'file' =>$hasil_upload['upload_data']['file_name'],
                 'created_ip' => get_client_ip(),
                 'created_by' => $this->session->userdata('id_users'),
 				// 'aktif' => $this->input->post('aktif',TRUE),
@@ -208,7 +226,8 @@ class Cat_operasional extends CI_Controller
             $this->Cat_operasional_model->insert($data);
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Create Record Success'));
             // redirect(site_url('cat_operasional'));
-            redirect($_SERVER['HTTP_REFERER']);            
+            redirect($_SERVER['HTTP_REFERER']);  
+            }          
         }
     }
     
@@ -263,12 +282,14 @@ class Cat_operasional extends CI_Controller
 				'bobot_resiko' => set_value('bobot_resiko', $row->bobot_resiko),
 				'rekomendasi' => set_value('rekomendasi', $row->rekomendasi),
 				'tanggapan_audit' => set_value('tanggapan_audit', $row->tanggapan_audit),
-				'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
+                'target_date' => set_value('target_date', date('Y-m-d',strtotime($row->target_date))),
+				'status' => set_value('status',$row->status),
                 'member' => set_value('member',$row->member),
                 'tanggal_periksa' => set_value('tanggal_periksa',date('Y-m-d',strtotime($row->tanggal_periksa))),
                 'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
                 'supervisor' => set_value('supervisor',$row->supervisor),
                 'bop' => set_value('bop',$row->bop),
+                'tmp_attachment' => set_value('file',$row->file),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
 				// 'created_ip' => set_value('created_ip', $row->created_ip),
@@ -291,8 +312,24 @@ class Cat_operasional extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_cat_operasional', TRUE));
         } else {
-        	// print_r($_POST);
-        	// exit();
+        	    $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = '*';
+                $config['max_size']             = 3000;
+
+                $this->load->library('upload', $config);
+
+                if ($this->input->post('tmp_attachment', TRUE)!='1')
+                {
+                        $hasil_upload =  $this->input->post('tmp_attachment', TRUE);
+                }else{
+                        $this->upload->do_upload('attachment');
+                        $hasil_upload = $this->upload->data()['file_name'];
+                }
+                        if(empty($this->input->post('status_otomatis',TRUE))){
+                            $status= "1";
+                        }else{
+                            $status= "4";
+                        }
             $data = array(
 				'temuan' => $this->input->post('temuan',TRUE),
 				'klasifikasi_temuan' => $this->input->post('klasifikasi_temuan',TRUE),
@@ -318,12 +355,14 @@ class Cat_operasional extends CI_Controller
 				'tanggapan_audit' => $this->input->post('tanggapan_audit',TRUE),
 				'target_date' => $this->input->post('target_date',TRUE),
 				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
+                'status' => $status,
 				'tl' =>$this->input->post('tl',TRUE),
                 'member' => implode(',',$this->input->post('member',TRUE)),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
                 'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
                 'bop' =>$this->input->post('bop',TRUE),
+                'file' =>$hasil_upload,
                 'updated_ip' => get_client_ip(),
                 'updated_by' => $this->session->userdata('id_users'),
 				
@@ -342,6 +381,20 @@ class Cat_operasional extends CI_Controller
 
         if ($row) {
             $this->Cat_operasional_model->delete($id);
+            $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Delete Record Success'));
+            redirect(site_url('cat_operasional'));
+        } else {
+            $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record Not Found'));
+            redirect(site_url('cat_operasional'));
+        }
+    }
+
+    public function delete_header($id) 
+    {
+        $row = $this->Cat_operasional_model->get_by_id_header($id);
+
+        if ($row) {
+            $this->Cat_operasional_model->delete_by_id_header($id);
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Delete Record Success'));
             redirect(site_url('cat_operasional'));
         } else {
@@ -388,7 +441,8 @@ class Cat_operasional extends CI_Controller
     {
 		$this->form_validation->set_rules('id_cabang', 'id cabang','trim|required');
 		$this->form_validation->set_rules('nama_cabang', 'nama cabang','trim|required');
-		$this->form_validation->set_rules('temuan', 'temuan','trim|required');
+        $this->form_validation->set_rules('temuan', 'temuan','trim|required');
+		$this->form_validation->set_rules('klasifikasi_temuan', 'klasifikasi temuan','trim|required');
 		$this->form_validation->set_rules('kriteria', 'kriteria','trim|required');
 		$this->form_validation->set_rules('dampak', 'dampak','trim|required');
 		$this->form_validation->set_rules('penyimpangan', 'id penyimpangan','trim|required');
@@ -410,11 +464,12 @@ class Cat_operasional extends CI_Controller
 		$this->form_validation->set_rules('rekomendasi', 'rekomendasi','trim|required');
 		$this->form_validation->set_rules('tanggapan_audit', 'tanggapan audit','trim|required');
 		$this->form_validation->set_rules('target_date', 'target date','trim|required');
-		// $this->form_validation->set_rules('member', 'member', 'trim|required');
+		$this->form_validation->set_rules('member', 'member', '');
         $this->form_validation->set_rules('tanggal_periksa', 'target date', 'trim|required');
         $this->form_validation->set_rules('tanggal_selesai', 'target date', 'trim|required');
         $this->form_validation->set_rules('supervisor', 'Supervisor', 'trim|required');
-		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
+        $this->form_validation->set_rules('bop', 'target date', 'trim|required');
+		$this->form_validation->set_rules('tmp_attachment', 'Document', 'trim|required');
 		$this->form_validation->set_rules('periode', 'periode', 'trim|required');
 
 		$this->form_validation->set_rules('aktif', 'aktif');

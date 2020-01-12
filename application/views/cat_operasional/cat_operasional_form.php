@@ -28,7 +28,7 @@
                         <!-- /. tools -->
                     </div>
                     <!-- /.box-header -->
-                    <form class="form-horizontal" action="<?php echo $action;?>" method="POST">
+                    <form class="form-horizontal" action="<?php echo $action;?>" method="POST" enctype="multipart/form-data">
                     <div class="box-body pad">
                         <div style="padding-bottom: 10px;">
                             <div class="form-group">
@@ -100,6 +100,7 @@
                                         <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo ($klasifikasi_temuan ==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
                                         <?php } ?>
                                     </select>
+                                    <?php echo form_error('klasifikasi_temuan') ?>
                                   </div>
                                 </div>
                             </div>
@@ -353,7 +354,7 @@
                                   <div class="col-lg-6">
                                    <select name="member[]" id="member" class="form-control select2" multiple="multiple" <?php echo (form_error('member')!=''?'style="border-color:red;"':'') ?>>
                                       <?php foreach ($list_audit as $key) { ?>
-                                       <option value="<?php echo $key['id_users'] ?>"><?php echo $key['full_name'] ?></option>
+                                       <option value="<?php echo $key['id_users'] ?>" <?php if(in_array($key['id_users'],$pecah)){echo 'selected';} ?>><?php echo $key['full_name'] ?></option>
                                        <?php } ?>
                                      </select>
                                   </div>
@@ -371,10 +372,11 @@
                                         <i class="fa fa-calendar"></i>
                                       </div>
                                       <?php if($button=='Update'){ ?>
-                                        <input type="hidden" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control">
-                                        <?php } ?>
-                                        <input type="text" name="target_date" id="target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
+                                        <input type="hidden" name="target_date" value="<?php echo $target_date  ?>" class="form-control target_date">
+                                        <?php }?>
+                                        <input type="text" name="target_date target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
+                                    Done: <input type="checkbox" <?php echo ($status==4?'checked':'')  ?> name="status_otomatis" style="vertical-align: middle;">
                                   </div>
                                 </div>
                           
@@ -394,6 +396,17 @@
                                     <label for="" class="col-lg-3 control-label">BOP</label>
                                   <div class="col-lg-9">
                                         <input type="text" name="bop" id="bop" value="<?php echo $bop  ?>" class="form-control" <?php echo (form_error('bop')!=''?'style="border-color:red;"':'') ?>>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="" class="col-lg-3 control-label">File</label>
+                                  <div class="col-lg-9">
+                                        <input type="file" name="attachment" id="attachment">
+                                        <?php echo ($tmp_attachment !=''?'<a href="'.base_url('/uploads/'.$tmp_attachment).'"> <i class="fa fa-file"></i></a>':'')  ?>
+                                        <input type="hidden" name="tmp_attachment" id="tmp_attachment" value="<?php echo $tmp_attachment  ?>">
+                                        <?php echo form_error('tmp_attachment') ?>
                                   </div>
                                 </div>
                             </div>
@@ -450,6 +463,9 @@
               function goBack() {
                 window.history.back();
               }
+               $(document).on('change','.attachment',function(){
+                  $('#tmp_attachment').val('1');
+                })
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_operasional=$(this).attr('data-id');
@@ -584,6 +600,7 @@
               });
 
 
+
 $(document).ready(function() {
   $('#periode').datepicker();
   $('#tanggal_periksa').datepicker({
@@ -591,19 +608,17 @@ $(document).ready(function() {
     onSelect: function (dateText) {
          var d3 = $(this).datepicker('getDate');
          d3.setDate(d3.getDate() + parseInt(1));
-         $("#target_date").datepicker('option', 'minDate', d3);
-         $("#target_date").removeAttr('disabled');
+         $(".target_date").removeAttr('disabled');
+         $(".target_date").datepicker('option', 'minDate', d3);
     },
   });
 
   $('#tanggal_selesai').datepicker({dateFormat: 'dd-mm-yy',});
-  $('#target_date').datepicker({
+  $('.target_date').datepicker({
     dateFormat: 'dd-mm-yy',
   });
   
-  var arr="<?php echo $member;?>";
-  var pecah=arr.split(',');
-  $('#member').val(pecah);
+  
   // $('#mySelect2').val(['1', '2']);
             //     $('.tmabah_data').click(function(){
             //         var id_cabang=$('#id_cabang').val();

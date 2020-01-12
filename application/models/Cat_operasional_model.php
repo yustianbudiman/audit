@@ -25,8 +25,10 @@ class Cat_operasional_model extends CI_Model
         if($this->session->userdata('id_user_level')=='6'){
             $this->datatables->where('cat_operasional_header.created_by', $this->session->userdata('id_users'));
         }
+        $this->datatables->where('cat_operasional_header.aktif', 'Aktif');
+        
         $this->datatables->add_column('action', anchor(site_url('cat_operasional/list_cat_operasional_detail/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('cat_operasional/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang');
+                ".anchor(site_url('cat_operasional/delete_header/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cat_operasional_header,periode,kode_cabang,id_cabang,nama_cabang');
         return $this->datatables->generate();
     }
 
@@ -135,8 +137,8 @@ class Cat_operasional_model extends CI_Model
     // delete data
     function delete($id)
     {
-        $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
+        $this->db->where('id_cat_operasional', $id);
+        $this->db->update('cat_operasional', array('aktif'=>'Nonaktif'));
     }
 
     //list cabang
@@ -239,6 +241,17 @@ class Cat_operasional_model extends CI_Model
 
     function save_log($data){
         $this->db->insert('log_target_date', $data);
+    }
+
+    function delete_by_id_header($id){
+        $this->db->where('id_cat_operasional_header', $id);
+        $this->db->update('cat_operasional_header', array('aktif'=>'Nonaktif'));
+    }
+
+    function get_by_id_header($id)
+    {
+        $this->db->where('id_cat_operasional_header', $id);
+        return $this->db->get('cat_operasional_header')->row();
     }
 
 }
