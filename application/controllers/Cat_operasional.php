@@ -148,8 +148,12 @@ class Cat_operasional extends CI_Controller
     public function create_action() 
     {
         $this->_rules();
+        $cek_duplikasi=$this->Cat_operasional_model->cek_duplikasi_header($this->input->post('id_cabang',TRUE),date('Y-m-d',strtotime($this->input->post('periode',TRUE))));
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE OR $cek_duplikasi==1) {
+            if($cek_duplikasi==1){
+                $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record alredy exist'));
+            }
             $this->create();
         } else {
         	if($this->input->post('id_cat_operasional_header',TRUE)==''){

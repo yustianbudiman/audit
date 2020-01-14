@@ -49,7 +49,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Nama Cabang:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo $nama_cabang  ?>" class="form-control" <?php echo($id_cat_operasional_header!=''?'readonly':'') ?>>
+                                    <input type="text" name="nama_cabang" id="nama_cabang" value="<?php echo $nama_cabang  ?>" class="form-control" readonly="readonly">
                                     <?php echo form_error('nama_cabang') ?>
                                   </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="" class="col-lg-2 control-label">Alamat:</label>
                                   <div class="col-lg-4">
-                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo $alamat_cabang ?>" class="form-control" <?php echo($id_cat_operasional_header!=''?'readonly':'') ?>>
+                                    <input type="text" name="alamat_cabang" id="alamat_cabang" value="<?php  echo $alamat_cabang ?>" class="form-control" readonly="readonly">
                                   </div>
                                 </div>
                             </div>
@@ -86,21 +86,19 @@
                                   <div class="col-lg-9">
                                      <input type="text" name="temuan" id="temuan" value="<?php echo $temuan  ?>" class="form-control">
                                      <input type="hidden" name="id_cat_operasional" id="id_cat_operasional" value="<?php echo $id_cat_operasional  ?>" class="form-control">
-                                    <input type="hidden" name="id_cat_operasional_header" id="id_cat_operasional_header" value="<?php echo $id_cat_operasional_header  ?>" class="form-control">
-                                     <?php echo form_error('temuan') ?>
+                                    <input type="hidden" name="id_cat_operasional_header" id="id_cat_operasional_header" value="<?php echo $id_cat_operasional_header  ?>" class="form-control" <?php echo (form_error('temuan')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                            
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Klasifikasi Temuan</label>
                                   <div class="col-lg-9">
-                                    <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan">
+                                    <select class="form-control select2" name="klasifikasi_temuan" id="klasifikasi_temuan" <?php echo (form_error('klasifikasi_temuan')!=''?'style="border-color:red;"':'') ?>>
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_klasifikasi_temuan as $key) { ?>
                                         <option value="<?php echo $key->id_klasifikasi_temuan; ?>"  <?php echo ($klasifikasi_temuan ==$key->id_klasifikasi_temuan?'selected':'')  ?>><?php echo $key->nama_klasifikasi_temuan; ?></option>
                                         <?php } ?>
                                     </select>
-                                    <?php echo form_error('klasifikasi_temuan') ?>
                                   </div>
                                 </div>
                             </div>
@@ -111,16 +109,14 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Kriteria</label>
                                   <div class="col-lg-9">
-                                     <input type="text" name="kriteria" id="kriteria" value="<?php echo $kriteria  ?>" class="form-control">
-                                     <?php echo form_error('kriteria') ?>
+                                     <input type="text" name="kriteria" id="kriteria" value="<?php echo $kriteria  ?>" class="form-control" <?php echo (form_error('kriteria')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                            
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Dampak</label>
                                   <div class="col-lg-9">
-                                     <input type="text" name="dampak" id="dampak" value="<?php echo $dampak  ?>" class="form-control">
-                                     <?php echo form_error('dampak') ?>
+                                     <input type="text" name="dampak" id="dampak" value="<?php echo $dampak  ?>" class="form-control" <?php echo (form_error('dampak')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -352,7 +348,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Member</label>
                                   <div class="col-lg-6">
-                                   <select name="member[]" id="member" class="form-control select2" multiple="multiple" <?php echo (form_error('member')!=''?'style="border-color:red;"':'') ?>>
+                                    <input type="hidden" id="member" name="member" value="<?php echo $member  ?>" class="form-control">
+                                   <select name="tmp_member" id="tmp_member" class="form-control select2" multiple="multiple" >
                                       <?php foreach ($list_audit as $key) { ?>
                                        <option value="<?php echo $key['id_users'] ?>" <?php if(in_array($key['id_users'],$pecah)){echo 'selected';} ?>><?php echo $key['full_name'] ?></option>
                                        <?php } ?>
@@ -465,6 +462,17 @@
               }
                $(document).on('change','.attachment',function(){
                   $('#tmp_attachment').val('1');
+
+                if($('#tanggal_periksa').val()!=''){
+                  $('.target_date').removeAttr('disabled');
+                }else{
+                  $('.target_date').val('');
+                  $('.target_date').attr('disabled');
+                }
+                $('#tmp_member').change(function(){
+                  var val=$(this).val();
+                  $('#member').val(val);
+                });
                 })
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');

@@ -171,6 +171,12 @@ class Cat_bisnis_model extends CI_Model
         $this->db->where('id_cat_bisnis_header', $id);
         return $this->db->get($this->table)->result();
     }
+    // get data cat bisnis by id heder
+    function cek_duplikasi_header($id_cabang,$periode)
+    {
+        $this->db->where(['id_cabang'=> $id_cabang,'periode'=>$periode]);
+        return $this->db->get('cat_bisnis_header')->num_rows();
+    }
     // get data cat bisnis header
     function list_cat_bisnis_header($id=null)
     {

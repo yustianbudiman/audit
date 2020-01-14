@@ -158,6 +158,12 @@ class Cat_operasional_model extends CI_Model
         $this->db->where('id_cat_operasional_header', $id);
         return $this->db->get($this->table)->result();
     }
+    // get data cat bisnis by id heder
+    function cek_duplikasi_header($id_cabang,$periode)
+    {
+        $this->db->where(['id_cabang'=> $id_cabang,'periode'=>$periode]);
+        return $this->db->get('cat_operasional_header')->num_rows();
+    }
     // get data cat operasional header
     function list_cat_operasional_header($id=null)
     {
