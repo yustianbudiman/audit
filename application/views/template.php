@@ -163,6 +163,7 @@
                     'autoWidth'   : false
                 })
             })
+            setTimeout(function(){ $('.alert').fadeOut() },3000);
         </script>
     </body>
 </html>

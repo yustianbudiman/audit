@@ -389,10 +389,8 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <?php if($button=='Update'){ ?>
                                         <input type="hidden" name="target_date" value="<?php echo $target_date  ?>" class="form-control target_date">
-                                        <?php } ?>
-                                        <input type="text" name="target_date" value="<?php echo $target_date  ?>" class="form-control target_date" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
+                                        <input type="text" name="tmp_target_date" value="<?php echo $target_date  ?>" class="form-control tmp_target_date" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
                                     Done: <input type="checkbox" name="status_otomatis" <?php echo ($status==4?'checked':'')  ?> style="vertical-align: middle;">
                                   </div>
@@ -484,12 +482,12 @@
                 $('#attachment').change(function(){
                   $('#tmp_attachment').val('1');
                 })
-                if($('#tanggal_periksa').val()!=''){
-                  $('.target_date').removeAttr('disabled');
-                }else{
-                  $('.target_date').val('');
-                  $('.target_date').attr('disabled');
-                }
+                // if($('#tanggal_periksa').val()!=''){
+                //   $('.target_date').removeAttr('disabled');
+                // }else{
+                //   $('.target_date').val('');
+                //   $('.target_date').attr('disabled');
+                // }
                 $('#tmp_member').change(function(){
                   var val=$(this).val();
                   $('#member').val(val);
@@ -640,15 +638,22 @@ $(document).ready(function() {
     onSelect: function (dateText) {
          var d3 = $(this).datepicker('getDate');
          d3.setDate(d3.getDate() + parseInt(1));
-         $(".target_date").datepicker('option', 'minDate', d3);
-         $(".target_date").removeAttr('disabled');
+         $(".tmp_target_date").datepicker('option', 'minDate', d3);
+         $(".tmp_target_date").removeAttr('disabled');
+         $('.tmp_target_date').val('');
+         $('.target_date').val('');
     },
   });
 
   $('#tanggal_selesai').datepicker({dateFormat: 'dd-mm-yy',});
-  $('.target_date').datepicker({
+  $('.tmp_target_date').datepicker({
     dateFormat: 'dd-mm-yy',
   });
+
+  $('.tmp_target_date').change(function(){
+    var val=$(this).val();
+    $('.target_date').val(val);
+  })
 
   // var arr="<?php //echo $member;?>";
   // var pecah=arr.split(',');

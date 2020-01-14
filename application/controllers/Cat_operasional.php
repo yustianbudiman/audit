@@ -100,7 +100,6 @@ class Cat_operasional extends CI_Controller
             'environment_value' => set_value('environment_value'),
             'id_risk_assesment' => set_value('risk_assesment'),
             'risk_assesment_value' => set_value('risk_assesment_value'),
-            'control_activity' => set_value('control_activitiy'),
             'control_activity_value' => set_value('control_activity_value'),
             'id_information_comunication' => set_value('information_comunication'),
             'information_comunication_value' => set_value('information_comunication_value'),
@@ -150,8 +149,8 @@ class Cat_operasional extends CI_Controller
         $this->_rules();
         $cek_duplikasi=$this->Cat_operasional_model->cek_duplikasi_header($this->input->post('id_cabang',TRUE),date('Y-m-d',strtotime($this->input->post('periode',TRUE))));
 
-        if ($this->form_validation->run() == FALSE OR $cek_duplikasi==1) {
-            if($cek_duplikasi==1){
+        if ($this->form_validation->run() == FALSE OR $cek_duplikasi==1 AND $this->input->post('id_cat_operasional_header',TRUE)=='') {
+            if($cek_duplikasi==1 AND  $this->input->post('id_cat_operasional_header',TRUE)==''){
                 $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record alredy exist'));
             }
             $this->create();
@@ -210,7 +209,7 @@ class Cat_operasional extends CI_Controller
 				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
 				'status' => $status,
                 'tl' =>$this->input->post('tl',TRUE),
-                'member' => implode(',',$this->input->post('member',TRUE)),
+                'member' => $this->input->post('member',TRUE),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
                 'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
@@ -228,9 +227,10 @@ class Cat_operasional extends CI_Controller
 		    );
 
             $this->Cat_operasional_model->insert($data);
+            $id_detail=$this->db->insert_id();
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Create Record Success'));
-            // redirect(site_url('cat_operasional'));
-            redirect($_SERVER['HTTP_REFERER']);  
+            redirect(site_url('cat_operasional/update/'.$id_detail));
+            // redirect($_SERVER['HTTP_REFERER']);  
             }          
         }
     }
@@ -293,7 +293,7 @@ class Cat_operasional extends CI_Controller
                 'tanggal_selesai' => set_value('tanggal_selesai',date('Y-m-d',strtotime($row->tanggal_selesai))),
                 'supervisor' => set_value('supervisor',$row->supervisor),
                 'bop' => set_value('bop',$row->bop),
-                'tmp_attachment' => set_value('file',$row->file),
+                'tmp_attachment' => set_value('tmp_attachment',$row->file),
 				// 'aktif' => set_value('aktif', $row->aktif),
 				// 'created_date' => set_value('created_date', $row->created_date),
 				// 'created_ip' => set_value('created_ip', $row->created_ip),
@@ -361,7 +361,7 @@ class Cat_operasional extends CI_Controller
 				'target_date' =>  date('Y-m-d',strtotime($this->input->post('target_date',TRUE))),
                 'status' => $status,
 				'tl' =>$this->input->post('tl',TRUE),
-                'member' => implode(',',$this->input->post('member',TRUE)),
+                'member' => $this->input->post('member',TRUE),
                 'tanggal_periksa' => date('Y-m-d',strtotime($this->input->post('tanggal_periksa',TRUE))),
                 'tanggal_selesai' => date('Y-m-d',strtotime($this->input->post('tanggal_selesai',TRUE))),
                 'supervisor' =>$this->input->post('supervisor',TRUE),
@@ -375,7 +375,9 @@ class Cat_operasional extends CI_Controller
             $this->Cat_operasional_model->update($this->input->post('id_cat_operasional', TRUE), $data);
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Update Record Success'));
             // redirect(site_url('cat_operasional'));
-            redirect($_SERVER['HTTP_REFERER']);
+            // redirect($_SERVER['HTTP_REFERER']);
+            // $this->update($this->input->post('id_cat_operasional', TRUE));
+            redirect(site_url('/cat_operasional/update/'.$this->input->post('id_cat_operasional', TRUE)));
         }
     }
     

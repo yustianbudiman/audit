@@ -162,8 +162,8 @@ class Cat_bisnis extends CI_Controller
         $this->_rules();
         $cek_duplikasi=$this->Cat_bisnis_model->cek_duplikasi_header($this->input->post('id_cabang',TRUE),date('Y-m-d',strtotime($this->input->post('periode',TRUE))));
 
-        if ($this->form_validation->run() == FALSE OR $cek_duplikasi==1) {
-            if($cek_duplikasi==1){
+        if ($this->form_validation->run() == FALSE OR $cek_duplikasi==1 AND $this->input->post('id_cat_bisnis_header',TRUE)=='') {
+            if($cek_duplikasi==1 AND $this->input->post('id_cat_bisnis_header',TRUE)==''){
                 $this->session->set_flashdata('message',array('type'=>'alert-warning','pesan'=>'Record alredy exist'));
             }
             $this->create();
@@ -246,8 +246,9 @@ class Cat_bisnis extends CI_Controller
 		    );
 
             $this->Cat_bisnis_model->insert($data);
+            $id_detail=$this->db->insert_id();
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Create Record Success'));
-            redirect(site_url('cat_bisnis'));
+            redirect(site_url('cat_bisnis/update/'.$id_detail));
             }
         }
     }
@@ -393,8 +394,8 @@ class Cat_bisnis extends CI_Controller
 
             $this->Cat_bisnis_model->update($this->input->post('id_cat_bisnis',TRUE), $data);
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Update Record Success'));
-            redirect($_SERVER['HTTP_REFERER']);
-            // header(&quot;Location: {$_SERVER['HTTP_REFERER']}&quot;);
+            // redirect($_SERVER['HTTP_REFERER']);
+            redirect(site_url('/cat_bisnis/update/'.$this->input->post('id_cat_bisnis', TRUE)));
         }
     }
     

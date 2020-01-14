@@ -349,7 +349,10 @@
                                     <label for="" class="col-lg-3 control-label">Member</label>
                                   <div class="col-lg-6">
                                     <input type="hidden" id="member" name="member" value="<?php echo $member  ?>" class="form-control">
-                                   <select name="tmp_member" id="tmp_member" class="form-control select2" multiple="multiple" >
+                                   <select id="tmp_member" name="tmp_member" class="form-control select2" multiple="multiple" >
+                                    <?php 
+                                       $pecah=explode(',', $member); 
+                                       ?>
                                       <?php foreach ($list_audit as $key) { ?>
                                        <option value="<?php echo $key['id_users'] ?>" <?php if(in_array($key['id_users'],$pecah)){echo 'selected';} ?>><?php echo $key['full_name'] ?></option>
                                        <?php } ?>
@@ -368,10 +371,8 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                      <?php if($button=='Update'){ ?>
                                         <input type="hidden" name="target_date" value="<?php echo $target_date  ?>" class="form-control target_date">
-                                        <?php }?>
-                                        <input type="text" name="target_date target_date" value="<?php echo $target_date  ?>" class="form-control" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
+                                        <input type="text" name="tmp_target_date" value="<?php echo $target_date  ?>" class="form-control tmp_target_date" <?php echo (form_error('target_date')!=''?'style="border-color:red;"':'') ?> disabled="disabled">
                                     </div>
                                     Done: <input type="checkbox" <?php echo ($status==4?'checked':'')  ?> name="status_otomatis" style="vertical-align: middle;">
                                   </div>
@@ -460,20 +461,24 @@
               function goBack() {
                 window.history.back();
               }
-               $(document).on('change','.attachment',function(){
-                  $('#tmp_attachment').val('1');
 
-                if($('#tanggal_periksa').val()!=''){
-                  $('.target_date').removeAttr('disabled');
-                }else{
-                  $('.target_date').val('');
-                  $('.target_date').attr('disabled');
-                }
+              $(document).ready(function(){
+                $('#attachment').change(function(){
+                  $('#tmp_attachment').val('1');
+                });
+               // if($('#tanggal_periksa').val()!=''){
+               //    $('.target_date').removeAttr('disabled');
+               //  }else{
+               //    $('.target_date').val('');
+               //    $('.target_date').attr('disabled');
+               //  }
                 $('#tmp_member').change(function(){
                   var val=$(this).val();
                   $('#member').val(val);
                 });
-                })
+                });
+
+
              $(document).on('click','.btn_delete',function(){
                 // alert('ss');
                 var id_cat_operasional=$(this).attr('data-id');
@@ -616,15 +621,22 @@ $(document).ready(function() {
     onSelect: function (dateText) {
          var d3 = $(this).datepicker('getDate');
          d3.setDate(d3.getDate() + parseInt(1));
-         $(".target_date").removeAttr('disabled');
-         $(".target_date").datepicker('option', 'minDate', d3);
+         $(".tmp_target_date").datepicker('option', 'minDate', d3);
+         $(".tmp_target_date").removeAttr('disabled');
+         $('.tmp_target_date').val('');
+         $('.target_date').val('');
     },
   });
 
   $('#tanggal_selesai').datepicker({dateFormat: 'dd-mm-yy',});
-  $('.target_date').datepicker({
+  $('.tmp_target_date').datepicker({
     dateFormat: 'dd-mm-yy',
   });
+
+  $('.tmp_target_date').change(function(){
+    var val=$(this).val();
+    $('.target_date').val(val);
+  })
   
   
   // $('#mySelect2').val(['1', '2']);

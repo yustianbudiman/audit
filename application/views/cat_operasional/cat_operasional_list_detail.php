@@ -2,6 +2,15 @@
     <section class="content">
         <div class="row">
             <div class="col-lg-12">
+                <?php if($this->session->flashdata('message')['pesan']){ ?>
+                                
+                    <?php echo "<div class='row'>"; ?>
+                    <?php echo "<div class='col-md-12'>"; ?>
+                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
+                    <?php echo "</div>"; ?>
+                    <?php echo "</div>"; ?>
+
+                <?php } ?>
                 <div class="box box-solid">
                     <div class="box-header with-border">
                       <i class="fa fa-text-width"></i>
@@ -26,15 +35,6 @@
                   <!-- /.box -->
               </div>
             <div class="col-lg-12">
-                <?php if($this->session->flashdata('message')['pesan']){ ?>
-                                
-                    <?php echo "<div class='row'>"; ?>
-                    <?php echo "<div class='col-md-12'>"; ?>
-                    <?php echo "<div class='alert ".$this->session->flashdata('message')['type']."' style='background-color:#f24e53; color: white;'>".$this->session->flashdata('message')['pesan']."</div>"; ?>
-                    <?php echo "</div>"; ?>
-                    <?php echo "</div>"; ?>
-
-                <?php } ?>
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">MANAGE
