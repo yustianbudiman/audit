@@ -92,7 +92,7 @@ class Cat_bisnis extends CI_Controller
         $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
 
  		$data=[
-            'button' => 'Craete',
+            'button' => 'Create',
             'action' => base_url('cat_bisnis/create_action'),
     		'list_cabang'=>$this->Cabang_model->get_all(),
             'list_tl'=>$this->User_model->get_All_userBy_level(),
@@ -471,11 +471,11 @@ class Cat_bisnis extends CI_Controller
     {
 		$this->form_validation->set_rules('id_cabang', 'id cabang', 'trim|required');
 		$this->form_validation->set_rules('nama_cabang', 'nama cabang', 'trim|required');
-        $this->form_validation->set_rules('temuan', 'Temuan', 'trim|required');
-		$this->form_validation->set_rules('klasifikasi_temuan', 'Klasifikasi temuan', 'trim|required');
-		$this->form_validation->set_rules('kriteria', 'kriteria', 'trim|required');
-		$this->form_validation->set_rules('dampak', 'dampak', 'trim|required');
-		$this->form_validation->set_rules('penyimpangan', 'id penyimpangan', 'trim|required');
+        $this->form_validation->set_rules('temuan', 'temuan','trim|required');
+        $this->form_validation->set_rules('klasifikasi_temuan', 'klasifikasi temuan','trim|required');
+        $this->form_validation->set_rules('kriteria', 'kriteria','trim|required');
+        $this->form_validation->set_rules('dampak', 'dampak','trim|required');
+        $this->form_validation->set_rules('penyimpangan', 'id penyimpangan','trim|required');
 		$this->form_validation->set_rules('environment', 'id environment', 'trim|required');
 		$this->form_validation->set_rules('environment_value', 'environment value', '');
 		$this->form_validation->set_rules('risk_assesment', 'id risk assesment', '');
@@ -503,6 +503,7 @@ class Cat_bisnis extends CI_Controller
         $this->form_validation->set_rules('supervisor', 'Supervisor', 'trim|required');
 		$this->form_validation->set_rules('bop', 'target date', 'trim|required');
         $this->form_validation->set_rules('tmp_attachment', 'Document', 'required');
+        $this->form_validation->set_rules('periode', 'periode', 'trim|required');
 		$this->form_validation->set_rules('aktif', 'aktif', '');
 		$this->form_validation->set_rules('created_date', 'created date', '');
 		$this->form_validation->set_rules('created_ip', 'created ip', '');

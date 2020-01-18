@@ -38,7 +38,7 @@
                                     <select class="form-control" name="id_cabang" id="id_cabang" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
                                         <option value="">--Pilih--</option>
                                         <?php foreach ($list_cabang as $key) { ?>
-                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->nama_cabang; ?></option>
+                                        <option value="<?php echo $key->id_cabang; ?>" data-nama_cabang='<?php echo $key->nama_cabang; ?>' data-alamat='<?php echo $key->alamat; ?>' <?php echo ($id_cabang==$key->id_cabang?'selected':'')  ?>><?php echo $key->kode_cabang; ?></option>
                                         <?php } ?>
                                     </select>
                                      <?php echo form_error('id_cabang') ?>
@@ -71,8 +71,7 @@
                                       <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                       </div>
-                                        <input type="text" name="periode" id="periode" value="<?php echo $periode  ?>" class="form-control" <?php echo($id_cat_bisnis_header!=''?'readonly':'')?>>
-                                        <?php echo form_error('periode') ?>
+                                        <input type="text" name="periode" id="periode" value="<?php echo $periode  ?>" class="form-control" <?php echo (form_error('periode')!=''?'style="border-color:red;"':'') ?> <?php echo($id_cat_bisnis_header!=''?'readonly':'') ?>>
                                     </div>
                                   </div>
                                 </div>
@@ -158,7 +157,7 @@
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="environment_value" id="environment_value" value="<?php echo $environment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('environment_value')!=''?'style="border-color:red;"':'') ?> >
+                                     <input type="number" name="environment_value" id="environment_value" value="<?php echo ($environment_value)==''?'0':$environment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('environment_value')!=''?'style="border-color:red;"':'') ?> >
                                   </div>
                                 </div>
                           
@@ -175,7 +174,7 @@
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="risk_assesment_value" id="risk_assesment_value" value="<?php echo $risk_assesment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('risk_assesment_value')!=''?'style="border-color:red;"':'') ?> >
+                                     <input type="number" name="risk_assesment_value" id="risk_assesment_value" value="<?php echo ($risk_assesment_value)==''?'0':$risk_assesment_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('risk_assesment_value')!=''?'style="border-color:red;"':'') ?> >
                                   </div>
                                 </div>
                             </div>
@@ -196,7 +195,7 @@
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="control_activity_value" id="control_activity_value" value="<?php echo $control_activity_value; ?>" class="form-control" min='0' max="5" <?php echo (form_error('control_activity_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="control_activity_value" id="control_activity_value" value="<?php echo ($control_activity_value)==''?'0':$control_activity_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('control_activity_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                           
@@ -213,7 +212,7 @@
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="information_comunication_value" id="information_comunication_value" value="<?php echo $information_comunication_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('information_comunication_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="information_comunication_value" id="information_comunication_value" value="<?php echo ($information_comunication_value)==''?'0':$information_comunication_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('information_comunication_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -234,7 +233,7 @@
                                 
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="monitoring_value" id="monitoring_value" value="<?php echo $monitoring_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('monitoring_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="monitoring_value" id="monitoring_value" value="<?php echo ($monitoring_value)==''?'0':$monitoring_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('monitoring_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                           
@@ -251,7 +250,7 @@
                                
                                     <label for="" class="col-lg-2 control-label">impact</label>
                                   <div class="col-lg-2">
-                                     <input type="number" name="goal_strategic_value" id="goal_strategic_value" value="<?php echo $goal_strategic_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('goal_strategic_value')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="number" name="goal_strategic_value" id="goal_strategic_value" value="<?php echo ($goal_strategic_value)==''?'0':$goal_strategic_value ?>" class="form-control" min='0' max="5" <?php echo (form_error('goal_strategic_value')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
@@ -263,7 +262,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <label for="" class="col-lg-3 control-label">Total Impact</label>
                                   <div class="col-lg-3">
-                                     <input type="text" name="total_impact" id="total_impact" value="<?php echo $total_impact ?>" class="form-control" readonly="readonly" <?php echo (form_error('total_impact')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="text" name="total_impact" id="total_impact" value="<?php echo ($total_impact)==''?'0':$total_impact ?>" class="form-control" readonly="readonly" <?php echo (form_error('total_impact')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 
                                     <label for="" class="col-lg-3 control-label">Likelihood</label>
@@ -291,7 +290,7 @@
                                
                                     <label for="" class="col-lg-3 control-label">TEV</label>
                                   <div class="col-lg-3">
-                                     <input type="text" name="tev" id="tev" value="<?php echo $tev  ?>" readonly="readonly" class="form-control" <?php echo (form_error('tev')!=''?'style="border-color:red;"':'') ?>>
+                                     <input type="text" name="tev" id="tev" value="<?php echo ($tev)==''?'0':$tev  ?>" readonly="readonly" class="form-control" <?php echo (form_error('tev')!=''?'style="border-color:red;"':'') ?>>
                                   </div>
                                 </div>
                             </div>
