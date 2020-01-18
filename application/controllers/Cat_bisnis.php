@@ -605,7 +605,7 @@ class Cat_bisnis extends CI_Controller
     }
 
     public function word($id,$periode_awal,$periode_akhir){
-        $header=$this->Cat_bisnis_model->get_One_Header_detail($id,$periode_awal,$periode_akhir);
+        $header=$this->Cat_bisnis_model->get_One_Header_detail($id);
         $data=[
                 'one_header_detail'=>$header,
                 'list_all_cat_bisnis'=>$this->Cat_bisnis_model->get_all_Cat_Bisnis_Word($header['id_cat_bisnis_header'],$periode_awal,$periode_akhir),
