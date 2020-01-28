@@ -454,7 +454,7 @@ class Cat_operasional_new extends CI_Controller
         $this->form_validation->set_rules('kriteria', 'kriteria','trim|required');
         $this->form_validation->set_rules('dampak', 'dampak','trim|required');
         $this->form_validation->set_rules('penyimpangan', 'id penyimpangan','trim|required');
-		$this->form_validation->set_rules('environment', 'id environment', 'trim|required');
+		$this->form_validation->set_rules('environment', 'id environment', '');
 		$this->form_validation->set_rules('environment_value', 'environment value', '');
 		$this->form_validation->set_rules('risk_assesment', 'id risk assesment', '');
 		$this->form_validation->set_rules('risk_assesment_value', 'risk assesment value', '');

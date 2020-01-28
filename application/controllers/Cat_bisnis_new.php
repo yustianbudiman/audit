@@ -158,11 +158,11 @@ class Cat_bisnis_new extends CI_Controller
     
     public function create_action() 
     {
-        //$this->_rules();
+        $this->_rules();
        
-       // if ($this->form_validation->run() == FALSE ) {
-       //     $this->create();
-        //} else {
+       if ($this->form_validation->run() == FALSE ) {
+           $this->create();
+        } else {
                   
                 $config['upload_path']          = './uploads/';
                 $config['allowed_types']        = '*';
@@ -173,7 +173,6 @@ class Cat_bisnis_new extends CI_Controller
                 if ( ! $this->upload->do_upload('attachment'))
                 {
                         $error = array('error' => $this->upload->display_errors());
-                        print_r($error);
                 }else{
                         $hasil_upload = array('upload_data' => $this->upload->data());
                         if(empty($this->input->post('status_otomatis',TRUE))){
@@ -233,7 +232,7 @@ class Cat_bisnis_new extends CI_Controller
             $this->session->set_flashdata('message',array('type'=>'alert-success','pesan'=>'Create Record Success'));
             redirect(site_url('cat_bisnis_new'));
             }
-       // }
+       }
     }
     
     public function update($id) 
